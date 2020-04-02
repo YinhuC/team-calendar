@@ -14,21 +14,23 @@ import Footer from "./Components/Footer";
 class Main extends React.Component {
   render() {
     return (
-      <Router>
-        <Header />
-        <Switch>
-          <Route exact path="/">
-            <Marketing />
-          </Route>
-          <Route path="/landing">
-            <Landing />
-          </Route>
-          <Route path="*">
-            <Error />
-          </Route>
-        </Switch>
-        <Footer />
-      </Router>
+      <>
+        <Router>
+          <Header />
+          <Switch>
+            <Route exact path="/">
+              <Marketing />
+            </Route>
+            <Route path="/landing">
+              <Landing />
+            </Route>
+            <Route path="*">
+              <Error />
+            </Route>
+          </Switch>
+          <Footer />
+        </Router>
+      </>
     );
   }
 }

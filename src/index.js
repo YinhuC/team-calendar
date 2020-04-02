@@ -1,11 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import Main from "./Main";
+import "./index.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 
-const element = (
-  <>
-    <Main />
-  </>
-);
-console.log(element);
-ReactDOM.render(element, document.getElementById("root"));
+ReactDOM.render(<Main />, document.getElementById("root"));

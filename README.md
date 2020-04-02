@@ -1,5 +1,7 @@
 # Group-12-White-Wolf
 
+npm install --save bootstrap
+
 https://reactstrap.github.io/
 npm install --save reactstrap react react-dom
 
