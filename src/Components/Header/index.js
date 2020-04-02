@@ -1,7 +1,7 @@
 /* Third Party */
 import React from "react";
 import { Row, Col, Button } from "reactstrap";
-import wolf from "./wolf.svg";
+import wolf from "../wolf.svg";
 import { Link } from "react-router-dom";
 
 /* Components */

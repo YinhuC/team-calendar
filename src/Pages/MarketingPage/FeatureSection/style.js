@@ -9,7 +9,7 @@ export const Feature = styled.div`
 `;
 
 export const Header = styled.div`
-  margin: 40px 0 30px 0;
+  margin: 40px 60px 30px 0;
   font-size: 35px;
   font-weight: bold;
 `;
@@ -26,8 +26,9 @@ export const SubText = styled.div`
 `;
 
 export const FeatureIcon = styled.img`
-  display: flex;
-  justify-content: center;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
   height: 50px;
   width: 50px;
 `;
