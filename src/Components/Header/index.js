@@ -16,9 +16,8 @@ function Header() {
         <Col className="align-middle">
           <Logo src={wolf} alt="Logo" />
         </Col>
-        <Col className="align-middle"> White Wolf</Col>
       </Row>
-      <Row className="mr-5">Some links</Row>
+      <Row>Some links</Row>
       <Row className="ml-5">
         <Col className="align-middle">
           <Link to="/landing">

@@ -26,4 +26,5 @@ export const SubText = styled.div`
 export const HeaderImage = styled.img`
   justify-content: center;
   width: 80%;
+  margin: 0 0 80px 0;
 `;

@@ -2,12 +2,18 @@
 import React from "react";
 
 /* Components */
-import { Center } from "./style";
+import HeaderSection from "./HeaderSection";
+import FeatureSection from "./FeatureSection";
 
 /* Functions */
 
 function MarketingPage() {
-  return <Center>MarketingPage</Center>;
+  return (
+    <>
+      <HeaderSection />
+      <FeatureSection />
+    </>
+  );
 }
 
 export default MarketingPage;
