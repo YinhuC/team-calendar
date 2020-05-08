@@ -1,7 +1,5 @@
 import styled from "styled-components";
 import { Card } from 'reactstrap'
-import { Link } from "react-router-dom";
-
 
 export const DashbaordItem = styled(Card)`
   display: flex;
@@ -10,7 +8,6 @@ export const DashbaordItem = styled(Card)`
   box-shadow: 2px 2px 10px grey;
   margin:20px 0 20px 0;
   border-radius: 10px;
-  text-decoration: none;
 `;
 
 export const OuterContainer = styled.div`
@@ -63,45 +60,4 @@ export const ImageContainer = styled.div`
   overflow: hidden;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-`;
-
-export const Title = styled.p`
-  text-decoration:none;
-  font-size:25px;
-  font-weight: 500;
-`;
-
-export const Text = styled.p`
-  font-size:15px;
-`;
-
-
-export const Links = styled(Link)`
-  text-decoration: none;
-  color: black;
-  &:focus, &:visited, &:link, &:active {
-      text-decoration: none;
-  }
-
-  &:hover{
-      text-decoration: none;
-  }
-`;
-
-export const Notifications = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction:column;
-  font-size: 16px;
-  text-align: center;
-`;
-
-export const Notification = styled.div`
-  border: solid 0.5px;
-  border-color: grey;
-  margin: 10px 0 0 0;
-  padding: 6px 0 6px 0;
-  border-radius: 5px;
-  width: 100%;
 `;
