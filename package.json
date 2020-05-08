@@ -20,7 +20,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "lint": "./node_modules/.bin/eslint **/*.js"
+    "lint": "eslint **/*.js"
   },
   "eslintConfig": {
     "extends": "react-app"
