@@ -1,4 +1,5 @@
 # Group-12-White-Wolf
+[![Build Status](https://travis-ci.com/BennyChun/Group-12-White-Wolf.svg?token=97wroqvKxQfyzgcd2pHd&branch=master)](https://travis-ci.com/BennyChun/Group-12-White-Wolf)
 
 npm install --save bootstrap
 
