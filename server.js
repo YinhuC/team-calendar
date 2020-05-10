@@ -1,10 +1,11 @@
 import express from "express"
 import path from 'path';
+import apiRouter from "./server/api"
 
 const app = express();
 const port = process.env.PORT || 10000;
 
-app.get("/api", (req,res) => {res.send("Hello World!");});
+app.use("/api", apiRouter)
 
 if (process.env.NODE_ENV === 'production') {
     console.log("Running in production!");
