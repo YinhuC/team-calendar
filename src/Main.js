@@ -1,14 +1,14 @@
 /* Third Party */
-import React from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import React from 'react';
+import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 
 /* Components */
-import Marketing from "./Pages/MarketingPage";
-import Landing from "./Pages/LandingPage";
-import Error from "./Pages/ErrorPage";
-import Header from "./Components/Header";
-import Footer from "./Components/Footer";
-import Calendar from "./Pages/CalendarPage";
+import Marketing from './Pages/MarketingPage';
+import Landing from './Pages/LandingPage';
+import Error from './Pages/ErrorPage';
+import Header from './Components/Header';
+import Footer from './Components/Footer';
+import Calendar from './Pages/CalendarPage';
 
 /* Functions */
 

@@ -1,8 +1,8 @@
 /* Third Party */
-import React from "react";
+import React from 'react';
 
 /* Components */
-import { Center } from "./style";
+import {Center} from './style';
 
 /* Functions */
 

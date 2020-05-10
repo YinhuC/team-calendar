@@ -1,10 +1,10 @@
 /* Third Party */
-import React from "react";
+import React from 'react';
 
 /* Components */
-import { Header, HeaderText, SubText, HeaderImage } from "./style";
-import { Row, Col, Container } from "reactstrap";
-import Calendar from "../../Images/calendar.jpg";
+import {Header, HeaderText, SubText, HeaderImage} from './style';
+import {Row, Col, Container} from 'reactstrap';
+import Calendar from '../../Images/calendar.jpg';
 
 /* Functions */
 

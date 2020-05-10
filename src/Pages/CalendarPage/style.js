@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import { Card } from 'reactstrap'
+import styled from 'styled-components';
+import {Card} from 'reactstrap';
 
 export const DashbaordItem = styled(Card)`
   display: flex;

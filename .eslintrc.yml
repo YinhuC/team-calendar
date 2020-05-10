@@ -1,6 +1,7 @@
 env:
   es6: true
   node: true
+parser: "babel-eslint"
 extends:
   - 'plugin:react/recommended'
   - google
@@ -15,5 +16,8 @@ parserOptions:
 plugins:
   - react
 rules: {
-  "require-jsdoc" : off
+  "no-invalid-this": 0,
+  "require-jsdoc" : off,
+  "linebreak-style": off,
+  "max-len": [2,120],
 }

@@ -1,10 +1,10 @@
 /* Third Party */
-import React from "react";
+import React from 'react';
 
 /* Components */
-import { Logo, FooterContainer } from "./style";
-import { Container, Row, Col } from "reactstrap";
-import wolf from "../wolf.svg";
+import {Logo, FooterContainer} from './style';
+import {Container, Row, Col} from 'reactstrap';
+import wolf from '../wolf.svg';
 
 /* Functions */
 

@@ -1,10 +1,10 @@
 /* Third Party */
-import React from "react";
+import React from 'react';
 
 /* Components */
-import HeaderSection from "./HeaderSection";
-import FeatureSection from "./FeatureSection";
-import DetailSection from "./DetailSection";
+import HeaderSection from './HeaderSection';
+import FeatureSection from './FeatureSection';
+import DetailSection from './DetailSection';
 
 /* Functions */
 

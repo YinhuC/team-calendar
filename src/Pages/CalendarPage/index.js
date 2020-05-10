@@ -1,11 +1,11 @@
 /* Third Party */
-import React from "react";
+import React from 'react';
 import {
-  Row, Col
+  Row, Col,
 } from 'reactstrap';
 
 /* Components */
-import { OuterContainer, InnerContainer, Heading } from "./style";
+import {OuterContainer, InnerContainer, Heading} from './style';
 
 
 /* Functions */
@@ -19,7 +19,6 @@ class CalendarPage extends React.Component {
 
 
   render() {
-
     return (
       <OuterContainer>
         <InnerContainer>
@@ -32,7 +31,7 @@ class CalendarPage extends React.Component {
           </Row>
         </InnerContainer>
       </OuterContainer>
-    )
+    );
   }
 }
 

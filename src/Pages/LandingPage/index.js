@@ -1,19 +1,19 @@
 /* Third Party */
-import React from "react";
+import React from 'react';
 import {
-  Row, Col, Badge, Button, CardBody, Collapse
+  Row, Col, Badge, Button, CardBody, Collapse,
 } from 'reactstrap';
 
 /* Components */
 import {
   DashbaordItem, OuterContainer, InnerContainer, Heading,
-  CardImage, ImageContainer, Text, Title, Links, Notifications, Notification
-} from "./style";
-import image from "../Images/1.jpg"
-import image2 from "../Images/2.jpg"
-import image3 from "../Images/3.jpg"
-import image4 from "../Images/4.jpg"
-import image5 from "../Images/5.jpg"
+  CardImage, ImageContainer, Text, Title, Links, Notifications, Notification,
+} from './style';
+import image from '../Images/1.jpg';
+import image2 from '../Images/2.jpg';
+import image3 from '../Images/3.jpg';
+import image4 from '../Images/4.jpg';
+import image5 from '../Images/5.jpg';
 
 /* Functions */
 
@@ -21,33 +21,32 @@ class LandingPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      notificationsOpen: false
+      notificationsOpen: false,
     };
   }
 
   toggleNotifications = () => {
-    this.setState({ notificationsOpen: !this.state.notificationsOpen });
+    this.setState({notificationsOpen: !this.state.notificationsOpen});
   }
 
   render() {
-
-    var items = [];
-    for (var i = 0; i < 1; i++) {
+    const items = [];
+    for (let i = 0; i < 1; i++) {
       items.push(
-        <Col className="col-4">
-          <Links to="/calendar">
-            <DashbaordItem>
-              <ImageContainer>
-                <CardImage src={image4} alt="Card image cap" />
-              </ImageContainer>
-              <CardBody>
-                <Title>Team WhiteWolf</Title>
-                <hr />
-                <Text>Incididunt exercitation ex dolor enim excepteur mollit nostrud amet Lorem dolore do sint.</Text>
-              </CardBody>
-            </DashbaordItem>
-          </Links>
-        </Col>
+          <Col className="col-4">
+            <Links to="/calendar">
+              <DashbaordItem>
+                <ImageContainer>
+                  <CardImage src={image4} alt="Card image cap" />
+                </ImageContainer>
+                <CardBody>
+                  <Title>Team WhiteWolf</Title>
+                  <hr />
+                  <Text>Incididunt exercitation ex dolor enim excepteur mollit nostrud amet Lorem dolore do sint.</Text>
+                </CardBody>
+              </DashbaordItem>
+            </Links>
+          </Col>,
       );
     }
 
@@ -137,7 +136,9 @@ class LandingPage extends React.Component {
                   <CardBody>
                     <Title>Team Tomato</Title>
                     <hr />
-                    <Text>Id minim nisi aliquip laborum incididunt sunt ullamco sit ipsum nulla ut veniam proident.</Text>
+                    <Text>
+                      Id minim nisi aliquip laborum incididunt sunt ullamco sit ipsum nulla ut veniam proident.
+                    </Text>
                   </CardBody>
                 </DashbaordItem>
               </Links>
@@ -145,7 +146,7 @@ class LandingPage extends React.Component {
           </Row>
         </InnerContainer>
       </OuterContainer>
-    )
+    );
   }
 }
 

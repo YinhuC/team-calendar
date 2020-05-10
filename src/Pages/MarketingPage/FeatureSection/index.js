@@ -1,5 +1,5 @@
 /* Third Party */
-import React from "react";
+import React from 'react';
 
 /* Components */
 import {
@@ -8,12 +8,12 @@ import {
   SubText,
   FeatureIcon,
   Feature,
-  FeatureContainer
-} from "./style";
-import { Row, Col, Container } from "reactstrap";
-import Calendar from "./Icons/calendar.svg";
-import Fast from "./Icons/fast.svg";
-import Report from "./Icons/report.svg";
+  FeatureContainer,
+} from './style';
+import {Row, Col, Container} from 'reactstrap';
+import Calendar from './Icons/calendar.svg';
+import Fast from './Icons/fast.svg';
+import Report from './Icons/report.svg';
 
 /* Functions */
 

@@ -1,11 +1,11 @@
 /* Third Party */
-import React from "react";
-import { Row, Col, Button } from "reactstrap";
-import wolf from "../wolf.svg";
-import { Link } from "react-router-dom";
+import React from 'react';
+import {Row, Col, Button} from 'reactstrap';
+import wolf from '../wolf.svg';
+import {Link} from 'react-router-dom';
 
 /* Components */
-import { Center, Logo } from "./style";
+import {Center, Logo} from './style';
 
 /* Functions */
 
@@ -18,7 +18,7 @@ class Header extends React.Component {
   }
 
   toggleLogin = () => {
-    this.setState({ isLoggedIn: !this.state.isLoggedIn });
+    this.setState({isLoggedIn: !this.state.isLoggedIn});
   }
 
   render() {
@@ -37,12 +37,11 @@ class Header extends React.Component {
                 <Button color="primary" onClick={this.toggleLogin}>
                   Logout
                 </Button>
-              </Link>
-              :
+              </Link> :
               <Link to="/landing">
                 <Button color="primary" onClick={this.toggleLogin}>
                   Sign in
-            </Button>
+                </Button>
               </Link>}
           </Col>
         </Row>
