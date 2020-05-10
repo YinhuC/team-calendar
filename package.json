@@ -12,7 +12,8 @@
   "devDependencies": {},
   "scripts": {
     "start": "node -r esm server.js",
-    "server": "npm run start"
+    "server": "npm run start",
+    "prod": "set NODE_ENV=production&& npm run start"
   },
   "repository": {
     "type": "git",
