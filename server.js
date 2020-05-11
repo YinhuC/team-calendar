@@ -10,7 +10,12 @@ app.use(session({
     secret:'let broad pumps spin fluttering juices',
     saveUninitialized: false,
     resave:true
-}))
+}));
+
+mongoose.connect('mongodb://localhost:27017/groupCalendars', { useNewUrlParser: true }).then(
+    () => console.log('Connected to database!'),
+    err => console.error(err));
+
 app.use("/api", apiRouter)
 
 if (process.env.NODE_ENV === 'production') {
