@@ -1,0 +1,28 @@
+{
+  "name": "my-app-server",
+  "version": "1.0.0",
+  "description": "[![Build Status](https://travis-ci.com/BennyChun/Group-12-White-Wolf.svg?token=97wroqvKxQfyzgcd2pHd&branch=master)](https://travis-ci.com/BennyChun/Group-12-White-Wolf)",
+  "main": "server.js",
+  "dependencies": {
+    "esm": "^3.2.25",
+    "express": "^4.17.1",
+    "express-session": "^1.17.0",
+    "uuid": "^7.0.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "node -r esm server.js",
+    "server": "npm run start",
+    "prod": "set NODE_ENV=production&& npm run start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BennyChun/Group-12-White-Wolf.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BennyChun/Group-12-White-Wolf/issues"
+  },
+  "homepage": "https://github.com/BennyChun/Group-12-White-Wolf#readme"
+}
