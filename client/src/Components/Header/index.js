@@ -18,6 +18,12 @@ class Header extends React.Component {
   }
 
   toggleLogin = () => {
+    console.log('fetch');
+    fetch('/api/login').then((response) => {
+      response.text().then((url) => {
+        window.location.assign(url);
+      });
+    });
     this.setState({isLoggedIn: !this.state.isLoggedIn});
   }
 
@@ -38,11 +44,9 @@ class Header extends React.Component {
                   Logout
                 </Button>
               </Link> :
-              <Link to="/landing">
                 <Button color="primary" onClick={this.toggleLogin}>
                   Sign in
-                </Button>
-              </Link>}
+                </Button>}
           </Col>
         </Row>
       </Center>
