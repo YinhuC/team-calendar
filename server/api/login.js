@@ -20,7 +20,16 @@ export default router => {
         let code = req.query.code;
         oAuth2Client.getToken(code, (err,token) =>{
             console.log(token);
-            process.env.NODE_ENV === 'production' ? res.redirect('/landing') :res.redirect('http://localhost:3000/landing')
+            oAuth2Client.setCredentials(token);
+            var oauth2 = google.oauth2({auth: oAuth2Client,version: 'v2'})
+            oauth2.userinfo.get((err, userRes) => {
+                req.session.user = userRes.data;
+                console.log(req.session.user);
+                process.env.NODE_ENV === 'production' ? res.redirect('/landing') :res.redirect('http://localhost:3000/landing')
+            });
         });
     }) 
+    router.get("/user_details", (req, res) => {
+        res.json(req.session.user)
+    })
 }
