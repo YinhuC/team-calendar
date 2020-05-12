@@ -8,6 +8,8 @@
     "express": "^4.17.1",
     "express-session": "^1.17.1",
     "googleapis": "^39.2.0",
+    "mongoose": "^5.9.13",
+    "mongoose-crudify": "^0.2.0",
     "uuid": "^7.0.2"
   },
   "devDependencies": {},
