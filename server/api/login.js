@@ -29,24 +29,25 @@ export default router => {
                 createUser(token, userRes.data);
                 process.env.NODE_ENV === 'production' ? res.redirect('/landing') :res.redirect('http://localhost:3000/landing')
             });
-            //createUser(token, req.session.user)
         });
     }) 
     router.get("/user_details", (req, res) => {
         res.json(req.session.user);
-        console.log(req.session.user);
     })
 }
 
 async function createUser(token, userData) {
-    const newUser = new User();
-    newUser.accessToken = token.access_token;
-    newUser.googleId = userData.id;
-    newUser.firstName = userData.given_name;
-    newUser.lastName = userData.family_name;
-    newUser.email = userData.email;
-    newUser.groups = [];
+    const existingUser = await User.findOneAndUpdate({ "googleId": userData.id }, { $set: { "token": token } });
+    if (!existingUser) {
+        const newUser = new User();
+        newUser.token = token;
+        newUser.googleId = userData.id;
+        newUser.firstName = userData.given_name;
+        newUser.lastName = userData.family_name;
+        newUser.email = userData.email;
+        newUser.groups = [];
 
-    await newUser.save();
-    console.log(`New user saved! _id = ${newUser._id}`)
+        await newUser.save();
+        console.log(`New user saved! _id = ${newUser._id}`)
+    }
 }
