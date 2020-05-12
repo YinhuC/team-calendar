@@ -28,7 +28,7 @@ const groupSchema = new Schema({
     members: [{ type: Schema.Types.ObjectId, ref: 'User' }],
     calendars: [{
         calendarId: String,
-        user: [{type: Schema.Types.ObjectId, ref: 'User' }]
+        user: { type: Schema.Types.ObjectId, ref: 'User' }
     }]
 }, {
     timestamps: {}

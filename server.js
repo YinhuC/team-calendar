@@ -2,6 +2,7 @@ import express from "express"
 import session from "express-session"
 import path from 'path';
 import apiRouter from "./server/api"
+import mongoose from 'mongoose'
 
 const app = express();
 const port = process.env.PORT || 10000;
