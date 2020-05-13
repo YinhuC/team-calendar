@@ -1,7 +1,7 @@
 /* Third Party */
 import React from 'react';
 import {
-  Row, Col, Button,
+  Row, Col, Button, ModalHeader, ModalBody, ModalFooter, FormGroup, Label, Input,
 } from 'reactstrap';
 
 import {Link} from 'react-router-dom';
@@ -10,20 +10,20 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import FullCalendar from '@fullcalendar/react';
 import InfiniteCalendar from 'react-infinite-calendar';
-
+import {} from 'react-feather';
 
 // must manually import the stylesheets for each plugin
 import '@fullcalendar/core/main.css';
 import '@fullcalendar/daygrid/main.css';
 import '@fullcalendar/timegrid/main.css';
 import 'react-infinite-calendar/styles.css';
-// cannot use custom styled-components on Full calendar, so import css
-import './style.css';
+
 
 /* Components */
 import {OuterContainer, LeftContainer, Heading,
   RightContainer, Group, Member, List, Item, Subheader,
-  OuterCalendarContainer, AddEvent, CalendarContainer, SmallCalendarContainer,
+  OuterCalendarContainer, AddEvent, CalendarContainer,
+  SmallCalendarContainer, ModalStyled,
 } from './style';
 
 
@@ -33,32 +33,49 @@ class CalendarPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      calendarWeekends: true,
+      calendarEvents: [],
+      isModalOpen: false,
     };
   }
 
   calendarComponentRef = React.createRef();
 
-  state = {
-    calendarWeekends: true,
-    calendarEvents: [
-      // initial event data
-      {title: 'Event Now', start: new Date()},
-    ],
-  };
-
   handleDateClick = (arg) => {
     if (true) {
+      this.setState({
+        calendarEvents: this.state.calendarEvents.concat({
+          title: 'New Event',
+          start: arg.date,
+          allDay: arg.allDay,
+          end: arg.date,
+        }),
+      });
+    }
+  };
+
+  toggleModal = () =>{
+    this.setState({
+      isModalOpen: !this.state.isModalOpen,
+    });
+  }
+
+  selectCallback = (data) => {
+    this.toggleModal();
+    if (false) {
       this.setState({
         // add new event data
         calendarEvents: this.state.calendarEvents.concat({
           // creates a new array
           title: 'New Event',
-          start: arg.date,
-          allDay: arg.allDay,
+          start: data.start,
+          allDay: data.allDay,
+          end: data.end,
         }),
       });
     }
   };
+
 
   render() {
     const calendars = ['Google Calendar', 'Outlook Calendar', 'UoA Calendar'];
@@ -86,6 +103,56 @@ class CalendarPage extends React.Component {
 
     return (
       <OuterContainer>
+        <ModalStyled size="lg" isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
+          <ModalHeader toggle={this.toggleModal}>Add New Calendar Event</ModalHeader>
+          <ModalBody>
+
+            <FormGroup>
+              <Label>Name of Event</Label>
+              <Input
+                type="text"
+                name="name"
+                placeholder="date placeholder"
+              />
+            </FormGroup>
+            <FormGroup>
+              <Label>Start Date</Label>
+              <Input
+                type="date"
+                name="date"
+                placeholder="date placeholder"
+              />
+            </FormGroup>
+            <FormGroup>
+              <Label >End Time</Label>
+              <Input
+                type="time"
+                name="time"
+                placeholder="time placeholder"
+              />
+            </FormGroup>
+            <FormGroup>
+              <Label>End Date</Label>
+              <Input
+                type="date"
+                name="date"
+                placeholder="date placeholder"
+              />
+            </FormGroup>
+            <FormGroup>
+              <Label for="exampleTime">End Time</Label>
+              <Input
+                type="time"
+                name="time"
+                placeholder="time placeholder"
+              />
+            </FormGroup>
+          </ModalBody>
+          <ModalFooter>
+            <Button color="primary" onClick={this.toggleModal}>Add</Button>
+            <Button color="secondary" onClick={this.toggleModal}>Cancel</Button>
+          </ModalFooter>
+        </ModalStyled>
         <LeftContainer>
           <Row>
             <Col className="d-flex justify-content-center align-items-start my-3">
@@ -130,7 +197,7 @@ class CalendarPage extends React.Component {
                 <Heading>
                 Calendar
                 </Heading>
-                <AddEvent color="primary">
+                <AddEvent color="primary" onClick={this.toggleModal}>
                   + Add Event
                 </AddEvent>
               </Col>
@@ -148,6 +215,9 @@ class CalendarPage extends React.Component {
                     weekends={this.state.calendarWeekends}
                     events={this.state.calendarEvents}
                     dateClick={this.handleDateClick}
+                    selectable= {true}
+                    selectMirror= {true}
+                    select = {this.selectCallback}
                   />
                 </CalendarContainer>
               </Col>
