@@ -8,7 +8,7 @@ const userSchema = new Schema({
     firstName: { type: String, required: true },
     lastName: { type: String, required: true },
     email: { type: String, required: true },
-    groups: [{ type: Schema.Types.ObjectId, ref: 'Group'}]
+    //groups: [{ type: Schema.Types.ObjectId, ref: 'Group'}]
 }, {
     timestamps: {}
 });

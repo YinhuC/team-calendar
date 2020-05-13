@@ -54,7 +54,7 @@ async function createUser(token, userData) {
         newUser.firstName = userData.given_name;
         newUser.lastName = userData.family_name;
         newUser.email = userData.email;
-        newUser.groups = [];
+        //newUser.groups = [];
 
         await newUser.save();
         console.log(`New user saved! _id = ${newUser._id}`)
