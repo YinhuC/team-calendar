@@ -31,6 +31,10 @@ export default router => {
             });
         });
     }) 
+    router.get("/logout", (req,res) => {
+        req.session.destroy();
+        process.env.NODE_ENV === 'production' ? res.redirect('/') :res.redirect('http://localhost:3000/')
+    })
     router.get("/user_details", (req, res) => {
         res.json(req.session.user);
     })
