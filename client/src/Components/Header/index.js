@@ -2,7 +2,6 @@
 import React from 'react';
 import {Row, Col, Button} from 'reactstrap';
 import wolf from '../wolf.svg';
-import {Link} from 'react-router-dom';
 
 /* Components */
 import {Center, Logo} from './style';
@@ -17,14 +16,19 @@ class Header extends React.Component {
     };
   }
 
-  toggleLogin = () => {
+  handleLogin = () => {
     console.log('fetch');
     fetch('/api/login').then((response) => {
       response.text().then((url) => {
         window.location.assign(url);
       });
     });
-    this.setState({isLoggedIn: !this.state.isLoggedIn});
+  }
+
+  handleLogout = () => {
+    console.log('fetch');
+    fetch('/api/logout');
+    window.location.assign('/');
   }
 
   render() {
@@ -39,14 +43,12 @@ class Header extends React.Component {
         <Row className="ml-5">
           <Col className="align-middle">
             {this.state.isLoggedIn ?
-              <Link to="/">
-                <Button color="primary" onClick={this.toggleLogin}>
-                  Logout
-                </Button>
-              </Link> :
-                <Button color="primary" onClick={this.toggleLogin}>
-                  Sign in
-                </Button>}
+              <Button color="primary" onClick={this.handleLogout}>
+                Logout
+              </Button>:
+              <Button color="primary" onClick={this.handleLogin}>
+                Sign in
+              </Button>}
           </Col>
         </Row>
       </Center>
