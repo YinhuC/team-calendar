@@ -46,7 +46,7 @@ class Header extends React.Component {
             <Logo src={wolf} alt="Logo" />
           </Col>
         </Row>
-        <Row>Some links</Row>
+        <Row><Col></Col></Row>
         <Row className="ml-5">
           <Col className="align-middle">
             {this.state.isLoggedIn ?
