@@ -36,7 +36,12 @@ export default router => {
         process.env.NODE_ENV === 'production' ? res.redirect('/') :res.redirect('http://localhost:3000/')
     })
     router.get("/user_details", (req, res) => {
-        res.json(req.session.user);
+        if(req.session.user) {
+            res.json(req.session.user);
+        }
+        else {
+            res.json({});
+        }
     })
 }
 
