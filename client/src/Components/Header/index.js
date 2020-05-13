@@ -15,6 +15,13 @@ class Header extends React.Component {
       isLoggedIn: false,
     };
   }
+  componentDidMount() {
+    fetch('/api/user_details').then((response) => {
+      response.json().then((user) => {
+        this.setState({isLoggedIn: user.id});
+      });
+    });
+  }
 
   handleLogin = () => {
     console.log('fetch');
