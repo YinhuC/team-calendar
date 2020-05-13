@@ -5,6 +5,8 @@ export const Center = styled.div`
   height: 90px;
   display: flex;
   align-items: center;
+  border-bottom: solid 0.5px;
+  border-color: lightgrey;
 `;
 
 export const Logo = styled.img`
