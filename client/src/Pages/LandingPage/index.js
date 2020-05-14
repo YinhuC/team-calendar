@@ -29,6 +29,25 @@ class LandingPage extends React.Component {
     this.setState({notificationsOpen: !this.state.notificationsOpen});
   }
 
+  createGroup = () => {
+    fetch('/api/groups', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        name: 'New Group',
+        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In pulvinar.',
+      }),
+    }).then((res, err) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.json().then((json) => console.log(json));
+      }
+    });
+  }
+
   render() {
     const items = [];
     for (let i = 0; i < 1; i++) {
@@ -142,6 +161,13 @@ class LandingPage extends React.Component {
                   </CardBody>
                 </DashbaordItem>
               </Links>
+            </Col>
+            <Col className="col-4">
+              <DashbaordItem>
+                <Button color="primary" outline onClick={this.createGroup} style={{flex: 1, borderRadius: 10}}>
+                  Create Group
+                </Button>
+              </DashbaordItem>
             </Col>
           </Row>
         </InnerContainer>

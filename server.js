@@ -3,9 +3,12 @@ import session from "express-session"
 import path from 'path';
 import apiRouter from "./server/api"
 import mongoose from 'mongoose'
+import bodyParser from 'body-parser'
 
 const app = express();
 const port = process.env.PORT || 10000;
+
+app.use(bodyParser.json({ extended: false }));
 
 app.use(session({
     secret:'let broad pumps spin fluttering juices',
