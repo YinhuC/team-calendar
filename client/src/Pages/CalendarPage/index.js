@@ -42,6 +42,7 @@ class CalendarPage extends React.Component {
       startTime: '',
       endDate: '',
       endTime: '',
+      event: '',
     };
   }
 
@@ -92,6 +93,12 @@ class CalendarPage extends React.Component {
     }
   };
 
+  changeInput = (event) => {
+    this.setState({
+      [event.target.name]: event.target.value,
+    });
+  }
+
 
   render() {
     const calendars = ['Google Calendar', 'Outlook Calendar', 'UoA Calendar'];
@@ -131,6 +138,8 @@ class CalendarPage extends React.Component {
                     type="text"
                     name="event"
                     placeholder="Name of event"
+                    onChange={this.changeInput}
+                    value={this.state.event}
                   />
                 </FormGroup>
               </Col>
@@ -140,6 +149,7 @@ class CalendarPage extends React.Component {
                   <Input
                     type="date"
                     name="startDate"
+                    onChange={this.changeInput}
                     value={moment(this.state.startDate).format('YYYY-MM-DD')}
                   />
                 </FormGroup>
@@ -148,6 +158,7 @@ class CalendarPage extends React.Component {
                   <Input
                     type="date"
                     name="endDate"
+                    onChange={this.changeInput}
                     value={moment(this.state.endDate).format('YYYY-MM-DD')}
                   />
                 </FormGroup>
@@ -158,6 +169,7 @@ class CalendarPage extends React.Component {
                   <Input
                     type="time"
                     name="startTime"
+                    onChange={this.changeInput}
                     value={moment(this.state.startTime).format('HH:mm')}
                   />
                 </FormGroup>
@@ -166,6 +178,7 @@ class CalendarPage extends React.Component {
                   <Input
                     type="time"
                     name="endTime"
+                    onChange={this.changeInput}
                     value={moment(this.state.endTime).format('HH:mm')}
                   />
                 </FormGroup>
