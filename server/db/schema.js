@@ -8,7 +8,6 @@ const userSchema = new Schema({
     firstName: { type: String, required: true },
     lastName: { type: String, required: true },
     email: { type: String, required: true },
-    //groups: [{ type: Schema.Types.ObjectId, ref: 'Group'}]
 }, {
     timestamps: {}
 });
@@ -25,10 +24,10 @@ export const User = mongoose.model('User', userSchema);
 const groupSchema = new Schema({
     name: { type: String, required: true },
     description: String, 
-    members: [{ type: Schema.Types.ObjectId, ref: 'User' }],
+    members: [String], 
     calendars: [{
         calendarId: String,
-        user: { type: Schema.Types.ObjectId, ref: 'User' }
+        googleId: String,
     }]
 }, {
     timestamps: {}
