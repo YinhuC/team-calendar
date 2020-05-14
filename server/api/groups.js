@@ -1,34 +1,34 @@
-import express from 'express';
 import { User, Group } from '../db/schema';
 import mongooseCrudify from 'mongoose-crudify';
 
-const router = express.Router();
+export default router => {
+    router.use('/groups', mongooseCrudify({
+        Model: Group, 
 
-router.use('/groups', mongooseCrudify({
-    Model: Group, 
-
-    beforeActions: [
-        {
-            middlewares: [ensureLogin]
+        beforeActions: [
+            {
+                middlewares: [ensureLogin]
+            },
+            {
+                middlewares: [isMember],
+                except: ['create', 'list']
+            }
+        ], 
+        actions: {
+            list: async (req, res) => {
+                const groups = await Group.find({ "members": req.session.user.id });
+                res.json(groups);
+            }
         },
-        {
-            middlewares: [isMember],
-            except: ['create']
-        }
-    ], 
-    actions: {
-        read: (req, res) => {
-            Group.populate(req.crudify.group, 'members').then(() => res.json(req.crudify.group));
-        }
-    },
-    afterActions: [
-        {
-            middlewares: [logToConsole]
-        }
-    ]
-}));
+        afterActions: [
+            {
+                middlewares: [logToConsole]
+            }
+        ]
+    }));
+}
 
-function ensureLogin(req, res, next) {
+async function ensureLogin(req, res, next) {
     if (req.session.user) {
         next();
     } else {
@@ -36,11 +36,8 @@ function ensureLogin(req, res, next) {
     }
 }
 
-function isMember(req, res, next) {
-    const isMember = Group.find({}).populate({
-        path: 'members',
-        match: { googleId: req.session.user.id }
-    }).exec();
+async function isMember(req, res, next) {
+    const isMember = await Group.find({ "_id": req.params.id, "members": req.session.user.id });
     if (isMember) {
         next();
     } else {
@@ -48,10 +45,7 @@ function isMember(req, res, next) {
     }
 }
 
-function logToConsole(req, res, next) {
+async function logToConsole(req, res, next) {
     console.log(req.crudify.err || req.crudify.result);
     next();
 }
-
-export default router;
-
