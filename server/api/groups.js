@@ -18,6 +18,12 @@ export default router => {
             list: async (req, res) => {
                 const groups = await Group.find({ "members": req.session.user.id });
                 res.json(groups);
+            },
+            create: (req, res) => {
+                const newGroup = new Group(req.body);
+                newGroup.members.push(req.session.user.id);
+                newGroup.save();
+                res.json(newGroup);
             }
         },
         afterActions: [
