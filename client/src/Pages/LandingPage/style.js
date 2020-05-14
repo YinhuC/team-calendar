@@ -1,9 +1,6 @@
 import styled from 'styled-components';
-import {Card} from 'reactstrap';
+import {Card, Modal} from 'reactstrap';
 import {Link} from 'react-router-dom';
-import {
-  Modal,
-} from 'reactstrap';
 
 
 export const DashbaordItem = styled(Card)`
@@ -108,6 +105,7 @@ export const Notification = styled.div`
   border-radius: 5px;
   width: 100%;
 `;
+
 
 export const ModalStyled = styled(Modal)`
   max-width:1600px;

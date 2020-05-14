@@ -1,14 +1,15 @@
 /* Third Party */
 import React from 'react';
 import {
-  Row, Col, Badge, Button, CardBody, Collapse, ModalHeader,
-  ModalBody, ModalFooter, FormGroup, Label, Input,
+  Row, Col, Badge, Button, CardBody, Collapse,
+  ModalHeader, ModalBody, ModalFooter, FormGroup, Label, Input,
 } from 'reactstrap';
 
 /* Components */
 import {
   DashbaordItem, OuterContainer, InnerContainer, Heading,
-  CardImage, ImageContainer, Text, Title, Links, Notifications, Notification, ModalStyled,
+  CardImage, ImageContainer, Text, Title, Links, Notifications, Notification,
+  ModalStyled,
 } from './style';
 import image from '../Images/1.jpg';
 import image2 from '../Images/2.jpg';
@@ -24,12 +25,17 @@ class LandingPage extends React.Component {
     this.state = {
       notificationsOpen: false,
       description: '',
-      group: '',
+      name: '',
+      groups: [],
     };
   }
 
   toggleNotifications = () => {
     this.setState({notificationsOpen: !this.state.notificationsOpen});
+  }
+
+  componentDidMount() {
+    this.fetchGroup();
   }
 
   createGroup = () => {
@@ -39,7 +45,7 @@ class LandingPage extends React.Component {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        name: this.state.group,
+        name: this.state.name,
         description: this.state.description,
       }),
     }).then((res, err) => {
@@ -48,8 +54,21 @@ class LandingPage extends React.Component {
       } else {
         res.json().then((json) => console.log(json));
       }
+      this.fetchGroup();
     });
     this.toggleModal();
+  }
+
+  fetchGroup = () => {
+    fetch('/api/groups').then((res, err) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.json().then((json) => this.setState({
+          groups: json,
+        }));
+      }
+    });
   }
 
   changeInput = (event) => {
@@ -65,25 +84,27 @@ class LandingPage extends React.Component {
   }
 
   render() {
-    const items = [];
-    for (let i = 0; i < 1; i++) {
-      items.push(
+    const calendars = [];
+    const arrayImages = [image, image2, image3, image4, image5];
+
+    this.state.groups.forEach((group, index) =>
+      calendars.push(
           <Col className="col-4">
             <Links to="/calendar">
               <DashbaordItem>
                 <ImageContainer>
-                  <CardImage src={image4} alt="Card image cap" />
+                  <CardImage src={arrayImages[index%5]} alt="Background image" />
                 </ImageContainer>
                 <CardBody>
-                  <Title>Team WhiteWolf</Title>
+                  <Title>{group.name}</Title>
                   <hr />
-                  <Text>Incididunt exercitation ex dolor enim excepteur mollit nostrud amet Lorem dolore do sint.</Text>
+                  <Text>{group.description}</Text>
                 </CardBody>
               </DashbaordItem>
             </Links>
           </Col>,
-      );
-    }
+      ),
+    );
 
     return (
       <OuterContainer>
@@ -97,10 +118,10 @@ class LandingPage extends React.Component {
                   <Label>Name of Group Calendar</Label>
                   <Input
                     type="text"
-                    name="group"
+                    name="name"
                     placeholder="Name of group"
                     onChange={this.changeInput}
-                    value={this.state.group}
+                    value={this.state.name}
                   />
                 </FormGroup>
               </Col>
@@ -151,69 +172,7 @@ class LandingPage extends React.Component {
             </Col>
           </Row>
           <Row>
-            {items}
-
-            <Col className="col-4">
-              <Links to="/calendar">
-                <DashbaordItem>
-                  <ImageContainer>
-                    <CardImage src={image2} alt="Card image cap" />
-                  </ImageContainer>
-                  <CardBody>
-                    <Title>Team Potato</Title>
-                    <hr />
-                    <Text>Quis sit culpa in consequat magna esse exercitation aliqua.</Text>
-                  </CardBody>
-                </DashbaordItem>
-              </Links>
-            </Col>
-
-            <Col className="col-4">
-              <Links to="/calendar">
-                <DashbaordItem>
-                  <ImageContainer>
-                    <CardImage src={image3} alt="Card image cap" />
-                  </ImageContainer>
-                  <CardBody>
-                    <Title>Team Tesla</Title>
-                    <hr />
-                    <Text>Dolor magna ipsum mollit commodo anim aute consequat nostrud.</Text>
-                  </CardBody>
-                </DashbaordItem>
-              </Links>
-            </Col>
-
-            <Col className="col-4">
-              <Links to="/calendar">
-                <DashbaordItem>
-                  <ImageContainer>
-                    <CardImage src={image} alt="Card image cap" />
-                  </ImageContainer>
-                  <CardBody>
-                    <Title>Team One</Title>
-                    <hr />
-                    <Text>Ipsum id aliquip duis in aute labore excepteur labore aute consequat excepteur.</Text>
-                  </CardBody>
-                </DashbaordItem>
-              </Links>
-            </Col>
-
-            <Col className="col-4">
-              <Links to="/calendar">
-                <DashbaordItem>
-                  <ImageContainer>
-                    <CardImage src={image5} alt="Card image cap" />
-                  </ImageContainer>
-                  <CardBody>
-                    <Title>Team Tomato</Title>
-                    <hr />
-                    <Text>
-                      Id minim nisi aliquip laborum incididunt sunt ullamco sit ipsum nulla ut veniam proident.
-                    </Text>
-                  </CardBody>
-                </DashbaordItem>
-              </Links>
-            </Col>
+            {calendars}
             <Col className="col-4">
               <DashbaordItem>
                 <Button color="primary" outline onClick={this.toggleModal} style={{flex: 1, borderRadius: 10}}>
