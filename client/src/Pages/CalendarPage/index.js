@@ -99,7 +99,6 @@ class CalendarPage extends React.Component {
     });
   }
 
-
   render() {
     const calendars = ['Google Calendar', 'Outlook Calendar', 'UoA Calendar'];
     const calendarsItems = [];

@@ -1,13 +1,14 @@
 /* Third Party */
 import React from 'react';
 import {
-  Row, Col, Badge, Button, CardBody, Collapse,
+  Row, Col, Badge, Button, CardBody, Collapse, ModalHeader,
+  ModalBody, ModalFooter, FormGroup, Label, Input,
 } from 'reactstrap';
 
 /* Components */
 import {
   DashbaordItem, OuterContainer, InnerContainer, Heading,
-  CardImage, ImageContainer, Text, Title, Links, Notifications, Notification,
+  CardImage, ImageContainer, Text, Title, Links, Notifications, Notification, ModalStyled,
 } from './style';
 import image from '../Images/1.jpg';
 import image2 from '../Images/2.jpg';
@@ -22,6 +23,8 @@ class LandingPage extends React.Component {
     super(props);
     this.state = {
       notificationsOpen: false,
+      description: '',
+      group: '',
     };
   }
 
@@ -36,8 +39,8 @@ class LandingPage extends React.Component {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        name: 'New Group',
-        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In pulvinar.',
+        name: this.state.group,
+        description: this.state.description,
       }),
     }).then((res, err) => {
       if (err) {
@@ -45,6 +48,19 @@ class LandingPage extends React.Component {
       } else {
         res.json().then((json) => console.log(json));
       }
+    });
+    this.toggleModal();
+  }
+
+  changeInput = (event) => {
+    this.setState({
+      [event.target.name]: event.target.value,
+    });
+  }
+
+  toggleModal = () =>{
+    this.setState({
+      isModalOpen: !this.state.isModalOpen,
     });
   }
 
@@ -71,6 +87,42 @@ class LandingPage extends React.Component {
 
     return (
       <OuterContainer>
+
+        <ModalStyled size="lg" isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
+          <ModalHeader toggle={this.toggleModal}>Create New Group</ModalHeader>
+          <ModalBody>
+            <Row>
+              <Col className="col-12">
+                <FormGroup>
+                  <Label>Name of Group Calendar</Label>
+                  <Input
+                    type="text"
+                    name="group"
+                    placeholder="Name of group"
+                    onChange={this.changeInput}
+                    value={this.state.group}
+                  />
+                </FormGroup>
+              </Col>
+              <Col>
+                <FormGroup>
+                  <Label >Description</Label>
+                  <Input
+                    type="textarea"
+                    name="description"
+                    onChange={this.changeInput}
+                    value={this.state.description}
+                  />
+                </FormGroup>
+              </Col>
+            </Row>
+          </ModalBody>
+
+          <ModalFooter>
+            <Button color="primary" onClick={this.createGroup}>Add</Button>
+            <Button color="secondary" onClick={this.toggleModal}>Cancel</Button>
+          </ModalFooter>
+        </ModalStyled>
         <InnerContainer>
           <Row>
             <Col>
@@ -164,7 +216,7 @@ class LandingPage extends React.Component {
             </Col>
             <Col className="col-4">
               <DashbaordItem>
-                <Button color="primary" outline onClick={this.createGroup} style={{flex: 1, borderRadius: 10}}>
+                <Button color="primary" outline onClick={this.toggleModal} style={{flex: 1, borderRadius: 10}}>
                   Create Group
                 </Button>
               </DashbaordItem>
