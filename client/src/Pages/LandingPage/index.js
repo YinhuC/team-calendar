@@ -37,12 +37,14 @@ class LandingPage extends React.Component {
       },
       body: JSON.stringify({
         name: 'New Group',
+        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In pulvinar.',
       }),
-    }).then( (res, err) => {
+    }).then((res, err) => {
       if (err) {
         console.log(err);
+      } else {
+        res.json().then((json) => console.log(json));
       }
-      console.log(res);
     });
   }
 
