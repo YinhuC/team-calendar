@@ -21,12 +21,12 @@ export default router => {
     router.get("/callback", (req, res) => {
         let code = req.query.code;
         oAuth2Client.getToken(code, (err,token) =>{
-            console.log(token);
             oAuth2Client.setCredentials(token);
             var oauth2 = google.oauth2({auth: oAuth2Client,version: 'v2'})
             oauth2.userinfo.get((err, userRes) => {
                 req.session.user = userRes.data;
                 createUser(token, userRes.data);
+                console.log("User logged in!")
                 process.env.NODE_ENV === 'production' ? res.redirect('/landing') :res.redirect('http://localhost:3000/landing')
             });
         });
@@ -54,7 +54,6 @@ async function createUser(token, userData) {
         newUser.firstName = userData.given_name;
         newUser.lastName = userData.family_name;
         newUser.email = userData.email;
-        //newUser.groups = [];
 
         await newUser.save();
         console.log(`New user saved! _id = ${newUser._id}`)
