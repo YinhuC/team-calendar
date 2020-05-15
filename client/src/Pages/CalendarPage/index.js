@@ -24,7 +24,7 @@ import 'react-infinite-calendar/styles.css';
 /* Components */
 import {OuterContainer, LeftContainer, Heading,
   RightContainer, Group, Member, List, Item, Subheader,
-  OuterCalendarContainer, AddEvent, CalendarContainer,
+  OuterCalendarContainer, Add, CalendarContainer,
   SmallCalendarContainer, ModalStyled,
 } from './style';
 
@@ -37,7 +37,7 @@ class CalendarPage extends React.Component {
     this.state = {
       calendarWeekends: true,
       calendarEvents: [],
-      isModalOpen: false,
+      eventModalOpen: false,
       startDate: '',
       startTime: '',
       endDate: '',
@@ -63,7 +63,7 @@ class CalendarPage extends React.Component {
 
   toggleModal = () =>{
     this.setState({
-      isModalOpen: !this.state.isModalOpen,
+      eventModalOpen: !this.state.eventModalOpen,
     });
   }
 
@@ -126,7 +126,7 @@ class CalendarPage extends React.Component {
     return (
       <OuterContainer>
 
-        <ModalStyled size="lg" isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
+        <ModalStyled size="lg" isOpen={this.state.eventModalOpen} toggle={this.toggleModal}>
           <ModalHeader toggle={this.toggleModal}>Add New Calendar Event</ModalHeader>
           <ModalBody>
             <Row>
@@ -217,8 +217,11 @@ class CalendarPage extends React.Component {
                 </List>
               </Group>
             </Col>
-            <Col className="col-12">
+            <Col className="col-12 mt-5 mb-1 d-flex flex-row justify-content-between align-items-center">
               <Subheader>Members</Subheader>
+              <Button color="primary" onClick={this.toggleModal}>Add Members</Button>
+            </Col>
+            <Col className="col-12">
               <Member>
                 <List>
                   {membersItems}
@@ -234,9 +237,9 @@ class CalendarPage extends React.Component {
                 <Heading>
                 Calendar
                 </Heading>
-                <AddEvent color="primary" onClick={this.toggleModal}>
+                <Add color="primary" onClick={this.toggleModal}>
                   + Add Event
-                </AddEvent>
+                </Add>
               </Col>
               <Col className="col-12">
                 <CalendarContainer>
