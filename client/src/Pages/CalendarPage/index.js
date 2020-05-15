@@ -201,7 +201,7 @@ class CalendarPage extends React.Component {
         </ModalStyled>
 
         <ModalStyled size="lg" isOpen={this.state.memberModal} toggle={this.toggleMemberModal}>
-          <ModalHeader toggle={this.memberModal}>Add New Member</ModalHeader>
+          <ModalHeader toggle={this.toggleMemberModal}>Add New Member</ModalHeader>
           <ModalBody>
             <Row>
               <Col className="col-12">
