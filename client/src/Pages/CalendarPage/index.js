@@ -37,12 +37,15 @@ class CalendarPage extends React.Component {
     this.state = {
       calendarWeekends: true,
       calendarEvents: [],
-      eventModalOpen: false,
+      eventModal: false,
+      memberModal: false,
       startDate: '',
       startTime: '',
       endDate: '',
       endTime: '',
       event: '',
+      member: '',
+      email: '',
     };
   }
 
@@ -61,9 +64,15 @@ class CalendarPage extends React.Component {
     }
   };
 
-  toggleModal = () =>{
+  toggleEventModal = () =>{
     this.setState({
-      eventModalOpen: !this.state.eventModalOpen,
+      eventModal: !this.state.eventModal,
+    });
+  }
+
+  toggleMemberModal = () =>{
+    this.setState({
+      memberModal: !this.state.memberModal,
     });
   }
 
@@ -73,7 +82,7 @@ class CalendarPage extends React.Component {
   }
 
   selectCallback = (data) => {
-    this.toggleModal();
+    this.toggleEventModal();
     this.setState({
       startDate: data.start,
       startTime: data.start,
@@ -126,8 +135,8 @@ class CalendarPage extends React.Component {
     return (
       <OuterContainer>
 
-        <ModalStyled size="lg" isOpen={this.state.eventModalOpen} toggle={this.toggleModal}>
-          <ModalHeader toggle={this.toggleModal}>Add New Calendar Event</ModalHeader>
+        <ModalStyled size="lg" isOpen={this.state.eventModal} toggle={this.toggleEventModal}>
+          <ModalHeader toggle={this.toggleEventModal}>Add New Calendar Event</ModalHeader>
           <ModalBody>
             <Row>
               <Col className="col-12">
@@ -186,8 +195,42 @@ class CalendarPage extends React.Component {
           </ModalBody>
 
           <ModalFooter>
-            <Button color="primary" onClick={this.toggleModal}>Add</Button>
-            <Button color="secondary" onClick={this.toggleModal}>Cancel</Button>
+            <Button color="primary" onClick={this.toggleEventModal}>Add</Button>
+            <Button color="secondary" onClick={this.toggleEventModal}>Cancel</Button>
+          </ModalFooter>
+        </ModalStyled>
+
+        <ModalStyled size="lg" isOpen={this.state.memberModal} toggle={this.toggleMemberModal}>
+          <ModalHeader toggle={this.memberModal}>Add New Member</ModalHeader>
+          <ModalBody>
+            <Row>
+              <Col className="col-12">
+                <FormGroup>
+                  <Label>Name of Member</Label>
+                  <Input
+                    type="text"
+                    name="member"
+                    placeholder="Name of member"
+                    onChange={this.changeInput}
+                    value={this.state.member}
+                  />
+                </FormGroup>
+                <FormGroup>
+                  <Label>Email of Member</Label>
+                  <Input
+                    type="email"
+                    name="email"
+                    placeholder="Name of event"
+                    onChange={this.changeInput}
+                    value={this.state.email}
+                  />
+                </FormGroup>
+              </Col>
+            </Row>
+          </ModalBody>
+          <ModalFooter>
+            <Button color="primary" onClick={this.toggleMemberModal}>Add</Button>
+            <Button color="secondary" onClick={this.toggleMemberModal}>Cancel</Button>
           </ModalFooter>
         </ModalStyled>
 
@@ -219,7 +262,7 @@ class CalendarPage extends React.Component {
             </Col>
             <Col className="col-12 mt-5 mb-1 d-flex flex-row justify-content-between align-items-center">
               <Subheader>Members</Subheader>
-              <Button color="primary" onClick={this.toggleModal}>Add Members</Button>
+              <Button color="primary" onClick={this.toggleMemberModal}>Add Members</Button>
             </Col>
             <Col className="col-12">
               <Member>
@@ -237,7 +280,7 @@ class CalendarPage extends React.Component {
                 <Heading>
                 Calendar
                 </Heading>
-                <Add color="primary" onClick={this.toggleModal}>
+                <Add color="primary" onClick={this.toggleEventModal}>
                   + Add Event
                 </Add>
               </Col>
