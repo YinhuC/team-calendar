@@ -52,9 +52,9 @@ export const Item = styled(ListGroupItem)`
 `;
 
 export const Subheader = styled.div`
-  font-size:18px;
+  font-size:20px;
   font-weight:500;
-  margin: 0 10px 10px 20px;
+  margin: 0 0 10px 10px;
 `;
 
 export const Toolbar = styled.div`
@@ -151,7 +151,7 @@ export const RightContainer = styled.div`
   border-color: lightgrey;
 `;
 
-export const AddEvent = styled(Button)`
+export const Add = styled(Button)`
   margin:0px 30px 0px 30px;
   width:140px;
   height: 40px;
