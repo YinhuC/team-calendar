@@ -26,9 +26,7 @@ class Main extends React.Component {
             <Route path="/landing">
               <Landing />
             </Route>
-            <Route path="/calendar">
-              <Calendar />
-            </Route>
+            <Route path="/calendar/:groupid" component={Calendar}/>
             <Route path="*">
               <Error />
             </Route>

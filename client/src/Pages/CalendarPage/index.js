@@ -19,6 +19,7 @@ import '@fullcalendar/core/main.css';
 import '@fullcalendar/daygrid/main.css';
 import '@fullcalendar/timegrid/main.css';
 import 'react-infinite-calendar/styles.css';
+import PropTypes from 'prop-types';
 
 
 /* Components */
@@ -50,6 +51,11 @@ class CalendarPage extends React.Component {
   }
 
   calendarComponentRef = React.createRef();
+
+  componentDidMount() {
+    const {groupid} = this.props.match.params;
+    console.log(groupid);
+  }
 
   handleDateClick = (arg) => {
     if (true) {
@@ -311,5 +317,13 @@ class CalendarPage extends React.Component {
     );
   }
 }
+
+CalendarPage.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      groupid: PropTypes.string,
+    }),
+  }),
+};
 
 export default CalendarPage;
