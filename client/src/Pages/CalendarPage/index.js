@@ -47,6 +47,8 @@ class CalendarPage extends React.Component {
       event: '',
       member: '',
       email: '',
+      title: 'Calendar',
+      members: [],
     };
   }
 
@@ -55,6 +57,12 @@ class CalendarPage extends React.Component {
   componentDidMount() {
     const {groupid} = this.props.match.params;
     console.log(groupid);
+    fetch('/api/groups/'+groupid).then( (res) => res.json().then( (json) => {
+      this.setState({
+        members: json.members,
+        title: json.name,
+      });
+    }));
   }
 
   handleDateClick = (arg) => {
@@ -125,12 +133,11 @@ class CalendarPage extends React.Component {
       );
     }
 
-    const members = ['Hideaki', 'Soumith', 'Yinhu', 'Andrew', 'Gerald'];
     const membersItems = [];
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < this.state.members.length; i++) {
       membersItems.push(
           <Item key={'u' + i}>
-            {members[i]}
+            {this.state.members[i]}
           </Item>,
       );
     }
@@ -284,7 +291,7 @@ class CalendarPage extends React.Component {
             <Row>
               <Col className="col-12 d-flex space-between align-items-center">
                 <Heading>
-                Calendar
+                  {this.state.title}
                 </Heading>
                 <Add color="primary" onClick={this.toggleEventModal}>
                   + Add Event
