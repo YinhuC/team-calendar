@@ -4,6 +4,8 @@ import {
   Row, Col, Button, ModalHeader, ModalBody, ModalFooter, FormGroup, Label, Input,
 } from 'reactstrap';
 import {ModalStyled} from './style';
+import PropTypes from 'prop-types';
+
 class EventModal extends React.Component {
   constructor(props) {
     super(props);
@@ -54,5 +56,8 @@ class EventModal extends React.Component {
       </ModalStyled>);
   }
 }
-
+EventModal.propTypes = {
+  toggle: PropTypes.func,
+  isOpen: PropTypes.bool,
+};
 export default EventModal;

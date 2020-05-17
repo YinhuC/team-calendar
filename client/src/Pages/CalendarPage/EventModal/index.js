@@ -5,6 +5,8 @@ import {
 } from 'reactstrap';
 import {ModalStyled} from './style';
 import moment from 'moment';
+import PropTypes from 'prop-types';
+
 class EventModal extends React.Component {
   constructor(props) {
     super(props);
@@ -89,5 +91,8 @@ class EventModal extends React.Component {
       </ModalStyled>);
   }
 }
-
+EventModal.propTypes = {
+  toggle: PropTypes.func,
+  isOpen: PropTypes.bool,
+};
 export default EventModal;
