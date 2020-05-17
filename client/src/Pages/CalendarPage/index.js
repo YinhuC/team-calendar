@@ -1,7 +1,7 @@
 /* Third Party */
 import React from 'react';
 import {
-  Row, Col, Button, ModalHeader, ModalBody, ModalFooter, FormGroup, Label, Input,
+  Row, Col, Button,
 } from 'reactstrap';
 
 import {Link} from 'react-router-dom';
@@ -26,9 +26,10 @@ import PropTypes from 'prop-types';
 import {OuterContainer, LeftContainer, Heading,
   RightContainer, Group, Member, List, Item, Subheader,
   OuterCalendarContainer, Add, CalendarContainer,
-  SmallCalendarContainer, ModalStyled,
+  SmallCalendarContainer,
 } from './style';
-
+import EventModal from './EventModal';
+import MemberModal from './MemberModal';
 
 /* Functions */
 
@@ -40,13 +41,6 @@ class CalendarPage extends React.Component {
       calendarEvents: [],
       eventModal: false,
       memberModal: false,
-      startDate: '',
-      startTime: '',
-      endDate: '',
-      endTime: '',
-      event: '',
-      member: '',
-      email: '',
       title: 'Calendar',
       members: [],
     };
@@ -64,19 +58,6 @@ class CalendarPage extends React.Component {
       });
     }));
   }
-
-  handleDateClick = (arg) => {
-    if (true) {
-      this.setState({
-        calendarEvents: this.state.calendarEvents.concat({
-          title: 'New Event',
-          start: arg.date,
-          allDay: arg.allDay,
-          end: arg.date,
-        }),
-      });
-    }
-  };
 
   toggleEventModal = () =>{
     this.setState({
@@ -116,12 +97,6 @@ class CalendarPage extends React.Component {
     }
   };
 
-  changeInput = (event) => {
-    this.setState({
-      [event.target.name]: event.target.value,
-    });
-  }
-
   render() {
     const calendars = ['Google Calendar', 'Outlook Calendar', 'UoA Calendar'];
     const calendarsItems = [];
@@ -147,105 +122,8 @@ class CalendarPage extends React.Component {
 
     return (
       <OuterContainer>
-
-        <ModalStyled size="lg" isOpen={this.state.eventModal} toggle={this.toggleEventModal}>
-          <ModalHeader toggle={this.toggleEventModal}>Add New Calendar Event</ModalHeader>
-          <ModalBody>
-            <Row>
-              <Col className="col-12">
-                <FormGroup>
-                  <Label>Name of Event</Label>
-                  <Input
-                    type="text"
-                    name="event"
-                    placeholder="Name of event"
-                    onChange={this.changeInput}
-                    value={this.state.event}
-                  />
-                </FormGroup>
-              </Col>
-              <Col>
-                <FormGroup>
-                  <Label>Start Date</Label>
-                  <Input
-                    type="date"
-                    name="startDate"
-                    onChange={this.changeInput}
-                    value={moment(this.state.startDate).format('YYYY-MM-DD')}
-                  />
-                </FormGroup>
-                <FormGroup>
-                  <Label>End Date</Label>
-                  <Input
-                    type="date"
-                    name="endDate"
-                    onChange={this.changeInput}
-                    value={moment(this.state.endDate).format('YYYY-MM-DD')}
-                  />
-                </FormGroup>
-              </Col>
-              <Col>
-                <FormGroup>
-                  <Label >Start Time</Label>
-                  <Input
-                    type="time"
-                    name="startTime"
-                    onChange={this.changeInput}
-                    value={moment(this.state.startTime).format('HH:mm')}
-                  />
-                </FormGroup>
-                <FormGroup>
-                  <Label>End Time</Label>
-                  <Input
-                    type="time"
-                    name="endTime"
-                    onChange={this.changeInput}
-                    value={moment(this.state.endTime).format('HH:mm')}
-                  />
-                </FormGroup>
-              </Col>
-            </Row>
-          </ModalBody>
-
-          <ModalFooter>
-            <Button color="primary" onClick={this.toggleEventModal}>Add</Button>
-            <Button color="secondary" onClick={this.toggleEventModal}>Cancel</Button>
-          </ModalFooter>
-        </ModalStyled>
-
-        <ModalStyled size="lg" isOpen={this.state.memberModal} toggle={this.toggleMemberModal}>
-          <ModalHeader toggle={this.toggleMemberModal}>Add New Member</ModalHeader>
-          <ModalBody>
-            <Row>
-              <Col className="col-12">
-                <FormGroup>
-                  <Label>Name of Member</Label>
-                  <Input
-                    type="text"
-                    name="member"
-                    placeholder="Name of member"
-                    onChange={this.changeInput}
-                    value={this.state.member}
-                  />
-                </FormGroup>
-                <FormGroup>
-                  <Label>Email of Member</Label>
-                  <Input
-                    type="email"
-                    name="email"
-                    placeholder="Name of event"
-                    onChange={this.changeInput}
-                    value={this.state.email}
-                  />
-                </FormGroup>
-              </Col>
-            </Row>
-          </ModalBody>
-          <ModalFooter>
-            <Button color="primary" onClick={this.toggleMemberModal}>Add</Button>
-            <Button color="secondary" onClick={this.toggleMemberModal}>Cancel</Button>
-          </ModalFooter>
-        </ModalStyled>
+        <EventModal isOpen={this.state.eventModal} toggle={this.toggleEventModal}/>
+        <MemberModal isOpen={this.state.memberModal} toggle={this.toggleMemberModal}/>
 
         <LeftContainer>
           <Row>
@@ -310,7 +188,6 @@ class CalendarPage extends React.Component {
                     ref={this.calendarComponentRef}
                     weekends={this.state.calendarWeekends}
                     events={this.state.calendarEvents}
-                    dateClick={this.handleDateClick}
                     selectable= {true}
                     selectMirror= {true}
                     select = {this.selectCallback}

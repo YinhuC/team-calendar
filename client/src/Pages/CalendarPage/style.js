@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import {
-  ListGroup, ListGroupItem, Button, Modal,
+  ListGroup, ListGroupItem, Button,
 } from 'reactstrap';
 
 export const OuterContainer = styled.div`
@@ -165,8 +165,3 @@ export const SmallCalendarContainer = styled.div`
   width:100%;
 `;
 
-export const ModalStyled = styled(Modal)`
-  max-width:1600px;
-  width: 50%;
-  margin-top: 150px;
-`;
