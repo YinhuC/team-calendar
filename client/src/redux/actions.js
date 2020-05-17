@@ -8,7 +8,7 @@ export function setDates(startDateText, endDateText) {
   };
 }
 
-export function setStartTimes(startTimeText, endTimeText) {
+export function setTimes(startTimeText, endTimeText) {
   return {
     type: SET_TIMES,
     startTimeText,
