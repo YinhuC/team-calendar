@@ -3,9 +3,10 @@ import React from 'react';
 
 /* Components */
 import {Header, HeaderText, SubText, HeaderImage} from './style';
-import {Row, Col, Container, Button} from 'reactstrap';
+import {Row, Col, Container} from 'reactstrap';
 import Calendar from '../../Images/calendar.jpg';
-import {Link} from 'react-router-dom';
+import AuthenticationButton from '../../../Components/AuthenticationButton';
+
 
 /* Functions */
 
@@ -23,9 +24,7 @@ function HeaderSection() {
               nulla deserunt dolor cupidatat dolore. Excepteur deserunt fugiat
               esse pariatur mollit aliquip.
             </SubText>
-            <Link to="/landing">
-              <Button color="primary">Sign Up & Start&nbsp;&nbsp;&gt;</Button>
-            </Link>
+            <AuthenticationButton loginText="Sign Up & Start&nbsp;&nbsp;&gt;"/>
           </Header>
         </Col>
       </Row>
