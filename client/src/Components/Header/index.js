@@ -1,43 +1,15 @@
 /* Third Party */
 import React from 'react';
-import {Row, Col, Button} from 'reactstrap';
+import {Row, Col} from 'reactstrap';
 import wolf from '../wolf.svg';
 
 /* Components */
 import {Center, Logo} from './style';
+import AuthenticationButton from '../AuthenticationButton';
 
 /* Functions */
 
 class Header extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isLoggedIn: false,
-    };
-  }
-  componentDidMount() {
-    fetch('/api/user_details').then((response) => {
-      response.json().then((user) => {
-        this.setState({isLoggedIn: user.id});
-      });
-    });
-  }
-
-  handleLogin = () => {
-    console.log('fetch');
-    fetch('/api/login').then((response) => {
-      response.text().then((url) => {
-        window.location.assign(url);
-      });
-    });
-  }
-
-  handleLogout = () => {
-    console.log('fetch');
-    fetch('/api/logout');
-    window.location.assign('/');
-  }
-
   render() {
     return (
       <Center className="d-flex justify-content-around">
@@ -49,18 +21,13 @@ class Header extends React.Component {
         <Row><Col></Col></Row>
         <Row className="ml-5">
           <Col className="align-middle">
-            {this.state.isLoggedIn ?
-              <Button color="primary" onClick={this.handleLogout}>
-                Logout
-              </Button>:
-              <Button color="primary" onClick={this.handleLogin}>
-                Sign in
-              </Button>}
+            <AuthenticationButton loginText="Sign In" logoutText="Logout"/>
           </Col>
         </Row>
       </Center>
     );
   }
 }
+
 
 export default Header;

@@ -1,4 +1,4 @@
-import {SET_DATES, SET_TIMES, RESET_EVENT_MODAL} from './action-types';
+import {SET_DATES, SET_TIMES, RESET_EVENT_MODAL, AUTHENTICATE} from './action-types';
 
 export function setDates(startDate, endDate) {
   return {
@@ -19,5 +19,13 @@ export function setTimes(startTime, endTime) {
 export function resetEventModal() {
   return {
     type: RESET_EVENT_MODAL,
+  };
+}
+
+
+export function authenticate(authenticated) {
+  return {
+    type: AUTHENTICATE,
+    authenticated,
   };
 }
