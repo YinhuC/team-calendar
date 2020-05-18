@@ -1,4 +1,9 @@
 import styled from 'styled-components';
+import {ReactComponent as WaveFile} from '../wave_bottom.svg';
+
+export const Wave = styled(WaveFile)`
+
+`;
 
 export const Header = styled.div`
   display: flex;
@@ -6,8 +11,19 @@ export const Header = styled.div`
   flex-direction: column;
   align-items: center;
   text-align: left;
+  padding: 10px 10px 0 10px;
+  margin: 90px 0 0 0;
+`;
+export const HeaderTop = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  align-items: center;
+  text-align: left;
   padding: 10px;
-  margin: 90px 0 60px 0;
+  padding: 90px 0 90px 0;
+  background-color: #007BFF;
+  color: white;
 `;
 
 export const HeaderText = styled.div`
