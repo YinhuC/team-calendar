@@ -1,4 +1,5 @@
 import {SET_DATES, SET_TIMES, RESET_EVENT_MODAL} from '../action-types';
+import moment from 'moment';
 
 export default function eventModal(state = {startDate: '', startTime: '', endDate: '', endTime: ''}, action) {
   switch (action.type) {
@@ -15,7 +16,12 @@ export default function eventModal(state = {startDate: '', startTime: '', endDat
       });
     }
     case RESET_EVENT_MODAL: {
-      return {startDate: '', startTime: '', endDate: '', endTime: ''};
+      return {
+        startDate: moment().format('YYYY-MM-DD'),
+        startTime: moment().format('HH:mm'),
+        endDate: moment().format('YYYY-MM-DD'),
+        endTime: moment().add(1, 'hours').format('HH:mm'),
+      };
     }
     default:
       return state;
