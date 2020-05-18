@@ -55,8 +55,12 @@ class CalendarPage extends React.Component {
     console.log(groupid);
     fetch('/api/groups/'+groupid).then( (res) => res.json().then( (json) => {
       this.setState({
-        members: json.members,
         title: json.name,
+      });
+    }));
+    fetch('/api/members/'+groupid).then( (res) => res.json().then( (json) => {
+      this.setState({
+        members: json.memberMap,
       });
     }));
   }
@@ -108,7 +112,7 @@ class CalendarPage extends React.Component {
     for (let i = 0; i < this.state.members.length; i++) {
       membersItems.push(
           <Item key={'u' + i}>
-            {this.state.members[i]}
+            {this.state.members[i].firstName}
           </Item>,
       );
     }
