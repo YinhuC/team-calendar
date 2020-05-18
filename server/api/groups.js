@@ -24,6 +24,15 @@ export default router => {
                 newGroup.members.push(req.session.user.id);
                 newGroup.save();
                 res.json(newGroup);
+            },
+            update: async (req, res) => {
+                const user = await User.findOne({"email": req.body.email });
+                console.log(user.googleId);
+                console.log(req.params);
+                const group = await Group.findOne({ "_id": req.params._id });
+                group.members.push(user.googleId);
+                group.save();
+                res.json(group);
             }
         },
         afterActions: [
@@ -43,7 +52,7 @@ async function ensureLogin(req, res, next) {
 }
 
 async function isMember(req, res, next) {
-    const isMember = await Group.find({ "_id": req.params.id, "members": req.session.user.id });
+    const isMember = await Group.find({ "_id": req.params._id, "members": req.session.user.id });
     if (isMember) {
         next();
     } else {
