@@ -25,6 +25,7 @@ export const Heading = styled.div`
   font-weight: 500;
   width:100%;
   padding: 10px 0 10px 20px;
+  height:70px;
 `;
 
 export const Group = styled.div`

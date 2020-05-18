@@ -43,7 +43,7 @@ class CalendarPage extends React.Component {
       calendarEvents: [],
       eventModal: false,
       memberModal: false,
-      title: 'Calendar',
+      title: '',
       members: [],
     };
   }
