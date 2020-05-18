@@ -4,7 +4,6 @@ import {
   Row, Col, Button, ModalHeader, ModalBody, ModalFooter, FormGroup, Label, Input,
 } from 'reactstrap';
 import {ModalStyled} from './style';
-import moment from 'moment';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {setTimes, setDates} from '../../../redux/actions';
