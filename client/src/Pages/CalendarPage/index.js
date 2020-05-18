@@ -115,11 +115,11 @@ class CalendarPage extends React.Component {
 
 
     // const lastWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate() - 7);
-
+    const {groupid} = this.props.match.params;
     return (
       <OuterContainer>
         <EventModal isOpen={this.state.eventModal} toggle={this.toggleEventModal}/>
-        <MemberModal isOpen={this.state.memberModal} toggle={this.toggleMemberModal}/>
+        <MemberModal isOpen={this.state.memberModal} toggle={this.toggleMemberModal} groupid={groupid}/>
 
         <LeftContainer>
           <Row>
