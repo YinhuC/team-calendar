@@ -12,10 +12,6 @@ import {authenticate} from '../../redux/actions';
 
 
 class AuthenticationButton extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   componentDidMount() {
     fetch('/api/user_details').then((response) => {
       response.json().then((user) => {

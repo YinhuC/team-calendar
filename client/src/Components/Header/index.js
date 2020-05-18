@@ -10,11 +10,6 @@ import AuthenticationButton from '../AuthenticationButton';
 /* Functions */
 
 class Header extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
-
   render() {
     return (
       <Center className="d-flex justify-content-around">
