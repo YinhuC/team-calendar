@@ -108,6 +108,22 @@ class LandingPage extends React.Component {
       );
     });
 
+    const notifications = [];
+    const items = [
+      'Proident id occaecat incididunt in ullamco duis consectetur excepteur aliquip.',
+      'Proident ipsum exercitation commodo ea id occaecat quis sit Lorem est sit ea.',
+      'Sint id sit amet et id ut excepteur ex nisi et non anim.',
+      'In ea ipsum amet aliquip deserunt cillum nostrud adipisicing et ipsum commodo est ullamco.',
+    ];
+
+    items.forEach((item, index) => {
+      notifications.push(
+          <Notification key={index} color='primary'>
+            {item}
+          </Notification>,
+      );
+    });
+
     return (
       <OuterContainer>
 
@@ -156,18 +172,7 @@ class LandingPage extends React.Component {
                 </Button>
                 <Collapse isOpen={this.state.notificationsOpen}>
                   <Notifications>
-                    <Notification>
-                      Lorem nulla anim laboris voluptate id proident deserunt Lorem eu nisi velit pariatur minim ea.
-                    </Notification>
-                    <Notification>
-                      Fugiat dolor nulla fugiat tempor consectetur cupidatat aliqua.
-                    </Notification>
-                    <Notification>
-                      Fugiat nostrud duis aute id excepteur irure qui irure voluptate ullamco sunt consequat.
-                    </Notification>
-                    <Notification>
-                      Id incididunt nisi consectetur dolor amet cupidatat in exercitation nulla eu reprehenderit esse.
-                    </Notification>
+                    {notifications}
                   </Notifications>
                 </Collapse>
               </Heading>
