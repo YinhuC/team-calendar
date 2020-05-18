@@ -94,6 +94,12 @@ class EventModal extends React.Component {
 EventModal.propTypes = {
   toggle: PropTypes.func,
   isOpen: PropTypes.bool,
+  startDate: PropTypes.string,
+  endDate: PropTypes.string,
+  startTime: PropTypes.string,
+  endTime: PropTypes.string,
+  setTimes: PropTypes.func,
+  setDates: PropTypes.func,
 };
 function mapStateToProps(state) {
   return {

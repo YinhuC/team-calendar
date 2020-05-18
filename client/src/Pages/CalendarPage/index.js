@@ -204,6 +204,9 @@ CalendarPage.propTypes = {
       groupid: PropTypes.string,
     }),
   }),
+  setTimes: PropTypes.func,
+  setDates: PropTypes.func,
+  resetEventModal: PropTypes.func,
 };
 const mapDispatchToProps = {
   setTimes, setDates, resetEventModal,
