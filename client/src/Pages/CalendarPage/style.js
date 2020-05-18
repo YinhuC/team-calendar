@@ -8,6 +8,8 @@ export const OuterContainer = styled.div`
   flex-direction: row;
   justify-content:flex-start;
   align-items: start;
+  border-top: solid 0.5px;
+  border-color: lightgrey;
 `;
 
 export const LeftContainer = styled.div`

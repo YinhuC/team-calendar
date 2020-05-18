@@ -22,7 +22,7 @@ class EventModal extends React.Component {
   render() {
     return (
       <ModalStyled size="lg" isOpen={this.props.isOpen} toggle={this.props.toggle}>
-        <ModalHeader>Add New Member</ModalHeader>
+        <ModalHeader toggle={this.props.toggle}>Add New Member</ModalHeader>
         <ModalBody>
           <Row>
             <Col className="col-12">

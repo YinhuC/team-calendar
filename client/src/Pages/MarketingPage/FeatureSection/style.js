@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
 export const Feature = styled.div`
-  background-color: #d9e0fe;
   width: 100%;
   display: flex;
   justify-content: center;

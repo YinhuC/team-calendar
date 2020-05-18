@@ -1,4 +1,15 @@
 import styled from 'styled-components';
+import {ReactComponent as WaveFile} from '../wave_top.svg';
+
+export const Wave = styled(WaveFile)`
+  position:absolute;
+  bottom: 50px;
+`;
+
+export const InnerContainer = styled.div`
+  background-color:  #007bff;
+  color: white;
+`;
 
 export const Header = styled.div`
   display: flex;

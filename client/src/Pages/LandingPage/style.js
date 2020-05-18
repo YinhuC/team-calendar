@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import {Card, Modal} from 'reactstrap';
+import {Card, Modal, UncontrolledAlert} from 'reactstrap';
 import {Link} from 'react-router-dom';
 
 
@@ -95,17 +95,16 @@ export const Notifications = styled.div`
   flex-direction:column;
   font-size: 16px;
   text-align: center;
-`;
-
-export const Notification = styled.div`
-  border: solid 0.5px;
-  border-color: grey;
   margin: 10px 0 0 0;
-  padding: 6px 0 6px 0;
-  border-radius: 5px;
-  width: 100%;
 `;
 
+export const Notification = styled(UncontrolledAlert)`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 2px 0 2px 0;
+`;
 
 export const ModalStyled = styled(Modal)`
   max-width:1600px;
