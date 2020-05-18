@@ -7,7 +7,7 @@ import {ModalStyled} from './style';
 import moment from 'moment';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {setTimes, setDates, resetEventModal} from '../../../redux/actions';
+import {setTimes, setDates} from '../../../redux/actions';
 
 
 class EventModal extends React.Component {
@@ -104,6 +104,6 @@ function mapStateToProps(state) {
   };
 }
 const mapDispatchToProps = {
-  setTimes, setDates, resetEventModal,
+  setTimes, setDates,
 };
 export default connect(mapStateToProps, mapDispatchToProps)(EventModal);

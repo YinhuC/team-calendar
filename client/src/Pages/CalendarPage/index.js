@@ -12,6 +12,8 @@ import FullCalendar from '@fullcalendar/react';
 import InfiniteCalendar from 'react-infinite-calendar';
 import {} from 'react-feather';
 import moment from 'moment';
+import {connect} from 'react-redux';
+import {setTimes, setDates, resetEventModal} from '../../redux/actions';
 
 
 // must manually import the stylesheets for each plugin
@@ -60,6 +62,9 @@ class CalendarPage extends React.Component {
   }
 
   toggleEventModal = () =>{
+    if (!this.state.eventModal) {
+      this.props.resetEventModal();
+    }
     this.setState({
       eventModal: !this.state.eventModal,
     });
@@ -78,23 +83,14 @@ class CalendarPage extends React.Component {
 
   selectCallback = (data) => {
     this.toggleEventModal();
-    this.setState({
-      startDate: data.start,
-      startTime: data.start,
-      endDate: data.end,
-      endTime: data.end,
-    });
-    // Send to Google
-    if (false) {
-      this.setState({
-        calendarEvents: this.state.calendarEvents.concat({
-          title: 'New Event',
-          start: data.start,
-          allDay: data.allDay,
-          end: data.end,
-        }),
-      });
-    }
+    this.props.setDates(
+        moment(data.start).format('YYYY-MM-DD'),
+        moment(data.end).format('YYYY-MM-DD'),
+    );
+    this.props.setTimes(
+        moment(data.start).format('HH:mm'),
+        moment(data.end).format('HH:mm'),
+    );
   };
 
   render() {
@@ -209,5 +205,7 @@ CalendarPage.propTypes = {
     }),
   }),
 };
-
-export default CalendarPage;
+const mapDispatchToProps = {
+  setTimes, setDates, resetEventModal,
+};
+export default connect(null, mapDispatchToProps)(CalendarPage);
