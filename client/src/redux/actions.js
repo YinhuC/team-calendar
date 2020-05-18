@@ -1,18 +1,18 @@
 import {SET_DATES, SET_TIMES, RESET_EVENT_MODAL} from './action-types';
 
-export function setDates(startDateText, endDateText) {
+export function setDates(startDate, endDate) {
   return {
     type: SET_DATES,
-    startDateText,
-    endDateText,
+    startDate,
+    endDate,
   };
 }
 
-export function setTimes(startTimeText, endTimeText) {
+export function setTimes(startTime, endTime) {
   return {
     type: SET_TIMES,
-    startTimeText,
-    endTimeText,
+    startTime,
+    endTime,
   };
 }
 
