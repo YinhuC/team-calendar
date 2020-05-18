@@ -4,7 +4,7 @@ import React from 'react';
 /* Components */
 import {Logo, FooterContainer} from './style';
 import {Container, Row, Col} from 'reactstrap';
-import wolf from '../wolf.svg';
+import wolf from '../wolf_light.svg';
 
 /* Functions */
 
