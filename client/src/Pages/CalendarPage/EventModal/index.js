@@ -25,7 +25,7 @@ class EventModal extends React.Component {
   render() {
     return (
       <ModalStyled size="lg" isOpen={this.props.isOpen} toggle={this.props.toggle}>
-        <ModalHeader>Add New Calendar Event</ModalHeader>
+        <ModalHeader toggle={this.props.toggle}>Add New Calendar Event</ModalHeader>
         <ModalBody>
           <Row>
             <Col className="col-12">
