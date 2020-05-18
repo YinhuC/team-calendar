@@ -6,18 +6,18 @@ import {
 import {ModalStyled} from './style';
 import moment from 'moment';
 import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
+import {setTimes, setDates, resetEventModal} from '../../../redux/actions';
+
 
 class EventModal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      startDate: '',
-      startTime: '',
-      endDate: '',
-      endTime: '',
       event: '',
     };
   }
+
   changeInput = (event) => {
     this.setState({
       [event.target.name]: event.target.value,
@@ -47,8 +47,8 @@ class EventModal extends React.Component {
                 <Input
                   type="date"
                   name="startDate"
-                  onChange={this.changeInput}
-                  value={moment(this.state.startDate).format('YYYY-MM-DD')}
+                  onChange={(event) => this.props.setDates(event.target.value, this.props.endDate)}
+                  value={this.props.startDate}
                 />
               </FormGroup>
               <FormGroup>
@@ -56,8 +56,8 @@ class EventModal extends React.Component {
                 <Input
                   type="date"
                   name="endDate"
-                  onChange={this.changeInput}
-                  value={moment(this.state.endDate).format('YYYY-MM-DD')}
+                  onChange={(event) => this.props.setDates(this.props.startDate, event.target.value)}
+                  value={this.props.endDate}
                 />
               </FormGroup>
             </Col>
@@ -67,8 +67,8 @@ class EventModal extends React.Component {
                 <Input
                   type="time"
                   name="startTime"
-                  onChange={this.changeInput}
-                  value={moment(this.state.startTime).format('HH:mm')}
+                  onChange={(event) => this.props.setTimes(event.target.value, this.props.endTime)}
+                  value={this.props.startTime}
                 />
               </FormGroup>
               <FormGroup>
@@ -76,8 +76,8 @@ class EventModal extends React.Component {
                 <Input
                   type="time"
                   name="endTime"
-                  onChange={this.changeInput}
-                  value={moment(this.state.endTime).format('HH:mm')}
+                  onChange={(event) => this.props.setTimes(this.props.startTime, event.target.value)}
+                  value={this.props.endTime}
                 />
               </FormGroup>
             </Col>
@@ -95,4 +95,15 @@ EventModal.propTypes = {
   toggle: PropTypes.func,
   isOpen: PropTypes.bool,
 };
-export default EventModal;
+function mapStateToProps(state) {
+  return {
+    startDate: state.eventModal.startDate,
+    endDate: state.eventModal.endDate,
+    startTime: state.eventModal.startTime,
+    endTime: state.eventModal.endTime,
+  };
+}
+const mapDispatchToProps = {
+  setTimes, setDates, resetEventModal,
+};
+export default connect(mapStateToProps, mapDispatchToProps)(EventModal);
