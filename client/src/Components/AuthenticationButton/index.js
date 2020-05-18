@@ -39,10 +39,10 @@ class AuthenticationButton extends React.Component {
     return (
       <>
         {this.props.authenticated ?
-              <Button color="primary" onClick={this.handleLogout}>
+              <Button color={this.props.theme} onClick={this.handleLogout}>
                 {this.props.logoutText}
               </Button>:
-              <Button color="primary" onClick={this.handleLogin}>
+              <Button color={this.props.theme} onClick={this.handleLogin}>
                 {this.props.loginText}
               </Button>}
       </>
@@ -55,6 +55,10 @@ AuthenticationButton.propTypes = {
   authenticate: PropTypes.func,
   logoutText: PropTypes.string,
   loginText: PropTypes.string,
+  theme: PropTypes.string,
+};
+AuthenticationButton.defaultProps = {
+  theme: 'primary',
 };
 function mapStateToProps(state) {
   return {
