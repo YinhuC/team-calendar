@@ -41,6 +41,15 @@ export default router => {
             }
         ]
     }));
+    router.get('/members/:_id', (req, res) => {
+        ensureLogin(req,res,async () => {
+            isMember(req, res, async  () =>{
+                const group = await Group.findOne({ "_id": req.params._id });
+                const users =  await User.find({ "googleId": {$in: group.members}});
+                res.json({memberMap: users.map(user =>({googleId:user.googleId,firstName:user.firstName}))});
+            })
+        })
+    })
 }
 
 async function ensureLogin(req, res, next) {
