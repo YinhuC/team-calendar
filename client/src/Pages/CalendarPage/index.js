@@ -51,6 +51,10 @@ class CalendarPage extends React.Component {
   calendarComponentRef = React.createRef();
 
   componentDidMount() {
+    this.refreshData();
+  }
+
+  refreshData() {
     const {groupid} = this.props.match.params;
     console.log(groupid);
     fetch('/api/groups/'+groupid).then( (res) => res.json().then( (json) => {
@@ -78,6 +82,7 @@ class CalendarPage extends React.Component {
     this.setState({
       memberModal: !this.state.memberModal,
     });
+    this.refreshData();
   }
 
   toggleDate = (data) =>{

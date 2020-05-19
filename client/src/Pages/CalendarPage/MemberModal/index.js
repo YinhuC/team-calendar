@@ -74,5 +74,6 @@ EventModal.propTypes = {
   groupid: PropTypes.string,
   toggle: PropTypes.func,
   isOpen: PropTypes.bool,
+  refresh: PropTypes.func,
 };
 export default EventModal;
