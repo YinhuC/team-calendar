@@ -45,27 +45,32 @@ class CalendarPage extends React.Component {
       memberModal: false,
       title: '',
       members: [],
+      userCalendars: [],
+      activeCalendars: [],
     };
   }
 
   calendarComponentRef = React.createRef();
 
   componentDidMount() {
+    const {groupid} = this.props.match.params;
     this.refreshData();
+    fetch('/api/calendars/'+groupid).then( (res) => res.json().then( (json) => {
+      this.setState({activeCalendars: json.calendars});
+    }));
   }
 
   refreshData() {
     const {groupid} = this.props.match.params;
     console.log(groupid);
     fetch('/api/groups/'+groupid).then( (res) => res.json().then( (json) => {
-      this.setState({
-        title: json.name,
-      });
+      this.setState({title: json.name});
     }));
     fetch('/api/members/'+groupid).then( (res) => res.json().then( (json) => {
-      this.setState({
-        members: json.memberMap,
-      });
+      this.setState({members: json.memberMap});
+    }));
+    fetch('/api/calendars').then( (res) => res.json().then( (json) => {
+      this.setState({userCalendars: json.calendars});
     }));
   }
 
@@ -101,17 +106,38 @@ class CalendarPage extends React.Component {
         moment(data.end).format('HH:mm'),
     );
   };
+  componentDidUpdate() {
+    const {groupid} = this.props.match.params;
+    fetch('/api/calendars/'+groupid, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({calendars: this.state.activeCalendars}),
+    }).then( (err) => console.log(err));
+  }
+  onItemClick = (event) =>{
+    const calendarId = event.target.value;
+    if (this.state.activeCalendars.includes(calendarId)) {
+      this.setState((prev) => ({
+        activeCalendars: prev.activeCalendars.filter((id)=> id !== calendarId),
+      }));
+    } else {
+      this.setState((prev) => ({
+        activeCalendars: [...prev.activeCalendars, calendarId],
+      }));
+    }
+  }
 
   render() {
-    const calendars = ['Google Calendar', 'Outlook Calendar', 'UoA Calendar'];
     const calendarsItems = [];
-    for (let i = 0; i < 3; i++) {
+    this.state.userCalendars.map((calendar) => {
+      const isActive = this.state.activeCalendars.includes(calendar.id);
       calendarsItems.push(
-          <Item key={'c' + i}>
-            {calendars[i]}
+          <Item tag='button' key={calendar.id} className={isActive?'active':''}
+            onClick={this.onItemClick} value={calendar.id}>
+            {calendar.name}
           </Item>,
       );
-    }
+    });
 
     const membersItems = [];
     for (let i = 0; i < this.state.members.length; i++) {

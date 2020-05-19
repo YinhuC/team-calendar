@@ -8,7 +8,7 @@ const authScope = [
     'https://www.googleapis.com/auth/userinfo.email',
     'https://www.googleapis.com/auth/calendar.readonly',
 ]
-const oAuth2Client = new google.auth.OAuth2(
+export const oAuth2Client = new google.auth.OAuth2(
     cred.web.client_id,
     cred.web.client_secret,
     cred.web.redirect_uris[0]

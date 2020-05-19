@@ -26,7 +26,7 @@ const groupSchema = new Schema({
     description: String, 
     members: [String], 
     calendars: [{
-        calendarId: String,
+        calendarIds: [String],
         googleId: String,
     }]
 }, {
