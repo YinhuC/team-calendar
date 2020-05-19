@@ -28,7 +28,7 @@ import PropTypes from 'prop-types';
 import {OuterContainer, LeftContainer, Heading,
   RightContainer, Group, Member, List, Item, Subheader,
   OuterCalendarContainer, Add, CalendarContainer,
-  SmallCalendarContainer, ItemText,
+  SmallCalendarContainer,
 } from './style';
 import EventModal from './EventModal';
 import MemberModal from './MemberModal';
@@ -53,20 +53,23 @@ class CalendarPage extends React.Component {
   calendarComponentRef = React.createRef();
 
   componentDidMount() {
+    const {groupid} = this.props.match.params;
     this.refreshData();
+    fetch('/api/calendars/'+groupid).then( (res) => res.json().then( (json) => {
+      this.setState({activeCalendars: json.calendars});
+    }));
   }
 
   refreshData() {
     const {groupid} = this.props.match.params;
     console.log(groupid);
     fetch('/api/groups/'+groupid).then( (res) => res.json().then( (json) => {
-      this.setState({title: json.name, activeCalendars: json.calendars});
+      this.setState({title: json.name});
     }));
     fetch('/api/members/'+groupid).then( (res) => res.json().then( (json) => {
       this.setState({members: json.memberMap});
     }));
     fetch('/api/calendars').then( (res) => res.json().then( (json) => {
-      console.log(json);
       this.setState({userCalendars: json.calendars});
     }));
   }
@@ -103,14 +106,25 @@ class CalendarPage extends React.Component {
         moment(data.end).format('HH:mm'),
     );
   };
-
+  componentDidUpdate() {
+    const {groupid} = this.props.match.params;
+    fetch('/api/calendars/'+groupid, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({calendars: this.state.activeCalendars}),
+    }).then( (err) => console.log(err));
+  }
   onItemClick = (event) =>{
-    const active = this.state.activeCalendars;
-    const index = active.indexOf(event.target.value);
-    index > -1?delete active[index]:active.push(event.target.value);
-    this.setState({
-      activeCalendars: active,
-    });
+    const calendarId = event.target.value;
+    if (this.state.activeCalendars.includes(calendarId)) {
+      this.setState((prev) => ({
+        activeCalendars: prev.activeCalendars.filter((id)=> id !== calendarId),
+      }));
+    } else {
+      this.setState((prev) => ({
+        activeCalendars: [...prev.activeCalendars, calendarId],
+      }));
+    }
   }
 
   render() {
