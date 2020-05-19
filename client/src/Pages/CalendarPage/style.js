@@ -49,8 +49,15 @@ export const List = styled(ListGroup)`
 export const Item = styled(ListGroupItem)`
   padding: 10px 20px 10px 40px;
   width:100%;
-  &:focus, &:hover, &:active {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  text-align: left;
+  &:hover {
   background-color: lightgrey;
+  }
+  &:active {
+    background-color: #007BFF;
   }
 `;
 

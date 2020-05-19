@@ -28,7 +28,7 @@ import PropTypes from 'prop-types';
 import {OuterContainer, LeftContainer, Heading,
   RightContainer, Group, Member, List, Item, Subheader,
   OuterCalendarContainer, Add, CalendarContainer,
-  SmallCalendarContainer,
+  SmallCalendarContainer, ItemText,
 } from './style';
 import EventModal from './EventModal';
 import MemberModal from './MemberModal';
@@ -45,6 +45,8 @@ class CalendarPage extends React.Component {
       memberModal: false,
       title: '',
       members: [],
+      userCalendars: [],
+      activeCalendars: [],
     };
   }
 
@@ -58,14 +60,14 @@ class CalendarPage extends React.Component {
     const {groupid} = this.props.match.params;
     console.log(groupid);
     fetch('/api/groups/'+groupid).then( (res) => res.json().then( (json) => {
-      this.setState({
-        title: json.name,
-      });
+      this.setState({title: json.name, activeCalendars: json.calendars});
     }));
     fetch('/api/members/'+groupid).then( (res) => res.json().then( (json) => {
-      this.setState({
-        members: json.memberMap,
-      });
+      this.setState({members: json.memberMap});
+    }));
+    fetch('/api/calendars').then( (res) => res.json().then( (json) => {
+      console.log(json);
+      this.setState({userCalendars: json.calendars});
     }));
   }
 
@@ -102,16 +104,26 @@ class CalendarPage extends React.Component {
     );
   };
 
+  onItemClick = (event) =>{
+    const active = this.state.activeCalendars;
+    const index = active.indexOf(event.target.value);
+    index > -1?delete active[index]:active.push(event.target.value);
+    this.setState({
+      activeCalendars: active,
+    });
+  }
+
   render() {
-    const calendars = ['Google Calendar', 'Outlook Calendar', 'UoA Calendar'];
     const calendarsItems = [];
-    for (let i = 0; i < 3; i++) {
+    this.state.userCalendars.map((calendar) => {
+      const isActive = this.state.activeCalendars.includes(calendar.id);
       calendarsItems.push(
-          <Item key={'c' + i}>
-            {calendars[i]}
+          <Item tag='button' key={calendar.id} className={isActive?'active':''}
+            onClick={this.onItemClick} value={calendar.id}>
+            {calendar.name}
           </Item>,
       );
-    }
+    });
 
     const membersItems = [];
     for (let i = 0; i < this.state.members.length; i++) {
