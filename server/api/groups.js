@@ -24,6 +24,18 @@ export default router => {
                 newGroup.members.push(req.session.user.id);
                 newGroup.save();
                 res.json(newGroup);
+            },
+            update: async (req, res) => {
+                const user = await User.findOne({ "email": req.body.email });
+                if (!user) {
+                    res.sendStatus(404);
+                } else {
+                    await Group.update(
+                        { "_id": req.params._id },
+                        { $addToSet: { "members": user.googleId } }
+                    );
+                    res.sendStatus(200);
+                }
             }
         },
         afterActions: [
@@ -32,6 +44,15 @@ export default router => {
             }
         ]
     }));
+    router.get('/members/:_id', (req, res) => {
+        ensureLogin(req,res,async () => {
+            isMember(req, res, async  () =>{
+                const group = await Group.findOne({ "_id": req.params._id });
+                const users =  await User.find({ "googleId": {$in: group.members}});
+                res.json({memberMap: users.map(user =>({googleId:user.googleId,firstName:user.firstName}))});
+            })
+        })
+    })
 }
 
 async function ensureLogin(req, res, next) {
@@ -43,7 +64,7 @@ async function ensureLogin(req, res, next) {
 }
 
 async function isMember(req, res, next) {
-    const isMember = await Group.find({ "_id": req.params.id, "members": req.session.user.id });
+    const isMember = await Group.find({ "_id": req.params._id, "members": req.session.user.id });
     if (isMember) {
         next();
     } else {

@@ -51,12 +51,20 @@ class CalendarPage extends React.Component {
   calendarComponentRef = React.createRef();
 
   componentDidMount() {
+    this.refreshData();
+  }
+
+  refreshData() {
     const {groupid} = this.props.match.params;
     console.log(groupid);
     fetch('/api/groups/'+groupid).then( (res) => res.json().then( (json) => {
       this.setState({
-        members: json.members,
         title: json.name,
+      });
+    }));
+    fetch('/api/members/'+groupid).then( (res) => res.json().then( (json) => {
+      this.setState({
+        members: json.memberMap,
       });
     }));
   }
@@ -74,6 +82,7 @@ class CalendarPage extends React.Component {
     this.setState({
       memberModal: !this.state.memberModal,
     });
+    this.refreshData();
   }
 
   toggleDate = (data) =>{
@@ -108,18 +117,18 @@ class CalendarPage extends React.Component {
     for (let i = 0; i < this.state.members.length; i++) {
       membersItems.push(
           <Item key={'u' + i}>
-            {this.state.members[i]}
+            {this.state.members[i].firstName}
           </Item>,
       );
     }
 
 
     // const lastWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate() - 7);
-
+    const {groupid} = this.props.match.params;
     return (
       <OuterContainer>
         <EventModal isOpen={this.state.eventModal} toggle={this.toggleEventModal}/>
-        <MemberModal isOpen={this.state.memberModal} toggle={this.toggleMemberModal}/>
+        <MemberModal isOpen={this.state.memberModal} toggle={this.toggleMemberModal} groupid={groupid}/>
 
         <LeftContainer>
           <Row>

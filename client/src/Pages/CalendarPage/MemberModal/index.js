@@ -10,15 +10,39 @@ class EventModal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      member: '',
       email: '',
     };
   }
+
+
   changeInput = (event) => {
     this.setState({
       [event.target.name]: event.target.value,
     });
   }
+
+  addMember = () => {
+    const {groupid} = this.props;
+    console.log(groupid);
+    fetch('/api/groups/'+groupid, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email: this.state.email,
+      }),
+    }).then((res, err) => {
+      if (err) {
+        console.log(err);
+      }
+      if (res.status === 404) {
+        alert('User not found.');
+      }
+    });
+    this.props.toggle();
+  }
+
   render() {
     return (
       <ModalStyled size="lg" isOpen={this.props.isOpen} toggle={this.props.toggle}>
@@ -27,21 +51,11 @@ class EventModal extends React.Component {
           <Row>
             <Col className="col-12">
               <FormGroup>
-                <Label>Name of Member</Label>
-                <Input
-                  type="text"
-                  name="member"
-                  placeholder="Name of member"
-                  onChange={this.changeInput}
-                  value={this.state.member}
-                />
-              </FormGroup>
-              <FormGroup>
-                <Label>Email of Member</Label>
+                <Label>New Member Email</Label>
                 <Input
                   type="email"
                   name="email"
-                  placeholder="Name of event"
+                  placeholder="Enter email address here"
                   onChange={this.changeInput}
                   value={this.state.email}
                 />
@@ -50,14 +64,16 @@ class EventModal extends React.Component {
           </Row>
         </ModalBody>
         <ModalFooter>
-          <Button color="primary" onClick={this.props.toggle}>Add</Button>
+          <Button color="primary" onClick={this.addMember}>Add</Button>
           <Button color="secondary" onClick={this.props.toggle}>Cancel</Button>
         </ModalFooter>
       </ModalStyled>);
   }
 }
 EventModal.propTypes = {
+  groupid: PropTypes.string,
   toggle: PropTypes.func,
   isOpen: PropTypes.bool,
+  refresh: PropTypes.func,
 };
 export default EventModal;
