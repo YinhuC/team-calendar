@@ -9,7 +9,7 @@ export default router => {
             oAuth2Client.setCredentials(user.token);
             var calendar = google.calendar({version:'v3', auth:oAuth2Client});
             calendar.calendarList.list((err,result)=>{
-                const calendarItems = result.data.item.map( (item) => ({
+                const calendarItems = result.data.items.map( (item) => ({
                     id:item.id,
                     name:item.summary,
                 }));
