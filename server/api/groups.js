@@ -26,13 +26,16 @@ export default router => {
                 res.json(newGroup);
             },
             update: async (req, res) => {
-                const user = await User.findOne({"email": req.body.email });
-                console.log(user.googleId);
-                console.log(req.params);
-                const group = await Group.findOne({ "_id": req.params._id });
-                group.members.push(user.googleId);
-                group.save();
-                res.json(group);
+                const user = await User.findOne({ "email": req.body.email });
+                if (!user) {
+                    res.sendStatus(404);
+                } else {
+                    await Group.update(
+                        { "_id": req.params._id },
+                        { $addToSet: { "members": user.googleId } }
+                    );
+                    res.sendStatus(200);
+                }
             }
         },
         afterActions: [

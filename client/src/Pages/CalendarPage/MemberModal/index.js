@@ -35,8 +35,9 @@ class EventModal extends React.Component {
     }).then((res, err) => {
       if (err) {
         console.log(err);
-      } else {
-        res.json().then((json) => console.log(json));
+      }
+      if (res.status === 404) {
+        alert('User not found.');
       }
     });
     this.props.toggle();
