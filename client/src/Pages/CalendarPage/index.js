@@ -47,6 +47,7 @@ class CalendarPage extends React.Component {
       members: [],
       userCalendars: [],
       activeCalendars: [],
+      events: [],
     };
   }
 
@@ -58,11 +59,14 @@ class CalendarPage extends React.Component {
     fetch('/api/calendars/'+groupid).then( (res) => res.json().then( (json) => {
       this.setState({activeCalendars: json.calendars});
     }));
+    fetch('/api/calendars/'+groupid+'/events').then( (res) => res.json().then( (json) => {
+      // this.setState({events: json.calendars});
+      console.log(json);
+    }));
   }
 
   refreshData() {
     const {groupid} = this.props.match.params;
-    console.log(groupid);
     fetch('/api/groups/'+groupid).then( (res) => res.json().then( (json) => {
       this.setState({title: json.name});
     }));
