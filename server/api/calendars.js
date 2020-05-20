@@ -23,7 +23,6 @@ export default router => {
                 const group = await Group.findOne({ "_id": req.params._id});
                 const resultsArray = [];
                 await Promise.all(group.calendars.map(async (item) => {
-                    console.log('1');
                     const user = await User.findOne({'googleId': item.googleId});
                     oAuth2Client.setCredentials(user.token);
                     const calendar = google.calendar({version: 'v3', auth:oAuth2Client});
@@ -35,9 +34,7 @@ export default router => {
                         googleId: item.googleId,
                         events: events,
                     })
-                    console.log('3');
                 }));
-                console.log('4');
                 res.json({result:resultsArray});
             });
         });
@@ -97,7 +94,6 @@ async function getCalendarEvents(calendar, calendarId) {
                 startDate: event.start.dateTime || event.start.date,
                 endDate: event.end.dateTime || event.end.date
             }))
-            console.log(2);
             resolve (r);
         })
     })
