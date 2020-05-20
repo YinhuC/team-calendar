@@ -32,6 +32,8 @@ import {OuterContainer, LeftContainer, Heading,
 } from './style';
 import EventModal from './EventModal';
 import MemberModal from './MemberModal';
+import randomColour from '../../Util/random-colour';
+
 
 /* Functions */
 
@@ -47,11 +49,6 @@ class CalendarPage extends React.Component {
       members: [],
       userCalendars: [],
       activeCalendars: [],
-      json: [],
-      eventColours: ['#348AF2', '#9316A8', '#28B777', '#3D4EB8', '#F7C001', '#E87C70', '#AEE1FC', '#DD422F'],
-      borderColor: ['#348AF2', '#9316A8', '#28B777', '#3D4EB8', '#F7C001', '#E87C70', '#AEE1FC', '#DD422F'],
-      textColours: ['#ffffff', '#ffffff', '#ffffff', '#ffffff', '#000000', '#000000', '#000000', '#ffffff'],
-      userCount: 0,
     };
   }
 
@@ -64,28 +61,21 @@ class CalendarPage extends React.Component {
       this.setState({activeCalendars: json.calendars});
     }));
     fetch('/api/calendars/'+groupid+'/events').then( (res) => res.json().then( (json) => {
-      this.setState({json: json});
-      json.result.map((item) => {
+      const events = [];
+      json.result.map((item, index) => {
+        const userColour = randomColour(item.googleId);
         item.events.map((event) => {
-          this.setState({
-            calendarEvents: this.state.calendarEvents.concat({
-              title: event.summary,
-              start: event.startDate,
-              end: event.endDate,
-              backgroundColor: this.state.eventColours[this.state.userCount],
-              borderColor: this.state.borderColor[this.state.userCount],
-              textColor: this.state.textColours[this.state.userCount],
-            }),
+          events.push({
+            title: event.summary,
+            start: event.startDate,
+            end: event.endDate,
+            backgroundColor: userColour.fill,
+            borderColor: userColour.fill,
+            textColor: userColour.text,
           });
         });
-        this.state.userCount < 8 ?
-        this.setState({
-          userCount: this.state.userCount + 1,
-        }) :
-        this.setState({
-          userCount: 0,
-        });
       });
+      this.setState({calendarEvents: events});
     }));
   }
 
