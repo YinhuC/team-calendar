@@ -17,13 +17,33 @@ export default router => {
             })
         });
     })
+    router.get("/calendars/:_id/events", (req, res) => {
+        ensureLogin(req,res, async () =>{
+            isMember(req,res, async () =>{
+                const calendar = google.calendar({version: 'v3', auth:oAuth2Client});
+                calendar.events.list({
+                    calendarId: 'primary',
+                    timeMin: (new Date()).toISOString(),
+                    maxResults: 10,
+                    singleEvents: true,
+                    orderBy: 'startTime',
+                }, (err, result) => {
+                    const eventsSorted = result.data.items.map((event) => ({
+                        summary:event.summary,
+                        startDate: event.start.dateTime || event.start.date,
+                        endDate: event.end.dateTime || event.end.date
+                    }));
+                    res.json({events:eventsSorted});
+                });
+            });
+        });
+    })
     router.post("/calendars/:_id", (req, res) => {
         ensureLogin(req,res, async () =>{
             isMember(req,res, async () =>{
                 const group = await Group.findOne({ "_id": req.params._id});
                 const otherCalendars = group.calendars.filter(entry => entry.googleId!==req.session.user.id );
                 const userCalendars = {googleId:req.session.user.id,calendarIds:req.body.calendars};
-                console.log(userCalendars);
                 otherCalendars.push(userCalendars);
                 group.calendars = otherCalendars;
                 group.save();
