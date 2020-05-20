@@ -20,21 +20,26 @@ export default router => {
     router.get("/calendars/:_id/events", (req, res) => {
         ensureLogin(req,res, async () =>{
             isMember(req,res, async () =>{
-                const calendar = google.calendar({version: 'v3', auth:oAuth2Client});
-                calendar.events.list({
-                    calendarId: 'primary',
-                    timeMin: (new Date()).toISOString(),
-                    maxResults: 10,
-                    singleEvents: true,
-                    orderBy: 'startTime',
-                }, (err, result) => {
-                    const eventsSorted = result.data.items.map((event) => ({
-                        summary:event.summary,
-                        startDate: event.start.dateTime || event.start.date,
-                        endDate: event.end.dateTime || event.end.date
-                    }));
-                    res.json({events:eventsSorted});
+                const group = await Group.findOne({ "_id": req.params._id});
+                const resultsArray = [];
+                group.calendars.map(async (item) => {
+                    console.log('1');
+                    const user = await User.findOne({'googleId': item.googleId});
+                    oAuth2Client.setCredentials(user.token);
+                    const calendar = google.calendar({version: 'v3', auth:oAuth2Client});
+                    var events = [];
+                    Promise.all(
+                    item.calendarIds.map(async (calendarId) => {
+                        events.push(await getCalendarEvents(calendar, calendarId));
+                    }))
+                    resultsArray.push({
+                        googleId: item.googleId,
+                        events: events,
+                    })
+                    console.log('3');
                 });
+                console.log('4');
+                res.json({result:resultsArray});
             });
         });
     })
@@ -77,4 +82,22 @@ async function isMember(req, res, next) {
     } else {
         return res.sendStatus(401);
     }
+}
+
+async function getCalendarEvents(calendar, calendarId) {
+    calendar.events.list({
+        calendarId: calendarId,
+        timeMin: (new Date()).toISOString(),
+        maxResults: 10,
+        singleEvents: true,
+        orderBy: 'startTime',
+    }, (err, result) => {
+        console.log('2');
+        const r  = result.data.items.map((event) => ({
+            summary:event.summary,
+            startDate: event.start.dateTime || event.start.date,
+            endDate: event.end.dateTime || event.end.date
+        }))
+        return r;
+    })
 }

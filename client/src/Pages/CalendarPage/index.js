@@ -60,7 +60,7 @@ class CalendarPage extends React.Component {
       this.setState({activeCalendars: json.calendars});
     }));
     fetch('/api/calendars/'+groupid+'/events').then( (res) => res.json().then( (json) => {
-      // this.setState({events: json.calendars});
+      // this.setState({events: json.events});
       console.log(json);
     }));
   }
