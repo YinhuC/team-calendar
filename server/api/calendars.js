@@ -22,22 +22,21 @@ export default router => {
             isMember(req,res, async () =>{
                 const group = await Group.findOne({ "_id": req.params._id});
                 const resultsArray = [];
-                group.calendars.map(async (item) => {
+                await Promise.all(group.calendars.map(async (item) => {
                     console.log('1');
                     const user = await User.findOne({'googleId': item.googleId});
                     oAuth2Client.setCredentials(user.token);
                     const calendar = google.calendar({version: 'v3', auth:oAuth2Client});
-                    var events = [];
-                    Promise.all(
-                    item.calendarIds.map(async (calendarId) => {
-                        events.push(await getCalendarEvents(calendar, calendarId));
-                    }))
+                    const results = await Promise.all(
+                        item.calendarIds.map(async (calendarId) => getCalendarEvents(calendar, calendarId))
+                    );
+                    const events = [].concat.apply([],results); // Join the arrays of arrays into a single array
                     resultsArray.push({
                         googleId: item.googleId,
                         events: events,
                     })
                     console.log('3');
-                });
+                }));
                 console.log('4');
                 res.json({result:resultsArray});
             });
@@ -85,19 +84,21 @@ async function isMember(req, res, next) {
 }
 
 async function getCalendarEvents(calendar, calendarId) {
-    calendar.events.list({
-        calendarId: calendarId,
-        timeMin: (new Date()).toISOString(),
-        maxResults: 10,
-        singleEvents: true,
-        orderBy: 'startTime',
-    }, (err, result) => {
-        console.log('2');
-        const r  = result.data.items.map((event) => ({
-            summary:event.summary,
-            startDate: event.start.dateTime || event.start.date,
-            endDate: event.end.dateTime || event.end.date
-        }))
-        return r;
+    return new Promise( (resolve, reject) =>{
+        calendar.events.list({
+            calendarId: calendarId,
+            timeMin: (new Date()).toISOString(),
+            maxResults: 10,
+            singleEvents: true,
+            orderBy: 'startTime',
+        }, (err, result) => {
+            const r  = result.data.items.map((event) => ({
+                summary:event.summary,
+                startDate: event.start.dateTime || event.start.date,
+                endDate: event.end.dateTime || event.end.date
+            }))
+            console.log(2);
+            resolve (r);
+        })
     })
 }
