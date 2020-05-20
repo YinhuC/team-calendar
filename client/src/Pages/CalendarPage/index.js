@@ -60,6 +60,10 @@ class CalendarPage extends React.Component {
     fetch('/api/calendars/'+groupid).then( (res) => res.json().then( (json) => {
       this.setState({activeCalendars: json.calendars});
     }));
+    this.refereshEvents();
+  }
+  refereshEvents() {
+    const {groupid} = this.props.match.params;
     fetch('/api/calendars/'+groupid+'/events').then( (res) => res.json().then( (json) => {
       const events = [];
       json.result.map((item, index) => {
@@ -78,7 +82,6 @@ class CalendarPage extends React.Component {
       this.setState({calendarEvents: events});
     }));
   }
-
   refreshData() {
     const {groupid} = this.props.match.params;
     fetch('/api/groups/'+groupid).then( (res) => res.json().then( (json) => {
@@ -90,6 +93,7 @@ class CalendarPage extends React.Component {
     fetch('/api/calendars').then( (res) => res.json().then( (json) => {
       this.setState({userCalendars: json.calendars});
     }));
+    this.refereshEvents();
   }
 
   toggleEventModal = () =>{
@@ -131,6 +135,7 @@ class CalendarPage extends React.Component {
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({calendars: this.state.activeCalendars}),
     }).then( (err) => console.log(err));
+    this.refereshEvents();
   }
   onItemClick = (event) =>{
     const calendarId = event.target.value;
