@@ -6,7 +6,7 @@ import {
 import {ModalStyled} from './style';
 import PropTypes from 'prop-types';
 
-class EventModal extends React.Component {
+class MemberModal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -41,12 +41,20 @@ class EventModal extends React.Component {
       }
     });
     this.props.toggle();
+    this.closeModal();
+  }
+
+  closeModal = () => {
+    this.setState({
+      email: '',
+    });
+    this.props.toggle();
   }
 
   render() {
     return (
       <ModalStyled size="lg" isOpen={this.props.isOpen} toggle={this.props.toggle}>
-        <ModalHeader toggle={this.props.toggle}>Add New Member</ModalHeader>
+        <ModalHeader toggle={this.closeModal}>Add New Member</ModalHeader>
         <ModalBody>
           <Row>
             <Col className="col-12">
@@ -65,15 +73,15 @@ class EventModal extends React.Component {
         </ModalBody>
         <ModalFooter>
           <Button color="primary" onClick={this.addMember}>Add</Button>
-          <Button color="secondary" onClick={this.props.toggle}>Cancel</Button>
+          <Button color="secondary" onClick={this.closeModal}>Cancel</Button>
         </ModalFooter>
       </ModalStyled>);
   }
 }
-EventModal.propTypes = {
+MemberModal.propTypes = {
   groupid: PropTypes.string,
   toggle: PropTypes.func,
   isOpen: PropTypes.bool,
   refresh: PropTypes.func,
 };
-export default EventModal;
+export default MemberModal;

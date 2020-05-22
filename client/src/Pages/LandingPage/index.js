@@ -56,7 +56,7 @@ class LandingPage extends React.Component {
       }
       this.fetchGroup();
     });
-    this.toggleModal();
+    this.closeModal();
   }
 
   fetchGroup = () => {
@@ -80,6 +80,16 @@ class LandingPage extends React.Component {
   toggleModal = () =>{
     this.setState({
       isModalOpen: !this.state.isModalOpen,
+      description: '',
+      name: '',
+    });
+  }
+
+  closeModal = () =>{
+    this.setState({
+      isModalOpen: false,
+      description: '',
+      name: '',
     });
   }
 
