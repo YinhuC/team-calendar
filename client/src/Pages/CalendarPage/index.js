@@ -71,7 +71,7 @@ class CalendarPage extends React.Component {
     console.log(end);
     fetch('/api/calendars/'+groupid+'/events?start='+start+'&end='+end).then( (res) => res.json().then( (json) => {
       const events = [];
-      json.result.map((item, index) => {
+      json.result.sort((a, b) => (a.googleId > b.googleId) ? 1 : -1).map((item, index) => {
         const userColour = randomColour(item.googleId);
         item.events.map((event) => {
           events.push({
