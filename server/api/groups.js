@@ -38,6 +38,13 @@ export default router => {
                 if (!user) {
                     res.sendStatus(404);
                 } else {
+                    const group = await Group.findById(req.params._id);
+                    const owner = await User.findOne({ "googleId": group.members[0] });
+                    oAuth2Client.setCredentials(owner.token);
+                    var calendar = google.calendar({version:'v3', auth:oAuth2Client});
+                    await calendar.acl.insert({
+                        calendarId:group.groupCalendar,
+                        requestBody:{role:'owner',scope:{type:'user',value:req.body.email}}})
                     await Group.update(
                         { "_id": req.params._id },
                         { $addToSet: { "members": user.googleId } }
