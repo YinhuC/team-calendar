@@ -41,6 +41,7 @@ class CalendarPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      update: false,
       calendarWeekends: true,
       calendarEvents: [],
       eventModal: false,
@@ -60,7 +61,6 @@ class CalendarPage extends React.Component {
     fetch('/api/calendars/'+groupid).then( (res) => res.json().then( (json) => {
       this.setState({activeCalendars: json.calendars});
     }));
-    this.refereshEvents();
   }
   refereshEvents() {
     const {groupid} = this.props.match.params;
@@ -140,8 +140,19 @@ class CalendarPage extends React.Component {
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({calendars: this.state.activeCalendars}),
     });
-    this.refereshEvents();
+    if (this.state.update) {
+      this.refereshEvents();
+      this.setState({update: false});
+    }
   }
+
+  triggerUpdate = () => {
+    return new Promise((resolve) => {
+      this.setState({update: true});
+      resolve();
+    });
+  }
+
   onItemClick = (event) =>{
     const calendarId = event.target.value;
     if (this.state.activeCalendars.includes(calendarId)) {
@@ -250,6 +261,7 @@ class CalendarPage extends React.Component {
                     selectable= {true}
                     selectMirror= {true}
                     select = {this.selectCallback}
+                    datesRender = {this.triggerUpdate}
                   />
                 </CalendarContainer>
               </Col>
