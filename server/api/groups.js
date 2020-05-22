@@ -46,11 +46,6 @@ export default router => {
                 }
             }
         },
-        afterActions: [
-            {
-                middlewares: [logToConsole]
-            }
-        ]
     }));
     router.get('/members/:_id', (req, res) => {
         ensureLogin(req,res,async () => {
