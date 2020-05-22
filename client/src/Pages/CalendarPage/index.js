@@ -64,7 +64,12 @@ class CalendarPage extends React.Component {
   }
   refereshEvents() {
     const {groupid} = this.props.match.params;
-    fetch('/api/calendars/'+groupid+'/events').then( (res) => res.json().then( (json) => {
+    const view = this.calendarComponentRef.current.getApi().view;
+    const start = moment(view.activeStart).subtract(5, 'weeks').toISOString();
+    const end = moment(view.activeEnd).add(5, 'weeks').toISOString();
+    console.log(start);
+    console.log(end);
+    fetch('/api/calendars/'+groupid+'/events?start='+start+'&end='+end).then( (res) => res.json().then( (json) => {
       const events = [];
       json.result.map((item, index) => {
         const userColour = randomColour(item.googleId);
@@ -134,7 +139,7 @@ class CalendarPage extends React.Component {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({calendars: this.state.activeCalendars}),
-    }).then( (err) => console.log(err));
+    });
     this.refereshEvents();
   }
   onItemClick = (event) =>{
