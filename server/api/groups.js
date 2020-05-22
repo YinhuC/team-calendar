@@ -1,5 +1,8 @@
 import { User, Group } from '../db/schema';
 import mongooseCrudify from 'mongoose-crudify';
+import {oAuth2Client} from './login'
+import { google } from 'googleapis';
+import calendars from './calendars';
 
 export default router => {
     router.use('/groups', mongooseCrudify({
@@ -19,8 +22,13 @@ export default router => {
                 const groups = await Group.find({ "members": req.session.user.id });
                 res.json(groups);
             },
-            create: (req, res) => {
+            create: async (req, res) => {
                 const newGroup = new Group(req.body);
+                const user = await User.findOne({'googleId': req.session.user.id});
+                oAuth2Client.setCredentials(user.token);
+                var calendar = google.calendar({version:'v3', auth:oAuth2Client});
+                const newCalendar = await calendar.calendars.insert({requestBody:{summary:req.body.name,description:req.body.description}});
+                newGroup.groupCalendar = newCalendar.data.id;
                 newGroup.members.push(req.session.user.id);
                 newGroup.save();
                 res.json(newGroup);
