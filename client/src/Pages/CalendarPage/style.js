@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import {
   ListGroup, ListGroupItem, Button,
 } from 'reactstrap';
+import {MoreVertical} from 'react-feather';
 
 export const OuterContainer = styled.div`
   display:flex;
@@ -53,12 +54,14 @@ export const Item = styled(ListGroupItem)`
   white-space: nowrap;
   overflow: hidden;
   text-align: left;
-  &:hover {
+  display: flex;
+  align-items: center;
+  /* &:hover {
   background-color: lightgrey;
   }
   &:active {
     background-color: #007BFF;
-  }
+  } */
 `;
 
 export const Subheader = styled.div`
@@ -173,5 +176,14 @@ export const SmallCalendarContainer = styled.div`
   justify-content:center;
   height:480px;
   width:100%;
+`;
+
+
+export const Menu = styled(MoreVertical)`
+  width: 15px;
+  &:hover{
+    background-color: lightgray;
+    border-radius: 5px;
+  }
 `;
 

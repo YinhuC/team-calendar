@@ -10,7 +10,7 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import FullCalendar from '@fullcalendar/react';
 import InfiniteCalendar from 'react-infinite-calendar';
-import {} from 'react-feather';
+import {MoreVertical} from 'react-feather';
 import moment from 'moment';
 import {connect} from 'react-redux';
 import {setTimes, setDates, resetEventModal} from '../../redux/actions';
@@ -28,7 +28,7 @@ import PropTypes from 'prop-types';
 import {OuterContainer, LeftContainer, Heading,
   RightContainer, Group, Member, List, Item, Subheader,
   OuterCalendarContainer, Add, CalendarContainer,
-  SmallCalendarContainer,
+  SmallCalendarContainer, Menu,
 } from './style';
 import EventModal from './EventModal';
 import MemberModal from './MemberModal';
@@ -166,6 +166,10 @@ class CalendarPage extends React.Component {
     }
   }
 
+  menuToggle() {
+    console.log('testing menu button');
+  }
+
   render() {
     const calendarsItems = [];
     this.state.userCalendars.map((calendar) => {
@@ -181,8 +185,11 @@ class CalendarPage extends React.Component {
     const membersItems = [];
     for (let i = 0; i < this.state.members.length; i++) {
       membersItems.push(
-          <Item key={'u' + i}>
+          <Item className='d-flex justify-content-between' key={'u' + i}>
             {this.state.members[i].firstName}
+            <Menu onClick={this.menuToggle}>
+              <MoreVertical size={20}/>
+            </Menu>
           </Item>,
       );
     }
