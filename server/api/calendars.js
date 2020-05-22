@@ -22,12 +22,14 @@ export default router => {
             isMember(req,res, async () =>{
                 const group = await Group.findOne({ "_id": req.params._id});
                 const resultsArray = [];
+                const start = req.query.start;
+                const end = req.query.end;
                 await Promise.all(group.calendars.map(async (item) => {
                     const user = await User.findOne({'googleId': item.googleId});
                     oAuth2Client.setCredentials(user.token);
                     const calendar = google.calendar({version: 'v3', auth:oAuth2Client});
                     const results = await Promise.all(
-                        item.calendarIds.map(async (calendarId) => getCalendarEvents(calendar, calendarId))
+                        item.calendarIds.map(async (calendarId) => getCalendarEvents(calendar, calendarId, start, end))
                     );
                     const events = [].concat.apply([],results); // Join the arrays of arrays into a single array
                     resultsArray.push({
@@ -80,12 +82,12 @@ async function isMember(req, res, next) {
     }
 }
 
-async function getCalendarEvents(calendar, calendarId) {
+async function getCalendarEvents(calendar, calendarId, start, end) {
     return new Promise( (resolve, reject) =>{
         calendar.events.list({
             calendarId: calendarId,
-            timeMin: (new Date()).toISOString(),
-            maxResults: 10,
+            timeMin: start,
+            timeMax: end,
             singleEvents: true,
             orderBy: 'startTime',
         }, (err, result) => {

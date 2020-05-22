@@ -41,6 +41,7 @@ class CalendarPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      update: false,
       calendarWeekends: true,
       calendarEvents: [],
       eventModal: false,
@@ -60,13 +61,17 @@ class CalendarPage extends React.Component {
     fetch('/api/calendars/'+groupid).then( (res) => res.json().then( (json) => {
       this.setState({activeCalendars: json.calendars});
     }));
-    this.refereshEvents();
   }
   refereshEvents() {
     const {groupid} = this.props.match.params;
-    fetch('/api/calendars/'+groupid+'/events').then( (res) => res.json().then( (json) => {
+    const view = this.calendarComponentRef.current.getApi().view;
+    const start = moment(view.activeStart).subtract(5, 'weeks').toISOString();
+    const end = moment(view.activeEnd).add(5, 'weeks').toISOString();
+    console.log(start);
+    console.log(end);
+    fetch('/api/calendars/'+groupid+'/events?start='+start+'&end='+end).then( (res) => res.json().then( (json) => {
       const events = [];
-      json.result.map((item, index) => {
+      json.result.sort((a, b) => (a.googleId > b.googleId) ? 1 : -1).map((item, index) => {
         const userColour = randomColour(item.googleId);
         item.events.map((event) => {
           events.push({
@@ -134,9 +139,20 @@ class CalendarPage extends React.Component {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({calendars: this.state.activeCalendars}),
-    }).then( (err) => console.log(err));
-    this.refereshEvents();
+    });
+    if (this.state.update) {
+      this.refereshEvents();
+      this.setState({update: false});
+    }
   }
+
+  triggerUpdate = () => {
+    return new Promise((resolve) => {
+      this.setState({update: true});
+      resolve();
+    });
+  }
+
   onItemClick = (event) =>{
     const calendarId = event.target.value;
     if (this.state.activeCalendars.includes(calendarId)) {
@@ -245,6 +261,7 @@ class CalendarPage extends React.Component {
                     selectable= {true}
                     selectMirror= {true}
                     select = {this.selectCallback}
+                    datesRender = {this.triggerUpdate}
                   />
                 </CalendarContainer>
               </Col>
