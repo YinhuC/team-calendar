@@ -124,3 +124,16 @@ export const ModalStyled = styled(Modal)`
   width: 50%;
   margin-top: 150px;
 `;
+
+export const LoadingModal = styled(Modal)`
+  height: 90%;
+  width: 250px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  .modal-content{
+    background-color: rgba(0,0,0,.0001);
+    border-color: rgba(0,0,0,.0001);
+  }
+`;
+
