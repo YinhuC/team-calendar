@@ -49,13 +49,25 @@ export default router => {
                     console.log('Added User!');
                     var newCalendar = google.calendar({version:'v3', auth:oAuth2Client});
                     await newCalendar.calendarList.insert({requestBody:{id:group.groupCalendar}});
-                    console.log('Added User!');
+                    console.log('Added Calendar!');
                     await Group.update(
                         { "_id": req.params._id },
                         { $addToSet: { "members": user.googleId } }
                     );
                     res.sendStatus(200);
                 }
+            },
+            delete: async (req, res) => {
+                const group = await Group.findById(req.params._id);
+                await Group.deleteOne({ "_id": req.params._id });
+                res.sendStatus(200);
+                const user = await User.findOne({ 'googleId': req.session.user.id });
+                oAuth2Client.setCredentials(user.token);
+                const calendar = google.calendar({version:'v3', auth:oAuth2Client});
+                await calendar.calendars.delete({
+                    calendarId: group.groupCalendar 
+                });
+                console.log('Group has been removed successfully!');
             }
         },
     }));
@@ -85,9 +97,4 @@ async function isMember(req, res, next) {
     } else {
         return res.sendStatus(401);
     }
-}
-
-async function logToConsole(req, res, next) {
-    console.log(req.crudify.err || req.crudify.result);
-    next();
 }

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import {Card, Modal, UncontrolledAlert, Button} from 'reactstrap';
+import {Card, Modal, UncontrolledAlert} from 'reactstrap';
 import {Link} from 'react-router-dom';
 import {Trash2} from 'react-feather';
 
