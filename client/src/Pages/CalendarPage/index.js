@@ -183,6 +183,7 @@ class CalendarPage extends React.Component {
   }
 
   render() {
+    const {groupid} = this.props.match.params;
     const calendarsItems = [];
     this.state.userCalendars.map((calendar) => {
       const isActive = this.state.activeCalendars.includes(calendar.id);
@@ -195,9 +196,17 @@ class CalendarPage extends React.Component {
     });
 
     const membersItems = [];
+    const groupColour = randomColour(groupid);
+    membersItems.push(
+        <Item style={{backgroundColor: groupColour.fill, color: groupColour.text}} key={'g'}>
+          {this.state.title}
+        </Item>,
+    );
     for (let i = 0; i < this.state.members.length; i++) {
+      const memberColour = randomColour(this.state.members[i].googleId);
       membersItems.push(
-          <Item className='d-flex justify-content-between' key={'u' + i}>
+          <Item style={{backgroundColor: memberColour.fill, color: memberColour.text}}
+            className='d-flex justify-content-between' key={'u' + i}>
             {this.state.members[i].firstName}
             {this.state.members[i].googleId === this.state.userId ? <></> :
             <Menu onClick={() => {
@@ -212,7 +221,7 @@ class CalendarPage extends React.Component {
 
 
     // const lastWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate() - 7);
-    const {groupid} = this.props.match.params;
+
     return (
       <OuterContainer>
         <EventModal isOpen={this.state.eventModal} toggle={this.toggleEventModal} groupid={groupid}
