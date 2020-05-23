@@ -54,14 +54,16 @@ class CalendarPage extends React.Component {
       activeCalendars: [],
       userId: '',
       mobile: false,
+      desktop: true,
     };
   }
 
   calendarComponentRef = React.createRef();
 
   componentDidMount() {
-    (window.innerWidth <800?this.setState({mobile: true}):this.setState({mobile: false}));
-    (window.innerWidth <800 && this.calendarComponentRef.current.getApi().changeView('timeGridDay'));
+    window.innerWidth >1500?this.setState({desktop: true}):this.setState({desktop: false});
+    window.innerWidth <800?this.setState({mobile: true}):this.setState({mobile: false});
+    window.innerWidth <800 && this.calendarComponentRef.current.getApi().changeView('timeGridDay');
     const {groupid} = this.props.match.params;
     this.refreshData();
     fetch('/api/calendars/'+groupid).then( (res) => res.json().then( (json) => {
@@ -71,8 +73,9 @@ class CalendarPage extends React.Component {
       this.setState({userId: json.id});
     }));
     window.addEventListener('resize', () => {
-      (window.innerWidth <800?this.setState({mobile: true}):this.setState({mobile: false}));
-      (window.innerWidth <800 && this.calendarComponentRef.current.getApi().changeView('timeGridDay'));
+      window.innerWidth >1600?this.setState({desktop: true}):this.setState({desktop: false});
+      window.innerWidth <800?this.setState({mobile: true}):this.setState({mobile: false});
+      window.innerWidth <800 && this.calendarComponentRef.current.getApi().changeView('timeGridDay');
     });
   }
 
@@ -283,7 +286,7 @@ class CalendarPage extends React.Component {
                 </Button>
               </Link>
             </Col>
-            <Col>
+            {this.state.desktop||this.state.mobile?<Col>
               <SmallCalendarContainer>
                 <InfiniteCalendar
                   width={280}
@@ -291,7 +294,7 @@ class CalendarPage extends React.Component {
                   onSelect={this.toggleDate}
                 />
               </SmallCalendarContainer>
-            </Col>
+            </Col>:<></>}
             <Col className="col-12">
               <Subheader>Calendars</Subheader>
               <Group>
@@ -323,9 +326,9 @@ class CalendarPage extends React.Component {
                 </Heading>
                 <Add color="primary" onClick={this.toggleEventModal}>
                   <Plus/>
-                  <span className="d-none d-xl-block">
+                  {this.state.desktop?<span className="d-none d-xl-block">
                     Add Event
-                  </span>
+                  </span>:<></>}
                 </Add>
               </Col>
               <Col className="col-12">
