@@ -21,7 +21,7 @@ function FeatureSection() {
     <Feature>
       <Container>
         <Row className="d-flex justify-content-center">
-          <Col className="col-md-3 col-12">
+          <Col className="col-lg-3 col-12">
             <FeatureContainer>
               <FeatureIcon src={Calendar} />
               <Text>Complete</Text>
@@ -30,7 +30,7 @@ function FeatureSection() {
               </SubText>
             </FeatureContainer>
           </Col>
-          <Col className="col-md-3 col-12">
+          <Col className="col-lg-3 col-12">
             <FeatureContainer>
               <FeatureIcon src={Simple} />
               <Text>Simple</Text>
@@ -39,7 +39,7 @@ function FeatureSection() {
               </SubText>
             </FeatureContainer>
           </Col>
-          <Col className="col-md-3 col-12">
+          <Col className="col-lg-3 col-12">
             <FeatureContainer>
               <FeatureIcon src={Google} />
               <Text>Integrated</Text>
