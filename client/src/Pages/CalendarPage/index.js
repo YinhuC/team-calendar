@@ -50,6 +50,7 @@ class CalendarPage extends React.Component {
       members: [],
       userCalendars: [],
       activeCalendars: [],
+      userId: '',
     };
   }
 
@@ -60,6 +61,9 @@ class CalendarPage extends React.Component {
     this.refreshData();
     fetch('/api/calendars/'+groupid).then( (res) => res.json().then( (json) => {
       this.setState({activeCalendars: json.calendars});
+    }));
+    fetch('/api/user_details').then((res) => res.json().then((json) => {
+      this.setState({userId: json.id});
     }));
   }
   refereshEvents() {
@@ -92,7 +96,7 @@ class CalendarPage extends React.Component {
     fetch('/api/groups/'+groupid).then( (res) => res.json().then( (json) => {
       this.setState({title: json.name});
     }));
-    fetch('/api/members/'+groupid).then( (res) => res.json().then( (json) => {
+    fetch('/api/groups/'+groupid+'/members').then( (res) => res.json().then( (json) => {
       this.setState({members: json.memberMap});
     }));
     fetch('/api/calendars').then( (res) => res.json().then( (json) => {
@@ -166,8 +170,16 @@ class CalendarPage extends React.Component {
     }
   }
 
-  menuToggle() {
-    console.log('testing menu button');
+  removeMember = (userid) => {
+    const {groupid} = this.props.match.params;
+    fetch('/api/groups/'+groupid+'/members/'+userid, {
+      method: 'DELETE',
+    }).then((res, err) => {
+      console.log(err);
+      console.log(res);
+      this.refreshData();
+      alert('Member removed successfully.');
+    });
   }
 
   render() {
@@ -187,9 +199,13 @@ class CalendarPage extends React.Component {
       membersItems.push(
           <Item className='d-flex justify-content-between' key={'u' + i}>
             {this.state.members[i].firstName}
-            <Menu onClick={this.menuToggle}>
+            {this.state.members[i].googleId === this.state.userId ? <></> :
+            <Menu onClick={() => {
+              this.removeMember(this.state.members[i].googleId);
+            }}>
               <Trash2/>
             </Menu>
+            }
           </Item>,
       );
     }
