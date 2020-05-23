@@ -5,11 +5,16 @@ import {oAuth2Client} from './login';
 export default router => {
     router.get("/calendars", (req, res) => {
         ensureLogin(req,res, async () =>{
+            var groupCalendar;
+            if (req.query.group){
+                groupCalendar = (await Group.findById(req.query.group)).groupCalendar;
+            }
             const user = await User.findOne({'googleId': req.session.user.id});
             oAuth2Client.setCredentials(user.token);
             var calendar = google.calendar({version:'v3', auth:oAuth2Client});
             calendar.calendarList.list((err,result)=>{
-                const calendarItems = result.data.items.map( (item) => ({
+                const calendarItems = result.data.items.filter(
+                    calendarItem => calendarItem.id !== groupCalendar).map( (item) => ({
                     id:item.id,
                     name:item.summary,
                 }));

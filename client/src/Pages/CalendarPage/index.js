@@ -99,7 +99,7 @@ class CalendarPage extends React.Component {
     fetch('/api/groups/'+groupid+'/members').then( (res) => res.json().then( (json) => {
       this.setState({members: json.memberMap});
     }));
-    fetch('/api/calendars').then( (res) => res.json().then( (json) => {
+    fetch('/api/calendars?group='+groupid).then( (res) => res.json().then( (json) => {
       this.setState({userCalendars: json.calendars});
     }));
     this.refereshEvents();
