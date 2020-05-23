@@ -43,6 +43,7 @@ class CalendarPage extends React.Component {
     super(props);
     this.state = {
       update: false,
+      sendData: false,
       calendarWeekends: true,
       calendarEvents: [],
       eventModal: false,
@@ -73,13 +74,10 @@ class CalendarPage extends React.Component {
     const view = this.calendarComponentRef.current.getApi().view;
     const start = moment(view.activeStart).subtract(5, 'weeks').toISOString();
     const end = moment(view.activeEnd).add(5, 'weeks').toISOString();
-    console.log(start);
-    console.log(end);
     fetch('/api/calendars/'+groupid+'/events?start='+start+'&end='+end).then( (res) => res.json().then( (json) => {
       const events = [];
       json.result.sort((a, b) => (a.googleId > b.googleId) ? 1 : -1).map((item, index) => {
         const userColour = randomColour(item.googleId);
-        console.log(item.events);
         item.events.map((event) => {
           events.push({
             id: event.id,
@@ -144,14 +142,17 @@ class CalendarPage extends React.Component {
   };
   componentDidUpdate() {
     const {groupid} = this.props.match.params;
-    fetch('/api/calendars/'+groupid, {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({calendars: this.state.activeCalendars}),
-    });
     if (this.state.update) {
-      this.refereshEvents();
+      this.refreshData();
       this.setState({update: false});
+    }
+    if (this.state.sendData) {
+      fetch('/api/calendars/'+groupid, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({calendars: this.state.activeCalendars}),
+      }).then((res) => this.triggerUpdate());
+      this.setState({sendData: false});
     }
   }
 
@@ -167,10 +168,12 @@ class CalendarPage extends React.Component {
     if (this.state.activeCalendars.includes(calendarId)) {
       this.setState((prev) => ({
         activeCalendars: prev.activeCalendars.filter((id)=> id !== calendarId),
+        sendData: true,
       }));
     } else {
       this.setState((prev) => ({
         activeCalendars: [...prev.activeCalendars, calendarId],
+        sendData: true,
       }));
     }
   }
