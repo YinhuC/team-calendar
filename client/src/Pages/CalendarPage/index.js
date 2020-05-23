@@ -268,7 +268,7 @@ class CalendarPage extends React.Component {
             <Col className="d-flex justify-content-center align-items-start my-3">
               <Link to="/landing">
                 <Button color="primary" onClick={this.toggleLogin}>
-                  &lt; Back to Dashbaord
+                  &lt; Back to Dashboard
                 </Button>
               </Link>
             </Col>
