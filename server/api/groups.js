@@ -71,12 +71,36 @@ export default router => {
             }
         },
     }));
-    router.get('/members/:_id', (req, res) => {
+    router.get('/groups/:_id/members', (req, res) => {
         ensureLogin(req,res,async () => {
             isMember(req, res, async  () =>{
                 const group = await Group.findOne({ "_id": req.params._id });
                 const users =  await User.find({ "googleId": {$in: group.members}});
                 res.json({memberMap: users.map(user =>({googleId:user.googleId,firstName:user.firstName}))});
+            })
+        })
+    });
+    router.delete('/groups/:_id/members/:userid', (req, res) => {
+        ensureLogin(req, res, async () => {
+            isMember(req, res, async () => {
+                const group = await Group.findOne({ "_id": req.params._id });
+                group.members = group.members.filter(member => member !== req.params.userid);
+                group.calendars = group.calendars.filter(calendar => calendar.googleId !== req.params.userid);
+                const user = await User.findOne({ 'googleId': req.session.user.id });
+                const userToRemove = await User.findOne({'googleId': req.params.userid});
+                oAuth2Client.setCredentials(user.token);
+                const calendar = google.calendar({version:'v3', auth:oAuth2Client});
+                const rules = await calendar.acl.list({
+                    calendarId: group.groupCalendar
+                });
+                const aclId = rules.data.items.find(rule => rule.scope.value === userToRemove.email).id;
+                await calendar.acl.delete({
+                    calendarId: group.groupCalendar,
+                    ruleId: aclId,
+                });
+                group.save();
+                res.sendStatus(200);
+                console.log("Member has been removed from the group successfully!")
             })
         })
     })
