@@ -28,7 +28,8 @@ const groupSchema = new Schema({
     calendars: [{
         calendarIds: [String],
         googleId: String,
-    }]
+    }],
+    groupCalendar:String
 }, {
     timestamps: {}
 });

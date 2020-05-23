@@ -7,6 +7,7 @@ const authScope = [
     'https://www.googleapis.com/auth/userinfo.profile',
     'https://www.googleapis.com/auth/userinfo.email',
     'https://www.googleapis.com/auth/calendar.readonly',
+    'https://www.googleapis.com/auth/calendar',
 ]
 export const oAuth2Client = new google.auth.OAuth2(
     cred.web.client_id,

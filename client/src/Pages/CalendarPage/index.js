@@ -192,7 +192,8 @@ class CalendarPage extends React.Component {
     const {groupid} = this.props.match.params;
     return (
       <OuterContainer>
-        <EventModal isOpen={this.state.eventModal} toggle={this.toggleEventModal}/>
+        <EventModal isOpen={this.state.eventModal} toggle={this.toggleEventModal} groupid={groupid}
+          refresh={this.triggerUpdate}/>
         <MemberModal isOpen={this.state.memberModal} toggle={this.toggleMemberModal} groupid={groupid}/>
 
         <LeftContainer>
