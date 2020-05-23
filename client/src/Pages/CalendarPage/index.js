@@ -308,7 +308,7 @@ class CalendarPage extends React.Component {
               <Button color="primary" onClick={this.toggleMemberModal}><Plus/></Button>
             </Col>
             <Col className="col-12">
-              <Member className="mx-2">
+              <Member>
                 <List>
                   {membersItems}
                 </List>

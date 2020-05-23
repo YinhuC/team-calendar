@@ -43,7 +43,7 @@ export const Member = styled.div`
 `;
 
 export const List = styled(ListGroup)`
-  width: 90%;
+  width: 100%;
   margin: 0 0 40px 0;
 `;
 
@@ -142,7 +142,7 @@ export const OuterCalendarContainer = styled.div`
   display:flex;
   flex-direction: column;
   width:96%;
-  margin: 50px 0 50px 25px;
+  margin: 50px 25px 50px 25px;
   border-radius:5px;
   background-color: white;
   box-shadow: 2px 2px 10px lightgrey;
