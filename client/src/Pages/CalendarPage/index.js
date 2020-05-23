@@ -352,7 +352,7 @@ class CalendarPage extends React.Component {
                     select = {this.selectCallback}
                     datesRender = {this.triggerUpdate}
                     eventClick = {this.openEdit}
-
+                    height={1000}
                   />
                 </CalendarContainer>
               </Col>
