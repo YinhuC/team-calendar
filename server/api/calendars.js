@@ -67,6 +67,20 @@ export default router => {
             })
         })
     });
+    router.delete("/calendars/:_id/events/:eventId", (req, res) => {
+        ensureLogin(req,res, async () =>{
+            isMember(req,res, async () =>{
+                const group = await Group.findOne({ "_id": req.params._id});
+                const user = await User.findOne({'googleId': req.session.user.id});
+                oAuth2Client.setCredentials(user.token);
+                const calendar = google.calendar({version: 'v3', auth:oAuth2Client});
+                const result = await calendar.events.delete({
+                    calendarId:group.groupCalendar,eventId:req.params.eventId
+                })
+                res.status(200).send(result);
+            })
+        })
+    });
     router.put("/calendars/:_id/events/:eventId", (req, res) => {
         ensureLogin(req,res, async () =>{
             isMember(req,res, async () =>{
