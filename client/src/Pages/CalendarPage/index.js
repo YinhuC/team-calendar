@@ -61,9 +61,7 @@ class CalendarPage extends React.Component {
   calendarComponentRef = React.createRef();
 
   componentDidMount() {
-    window.innerWidth >1500?this.setState({desktop: true}):this.setState({desktop: false});
-    window.innerWidth <800?this.setState({mobile: true}):this.setState({mobile: false});
-    window.innerWidth <800 && this.calendarComponentRef.current.getApi().changeView('timeGridDay');
+    this.onWindowSizeChanged();
     const {groupid} = this.props.match.params;
     this.refreshData();
     fetch('/api/calendars/'+groupid).then( (res) => res.json().then( (json) => {
@@ -72,11 +70,16 @@ class CalendarPage extends React.Component {
     fetch('/api/user_details').then((res) => res.json().then((json) => {
       this.setState({userId: json.id});
     }));
-    window.addEventListener('resize', () => {
+    window.addEventListener('resize', this.onWindowSizeChanged);
+  }
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.onWindowSizeChanged);
+  }
+
+  onWindowSizeChanged = () => {
       window.innerWidth >1600?this.setState({desktop: true}):this.setState({desktop: false});
       window.innerWidth <800?this.setState({mobile: true}):this.setState({mobile: false});
       window.innerWidth <800 && this.calendarComponentRef.current.getApi().changeView('timeGridDay');
-    });
   }
 
   refereshEvents() {
