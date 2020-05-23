@@ -1,7 +1,7 @@
-import {SET_DATES, SET_TIMES, SET_TITLE, RESET_EVENT_MODAL} from '../action-types';
+import {SET_DATES, SET_TIMES, SET_TITLE, RESET_EVENT_MODAL, SET_ID} from '../action-types';
 import moment from 'moment';
 
-export default function eventModal(state = {startDate: '', startTime: '', endDate: '', endTime: '', title: ''}
+export default function eventModal(state = {startDate: '', startTime: '', endDate: '', endTime: '', title: '', id: ''}
     , action) {
   switch (action.type) {
     case SET_DATES: {
@@ -19,6 +19,11 @@ export default function eventModal(state = {startDate: '', startTime: '', endDat
     case SET_TITLE: {
       return Object.assign({}, state, {
         title: action.title,
+      });
+    }
+    case SET_ID: {
+      return Object.assign({}, state, {
+        id: action.id,
       });
     }
     case RESET_EVENT_MODAL: {

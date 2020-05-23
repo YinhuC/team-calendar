@@ -1,4 +1,4 @@
-import {SET_DATES, SET_TIMES, SET_TITLE, RESET_EVENT_MODAL, AUTHENTICATE} from './action-types';
+import {SET_DATES, SET_TIMES, SET_TITLE, SET_ID, RESET_EVENT_MODAL, AUTHENTICATE} from './action-types';
 
 export function setDates(startDate, endDate) {
   return {
@@ -20,6 +20,12 @@ export function setTitle(title) {
   return {
     type: SET_TITLE,
     title,
+  };
+}
+export function setID(id) {
+  return {
+    type: SET_ID,
+    id,
   };
 }
 
