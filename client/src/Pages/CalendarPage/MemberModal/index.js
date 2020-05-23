@@ -39,6 +39,7 @@ class MemberModal extends React.Component {
       if (res.status === 404) {
         alert('User not found.');
       }
+      this.props.refresh();
     });
     this.props.toggle();
     this.closeModal();
