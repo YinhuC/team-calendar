@@ -19,13 +19,19 @@ class EditModal extends React.Component {
   }
 
   editEvent = () => {
+    const startDate = moment(`${this.props.startDate}-${this.props.startTime}`, 'YYYY-MM-DD-HH:mm');
+    const endDate = moment(`${this.props.endDate}-${this.props.endTime}`, 'YYYY-MM-DD-HH:mm');
+    if (startDate > endDate) {
+      alert('Start Time is after End Time');
+      return;
+    }
     const event = {
       summary: this.props.title,
       start: {
-        dateTime: moment(`${this.props.startDate}-${this.props.startTime}`, 'YYYY-MM-DD-HH:mm').toISOString(),
+        dateTime: startDate.toISOString(),
       },
       end: {
-        dateTime: moment(`${this.props.endDate}-${this.props.endTime}`, 'YYYY-MM-DD-HH:mm').toISOString(),
+        dateTime: endDate.toISOString(),
       },
     };
     fetch(`/api/calendars/${this.props.groupid}/events/${this.props.id}`, {
