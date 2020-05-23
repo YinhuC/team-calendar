@@ -10,7 +10,7 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import FullCalendar from '@fullcalendar/react';
 import InfiniteCalendar from 'react-infinite-calendar';
-import {} from 'react-feather';
+import {Trash2} from 'react-feather';
 import moment from 'moment';
 import {connect} from 'react-redux';
 import {setTimes, setDates, resetEventModal} from '../../redux/actions';
@@ -28,7 +28,7 @@ import PropTypes from 'prop-types';
 import {OuterContainer, LeftContainer, Heading,
   RightContainer, Group, Member, List, Item, Subheader,
   OuterCalendarContainer, Add, CalendarContainer,
-  SmallCalendarContainer,
+  SmallCalendarContainer, Menu,
 } from './style';
 import EventModal from './EventModal';
 import MemberModal from './MemberModal';
@@ -50,6 +50,7 @@ class CalendarPage extends React.Component {
       members: [],
       userCalendars: [],
       activeCalendars: [],
+      userId: '',
     };
   }
 
@@ -60,6 +61,9 @@ class CalendarPage extends React.Component {
     this.refreshData();
     fetch('/api/calendars/'+groupid).then( (res) => res.json().then( (json) => {
       this.setState({activeCalendars: json.calendars});
+    }));
+    fetch('/api/user_details').then((res) => res.json().then((json) => {
+      this.setState({userId: json.id});
     }));
   }
   refereshEvents() {
@@ -92,7 +96,7 @@ class CalendarPage extends React.Component {
     fetch('/api/groups/'+groupid).then( (res) => res.json().then( (json) => {
       this.setState({title: json.name});
     }));
-    fetch('/api/members/'+groupid).then( (res) => res.json().then( (json) => {
+    fetch('/api/groups/'+groupid+'/members').then( (res) => res.json().then( (json) => {
       this.setState({members: json.memberMap});
     }));
     fetch('/api/calendars').then( (res) => res.json().then( (json) => {
@@ -166,6 +170,18 @@ class CalendarPage extends React.Component {
     }
   }
 
+  removeMember = (userid) => {
+    const {groupid} = this.props.match.params;
+    fetch('/api/groups/'+groupid+'/members/'+userid, {
+      method: 'DELETE',
+    }).then((res, err) => {
+      console.log(err);
+      console.log(res);
+      this.refreshData();
+      alert('Member removed successfully.');
+    });
+  }
+
   render() {
     const calendarsItems = [];
     this.state.userCalendars.map((calendar) => {
@@ -181,8 +197,15 @@ class CalendarPage extends React.Component {
     const membersItems = [];
     for (let i = 0; i < this.state.members.length; i++) {
       membersItems.push(
-          <Item key={'u' + i}>
+          <Item className='d-flex justify-content-between' key={'u' + i}>
             {this.state.members[i].firstName}
+            {this.state.members[i].googleId === this.state.userId ? <></> :
+            <Menu onClick={() => {
+              this.removeMember(this.state.members[i].googleId);
+            }}>
+              <Trash2/>
+            </Menu>
+            }
           </Item>,
       );
     }

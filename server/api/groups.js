@@ -49,22 +49,58 @@ export default router => {
                     console.log('Added User!');
                     var newCalendar = google.calendar({version:'v3', auth:oAuth2Client});
                     await newCalendar.calendarList.insert({requestBody:{id:group.groupCalendar}});
-                    console.log('Added User!');
+                    console.log('Added Calendar!');
                     await Group.update(
                         { "_id": req.params._id },
                         { $addToSet: { "members": user.googleId } }
                     );
                     res.sendStatus(200);
                 }
+            },
+            delete: async (req, res) => {
+                const group = await Group.findById(req.params._id);
+                await Group.deleteOne({ "_id": req.params._id });
+                res.sendStatus(200);
+                const user = await User.findOne({ 'googleId': req.session.user.id });
+                oAuth2Client.setCredentials(user.token);
+                const calendar = google.calendar({version:'v3', auth:oAuth2Client});
+                await calendar.calendars.delete({
+                    calendarId: group.groupCalendar 
+                });
+                console.log('Group has been removed successfully!');
             }
         },
     }));
-    router.get('/members/:_id', (req, res) => {
+    router.get('/groups/:_id/members', (req, res) => {
         ensureLogin(req,res,async () => {
             isMember(req, res, async  () =>{
                 const group = await Group.findOne({ "_id": req.params._id });
                 const users =  await User.find({ "googleId": {$in: group.members}});
                 res.json({memberMap: users.map(user =>({googleId:user.googleId,firstName:user.firstName}))});
+            })
+        })
+    });
+    router.delete('/groups/:_id/members/:userid', (req, res) => {
+        ensureLogin(req, res, async () => {
+            isMember(req, res, async () => {
+                const group = await Group.findOne({ "_id": req.params._id });
+                group.members = group.members.filter(member => member !== req.params.userid);
+                group.calendars = group.calendars.filter(calendar => calendar.googleId !== req.params.userid);
+                const user = await User.findOne({ 'googleId': req.session.user.id });
+                const userToRemove = await User.findOne({'googleId': req.params.userid});
+                oAuth2Client.setCredentials(user.token);
+                const calendar = google.calendar({version:'v3', auth:oAuth2Client});
+                const rules = await calendar.acl.list({
+                    calendarId: group.groupCalendar
+                });
+                const aclId = rules.data.items.find(rule => rule.scope.value === userToRemove.email).id;
+                await calendar.acl.delete({
+                    calendarId: group.groupCalendar,
+                    ruleId: aclId,
+                });
+                group.save();
+                res.sendStatus(200);
+                console.log("Member has been removed from the group successfully!")
             })
         })
     })
@@ -85,9 +121,4 @@ async function isMember(req, res, next) {
     } else {
         return res.sendStatus(401);
     }
-}
-
-async function logToConsole(req, res, next) {
-    console.log(req.crudify.err || req.crudify.result);
-    next();
 }

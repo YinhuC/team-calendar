@@ -11,6 +11,8 @@ import {
   CardImage, ImageContainer, Text, Title, Links, Notifications, Notification,
   ModalStyled,
 } from './style';
+import {Trash2} from 'react-feather';
+
 import image from '../Images/1.jpg';
 import image2 from '../Images/2.jpg';
 import image3 from '../Images/3.jpg';
@@ -71,6 +73,21 @@ class LandingPage extends React.Component {
     });
   }
 
+  deleteGroup = (groupid) => {
+    console.log(groupid);
+    fetch('/api/groups/'+groupid, {
+      method: 'DELETE',
+      headers: {
+        'Content-type': 'application/json',
+      },
+    }).then((res, err) => {
+      if (err) {
+        console.log(err);
+      }
+      this.fetchGroup();
+    });
+  }
+
   changeInput = (event) => {
     this.setState({
       [event.target.name]: event.target.value,
@@ -108,7 +125,16 @@ class LandingPage extends React.Component {
                   <CardImage src={arrayImages[index%5]} alt="Background image" />
                 </ImageContainer>
                 <CardBody>
-                  <Title>{group.name}</Title>
+                  <Title>
+                    {group.name}
+                    <Button onClick={(event) => {
+                      event.preventDefault();
+                      event.stopPropagation();
+                      this.deleteGroup(group._id);
+                    }} color="danger">
+                      <Trash2/>
+                    </Button>
+                  </Title>
                   <hr />
                   <Text>{group.description}</Text>
                 </CardBody>

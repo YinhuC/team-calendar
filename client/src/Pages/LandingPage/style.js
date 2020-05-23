@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import {Card, Modal, UncontrolledAlert} from 'reactstrap';
 import {Link} from 'react-router-dom';
+import {Trash2} from 'react-feather';
 
 
 export const DashbaordItem = styled(Card)`
@@ -69,10 +70,21 @@ export const Title = styled.p`
   text-decoration:none;
   font-size:25px;
   font-weight: 500;
+  align-content: left;
+  align-items: center;
+  display:flex;
+  justify-content: space-between;
+  width: 100%;
 `;
 
 export const Text = styled.p`
   font-size:15px;
+`;
+
+export const DeleteButton = styled(Trash2)`
+  align-content: right;
+  display: flex;
+  pointer-events: none;
 `;
 
 
@@ -85,6 +97,7 @@ export const Links = styled(Link)`
 
   &:hover{
       text-decoration: none;
+      color: #007bff;
   }
 `;
 
