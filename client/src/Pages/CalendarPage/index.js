@@ -10,7 +10,7 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import FullCalendar from '@fullcalendar/react';
 import InfiniteCalendar from 'react-infinite-calendar';
-import {MoreVertical} from 'react-feather';
+import {Trash2} from 'react-feather';
 import moment from 'moment';
 import {connect} from 'react-redux';
 import {setTimes, setDates, resetEventModal} from '../../redux/actions';
@@ -188,7 +188,7 @@ class CalendarPage extends React.Component {
           <Item className='d-flex justify-content-between' key={'u' + i}>
             {this.state.members[i].firstName}
             <Menu onClick={this.menuToggle}>
-              <MoreVertical size={20}/>
+              <Trash2/>
             </Menu>
           </Item>,
       );

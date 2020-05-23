@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import {
   ListGroup, ListGroupItem, Button,
 } from 'reactstrap';
-import {MoreVertical} from 'react-feather';
+import {Trash2} from 'react-feather';
 
 export const OuterContainer = styled.div`
   display:flex;
@@ -56,12 +56,7 @@ export const Item = styled(ListGroupItem)`
   text-align: left;
   display: flex;
   align-items: center;
-  /* &:hover {
-  background-color: lightgrey;
-  }
-  &:active {
-    background-color: #007BFF;
-  } */
+  justify-content: space-between;
 `;
 
 export const Subheader = styled.div`
@@ -179,7 +174,7 @@ export const SmallCalendarContainer = styled.div`
 `;
 
 
-export const Menu = styled(MoreVertical)`
+export const Menu = styled(Trash2)`
   width: 15px;
   &:hover{
     background-color: lightgray;
