@@ -45,6 +45,11 @@ export default router => {
                     await calendar.acl.insert({
                         calendarId:group.groupCalendar,
                         requestBody:{role:'owner',scope:{type:'user',value:req.body.email}}})
+                    oAuth2Client.setCredentials(user.token);
+                    console.log('Added User!');
+                    var newCalendar = google.calendar({version:'v3', auth:oAuth2Client});
+                    await newCalendar.calendarList.insert({requestBody:{id:group.groupCalendar}});
+                    console.log('Added User!');
                     await Group.update(
                         { "_id": req.params._id },
                         { $addToSet: { "members": user.googleId } }
