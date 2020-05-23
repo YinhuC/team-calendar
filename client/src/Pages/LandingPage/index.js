@@ -7,7 +7,7 @@ import {
 
 /* Components */
 import {
-  DashbaordItem, OuterContainer, InnerContainer, Heading, LoadingModal,
+  DashboardItem, OuterContainer, InnerContainer, Heading, LoadingModal,
   CardImage, ImageContainer, Text, Title, Links, Notifications, Notification,
   ModalStyled,
 } from './style';
@@ -144,7 +144,7 @@ class LandingPage extends React.Component {
       calendars.push(
           <Col className="col-4">
             <Links to={groupurl}>
-              <DashbaordItem>
+              <DashboardItem>
                 <ImageContainer>
                   <CardImage src={arrayImages[index%5]} alt="Background image" />
                 </ImageContainer>
@@ -162,7 +162,7 @@ class LandingPage extends React.Component {
                   <hr />
                   <Text>{group.description}</Text>
                 </CardBody>
-              </DashbaordItem>
+              </DashboardItem>
             </Links>
           </Col>,
       );
@@ -258,11 +258,11 @@ class LandingPage extends React.Component {
           <Row>
             {calendars}
             <Col className="col-4">
-              <DashbaordItem>
+              <DashboardItem>
                 <Button color="primary" outline onClick={this.toggleCreate} style={{flex: 1, borderRadius: 10}}>
                   Create Group
                 </Button>
-              </DashbaordItem>
+              </DashboardItem>
             </Col>
           </Row>
         </InnerContainer>

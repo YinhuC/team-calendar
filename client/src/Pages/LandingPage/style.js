@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom';
 import {Trash2} from 'react-feather';
 
 
-export const DashbaordItem = styled(Card)`
+export const DashboardItem = styled(Card)`
   display: flex;
   justify-content: center;
   height:380px;
