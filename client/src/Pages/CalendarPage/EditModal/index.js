@@ -40,6 +40,17 @@ class EditModal extends React.Component {
     });
     this.closeModal();
   }
+  deleteEvent = () => {
+    fetch(`/api/calendars/${this.props.groupid}/events/${this.props.id}`, {
+      method: 'DELETE',
+    }).then((res, err) => {
+      if (err) {
+        console.log(err);
+      }
+      this.props.refresh();
+    });
+    this.closeModal();
+  }
 
   closeModal = () =>{
     this.props.toggle();
@@ -56,7 +67,8 @@ class EditModal extends React.Component {
             <span className="mr-1" >
             Edit Calendar Event
             </span>
-            <Button color="clear" style={{padding: '0', display: 'flex', alignItems: 'center'}}>
+            <Button color="clear" style={{padding: '0', display: 'flex', alignItems: 'center'}}
+              onClick={this.deleteEvent}>
               <Trash2 size={25}/>
             </Button>
           </span>
