@@ -1,14 +1,14 @@
 /* Third Party */
 import React from 'react';
 import {
-  Row, Col, Badge, Button, CardBody, Collapse, Spinner, Modal,
+  Row, Col, Button, CardBody, Spinner, Modal,
   ModalHeader, ModalBody, ModalFooter, FormGroup, Label, Input,
 } from 'reactstrap';
 
 /* Components */
 import {
   DashboardItem, OuterContainer, InnerContainer, Heading, LoadingModal,
-  CardImage, ImageContainer, Text, Title, Links, Notifications, Notification,
+  CardImage, ImageContainer, Text, Title, Links,
   ModalStyled,
 } from './style';
 import {Trash2} from 'react-feather';
@@ -142,7 +142,7 @@ class LandingPage extends React.Component {
       console.log(group);
       const groupurl = '/calendar/'+group._id;
       calendars.push(
-          <Col className="col-4">
+          <Col className="col-12 col-xl-4 col-lg-6">
             <Links to={groupurl}>
               <DashboardItem>
                 <ImageContainer>
@@ -168,26 +168,10 @@ class LandingPage extends React.Component {
       );
     });
 
-    const notifications = [];
-    const items = [
-      'Proident id occaecat incididunt in ullamco duis consectetur excepteur aliquip.',
-      'Proident ipsum exercitation commodo ea id occaecat quis sit Lorem est sit ea.',
-      'Sint id sit amet et id ut excepteur ex nisi et non anim.',
-      'In ea ipsum amet aliquip deserunt cillum nostrud adipisicing et ipsum commodo est ullamco.',
-    ];
-
-    items.forEach((item, index) => {
-      notifications.push(
-          <Notification key={index} color='primary'>
-            {item}
-          </Notification>,
-      );
-    });
-
     return (
       <OuterContainer>
 
-        <ModalStyled size="lg" isOpen={this.state.isModalOpen} toggle={this.toggleCreate}>
+        <ModalStyled isOpen={this.state.isModalOpen} toggle={this.toggleCreate}>
           <ModalHeader toggle={this.toggleCreate}>Create New Group</ModalHeader>
           <ModalBody>
             <Row>
@@ -242,22 +226,14 @@ class LandingPage extends React.Component {
         <InnerContainer>
           <Row>
             <Col>
-              <Heading>
+              <Heading className='d-flex text-center text-lg-left'>
                 Dashboard
-                <Button color="primary" outline onClick={this.toggleNotifications}>
-                  Notifications <Badge color="secondary">4</Badge>
-                </Button>
-                <Collapse isOpen={this.state.notificationsOpen}>
-                  <Notifications>
-                    {notifications}
-                  </Notifications>
-                </Collapse>
               </Heading>
             </Col>
           </Row>
           <Row>
             {calendars}
-            <Col className="col-4">
+            <Col className="col-12 col-xl-4 col-lg-6">
               <DashboardItem>
                 <Button color="primary" outline onClick={this.toggleCreate} style={{flex: 1, borderRadius: 10}}>
                   Create Group

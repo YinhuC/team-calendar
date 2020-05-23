@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import {Card, Modal, UncontrolledAlert} from 'reactstrap';
+import {Card, Modal} from 'reactstrap';
 import {Link} from 'react-router-dom';
 import {Trash2} from 'react-feather';
 
@@ -19,7 +19,7 @@ export const OuterContainer = styled.div`
   flex-direction: column;
   justify-content:center;
   align-items:center;
-
+  width:100%;
 `;
 
 export const InnerContainer = styled.div`
@@ -30,9 +30,7 @@ export const InnerContainer = styled.div`
 `;
 
 export const Heading = styled.div`
-  display:flex;
   flex-direction: column;
-  justify-content:center;
   font-size: 35px;
   font-weight: 500;
   margin: 20px 0 0 0;
@@ -101,28 +99,9 @@ export const Links = styled(Link)`
   }
 `;
 
-export const Notifications = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction:column;
-  font-size: 16px;
-  text-align: center;
-  margin: 10px 0 0 0;
-`;
-
-export const Notification = styled(UncontrolledAlert)`
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 2px 0 2px 0;
-`;
-
 export const ModalStyled = styled(Modal)`
-  max-width:1600px;
-  width: 50%;
-  margin-top: 150px;
+  max-width:1000px;
+  margin-top: 10%;
 `;
 
 export const LoadingModal = styled(Modal)`
