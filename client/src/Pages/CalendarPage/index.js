@@ -260,7 +260,8 @@ class CalendarPage extends React.Component {
         <EventModal isOpen={this.state.eventModal} toggle={this.toggleEventModal} groupid={groupid}
           refresh={this.triggerUpdate}/>
         <MemberModal isOpen={this.state.memberModal} toggle={this.toggleMemberModal} groupid={groupid}/>
-        <EditModal isOpen={this.state.editModal} toggle={this.toggleEdit} groupid={groupid} refresh={this.triggerUpdate}/>
+        <EditModal isOpen={this.state.editModal} toggle={this.toggleEdit} groupid={groupid}
+          refresh={this.triggerUpdate}/>
 
         <LeftContainer>
           <Row>
