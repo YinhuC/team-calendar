@@ -13,7 +13,7 @@ import InfiniteCalendar from 'react-infinite-calendar';
 import {Trash2} from 'react-feather';
 import moment from 'moment';
 import {connect} from 'react-redux';
-import {setTimes, setDates, setTitle, resetEventModal} from '../../redux/actions';
+import {setTimes, setDates, setTitle, resetEventModal, setID} from '../../redux/actions';
 
 
 // must manually import the stylesheets for each plugin
@@ -79,8 +79,10 @@ class CalendarPage extends React.Component {
       const events = [];
       json.result.sort((a, b) => (a.googleId > b.googleId) ? 1 : -1).map((item, index) => {
         const userColour = randomColour(item.googleId);
+        console.log(item.events);
         item.events.map((event) => {
           events.push({
+            id: event.id,
             title: event.summary,
             start: event.startDate,
             end: event.endDate,
@@ -192,6 +194,7 @@ class CalendarPage extends React.Component {
   }
 
   openEdit = (data) => {
+    console.log(data.event);
     if (!data.event.durationEditable) {
       return;
     }
@@ -205,6 +208,9 @@ class CalendarPage extends React.Component {
     );
     this.props.setTitle(
         data.event.title,
+    );
+    this.props.setID(
+        data.event.id,
     );
     this.toggleEdit();
   }
@@ -254,7 +260,7 @@ class CalendarPage extends React.Component {
         <EventModal isOpen={this.state.eventModal} toggle={this.toggleEventModal} groupid={groupid}
           refresh={this.triggerUpdate}/>
         <MemberModal isOpen={this.state.memberModal} toggle={this.toggleMemberModal} groupid={groupid}/>
-        <EditModal isOpen={this.state.editModal} toggle={this.toggleEdit} groupid={groupid}/>
+        <EditModal isOpen={this.state.editModal} toggle={this.toggleEdit} groupid={groupid} refresh={this.triggerUpdate}/>
 
         <LeftContainer>
           <Row>
@@ -344,9 +350,10 @@ CalendarPage.propTypes = {
   setTimes: PropTypes.func,
   setDates: PropTypes.func,
   setTitle: PropTypes.func,
+  setID: PropTypes.func,
   resetEventModal: PropTypes.func,
 };
 const mapDispatchToProps = {
-  setTimes, setDates, resetEventModal, setTitle,
+  setTimes, setDates, resetEventModal, setTitle, setID,
 };
 export default connect(null, mapDispatchToProps)(CalendarPage);

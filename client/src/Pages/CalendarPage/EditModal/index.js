@@ -18,15 +18,9 @@ class EditModal extends React.Component {
     };
   }
 
-  changeInput = (event) => {
-    this.props.setTitle(
-        event.target.value,
-    );
-  }
-
-  createEvent = () => {
+  editEvent = () => {
     const event = {
-      summary: this.state.event,
+      summary: this.props.title,
       start: {
         dateTime: moment(`${this.props.startDate}-${this.props.startTime}`, 'YYYY-MM-DD-HH:mm').toISOString(),
       },
@@ -34,8 +28,8 @@ class EditModal extends React.Component {
         dateTime: moment(`${this.props.endDate}-${this.props.endTime}`, 'YYYY-MM-DD-HH:mm').toISOString(),
       },
     };
-    fetch(`/api/calendars/${this.props.groupid}/events`, {
-      method: 'POST',
+    fetch(`/api/calendars/${this.props.groupid}/events/${this.props.id}`, {
+      method: 'PUT',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({event: event}),
     }).then((res, err) => {
@@ -76,7 +70,7 @@ class EditModal extends React.Component {
                   type="text"
                   name="event"
                   placeholder="Name of event"
-                  onChange={this.changeInput}
+                  onChange={(event) => this.props.setTitle(event.target.value, this.props.title)}
                   value={this.props.title}
                 />
               </FormGroup>
@@ -125,7 +119,7 @@ class EditModal extends React.Component {
         </ModalBody>
 
         <ModalFooter>
-          <Button color="primary" onClick={this.createEvent}>Save</Button>
+          <Button color="primary" onClick={this.editEvent}>Save</Button>
           <Button color="secondary" onClick={this.props.toggle}>Cancel</Button>
         </ModalFooter>
       </ModalStyled>);
@@ -142,8 +136,9 @@ EditModal.propTypes = {
   endTime: PropTypes.string,
   setTimes: PropTypes.func,
   setDates: PropTypes.func,
-  title: PropTypes.func,
+  title: PropTypes.string,
   setTitle: PropTypes.func,
+  id: PropTypes.string,
 };
 function mapStateToProps(state) {
   return {
@@ -152,6 +147,7 @@ function mapStateToProps(state) {
     startTime: state.eventModal.startTime,
     endTime: state.eventModal.endTime,
     title: state.eventModal.title,
+    id: state.eventModal.id,
   };
 }
 const mapDispatchToProps = {
