@@ -6,25 +6,19 @@ import {
 import {ModalStyled} from './style';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {setTimes, setDates} from '../../../redux/actions';
+import {setTimes, setDates, setTitle} from '../../../redux/actions';
 import moment from 'moment';
+import {Trash2} from 'react-feather';
 
 
-class EventModal extends React.Component {
+class EditModal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      event: '',
     };
   }
 
-  changeInput = (event) => {
-    this.setState({
-      [event.target.name]: event.target.value,
-    });
-  }
-
-  createEvent = () => {
+  editEvent = () => {
     const startDate = moment(`${this.props.startDate}-${this.props.startTime}`, 'YYYY-MM-DD-HH:mm');
     const endDate = moment(`${this.props.endDate}-${this.props.endTime}`, 'YYYY-MM-DD-HH:mm');
     if (startDate > endDate) {
@@ -32,7 +26,7 @@ class EventModal extends React.Component {
       return;
     }
     const event = {
-      summary: this.state.event,
+      summary: this.props.title,
       start: {
         dateTime: startDate.toISOString(),
       },
@@ -40,10 +34,21 @@ class EventModal extends React.Component {
         dateTime: endDate.toISOString(),
       },
     };
-    fetch(`/api/calendars/${this.props.groupid}/events`, {
-      method: 'POST',
+    fetch(`/api/calendars/${this.props.groupid}/events/${this.props.id}`, {
+      method: 'PUT',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({event: event}),
+    }).then((res, err) => {
+      if (err) {
+        console.log(err);
+      }
+      this.props.refresh();
+    });
+    this.closeModal();
+  }
+  deleteEvent = () => {
+    fetch(`/api/calendars/${this.props.groupid}/events/${this.props.id}`, {
+      method: 'DELETE',
     }).then((res, err) => {
       if (err) {
         console.log(err);
@@ -55,15 +60,25 @@ class EventModal extends React.Component {
 
   closeModal = () =>{
     this.props.toggle();
-    this.setState({
-      event: '',
-    });
+    this.props.setTitle(
+        '',
+    );
   }
 
   render() {
     return (
       <ModalStyled size="lg" isOpen={this.props.isOpen} toggle={this.props.toggle}>
-        <ModalHeader toggle={this.props.toggle}>Add New Calendar Event</ModalHeader>
+        <ModalHeader toggle={this.props.toggle} >
+          <span style={{display: 'flex', flexWrap: 'nowrap'}}>
+            <span className="mr-1" >
+            Edit Calendar Event
+            </span>
+            <Button color="clear" style={{padding: '0', display: 'flex', alignItems: 'center'}}
+              onClick={this.deleteEvent}>
+              <Trash2 size={25}/>
+            </Button>
+          </span>
+        </ModalHeader>
         <ModalBody>
           <Row>
             <Col className="col-12">
@@ -73,8 +88,8 @@ class EventModal extends React.Component {
                   type="text"
                   name="event"
                   placeholder="Name of event"
-                  onChange={this.changeInput}
-                  value={this.state.event}
+                  onChange={(event) => this.props.setTitle(event.target.value, this.props.title)}
+                  value={this.props.title}
                 />
               </FormGroup>
             </Col>
@@ -122,13 +137,13 @@ class EventModal extends React.Component {
         </ModalBody>
 
         <ModalFooter>
-          <Button color="primary" onClick={this.createEvent}>Add</Button>
+          <Button color="primary" onClick={this.editEvent}>Save</Button>
           <Button color="secondary" onClick={this.props.toggle}>Cancel</Button>
         </ModalFooter>
       </ModalStyled>);
   }
 }
-EventModal.propTypes = {
+EditModal.propTypes = {
   toggle: PropTypes.func,
   refresh: PropTypes.func,
   isOpen: PropTypes.bool,
@@ -139,6 +154,9 @@ EventModal.propTypes = {
   endTime: PropTypes.string,
   setTimes: PropTypes.func,
   setDates: PropTypes.func,
+  title: PropTypes.string,
+  setTitle: PropTypes.func,
+  id: PropTypes.string,
 };
 function mapStateToProps(state) {
   return {
@@ -146,9 +164,11 @@ function mapStateToProps(state) {
     endDate: state.eventModal.endDate,
     startTime: state.eventModal.startTime,
     endTime: state.eventModal.endTime,
+    title: state.eventModal.title,
+    id: state.eventModal.id,
   };
 }
 const mapDispatchToProps = {
-  setTimes, setDates,
+  setTimes, setDates, setTitle,
 };
-export default connect(mapStateToProps, mapDispatchToProps)(EventModal);
+export default connect(mapStateToProps, mapDispatchToProps)(EditModal);

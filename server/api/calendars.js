@@ -67,6 +67,35 @@ export default router => {
             })
         })
     });
+    router.delete("/calendars/:_id/events/:eventId", (req, res) => {
+        ensureLogin(req,res, async () =>{
+            isMember(req,res, async () =>{
+                const group = await Group.findOne({ "_id": req.params._id});
+                const user = await User.findOne({'googleId': req.session.user.id});
+                oAuth2Client.setCredentials(user.token);
+                const calendar = google.calendar({version: 'v3', auth:oAuth2Client});
+                const result = await calendar.events.delete({
+                    calendarId:group.groupCalendar,eventId:req.params.eventId
+                })
+                res.status(200).send(result);
+            })
+        })
+    });
+    router.put("/calendars/:_id/events/:eventId", (req, res) => {
+        ensureLogin(req,res, async () =>{
+            isMember(req,res, async () =>{
+                const group = await Group.findOne({ "_id": req.params._id});
+                const user = await User.findOne({'googleId': req.session.user.id});
+                const event = req.body.event;
+                oAuth2Client.setCredentials(user.token);
+                const calendar = google.calendar({version: 'v3', auth:oAuth2Client});
+                const result = await calendar.events.patch({
+                    calendarId:group.groupCalendar,eventId:req.params.eventId,requestBody:event
+                })
+                res.status(200).send(result);
+            })
+        })
+    });
     router.post("/calendars/:_id", (req, res) => {
         ensureLogin(req,res, async () =>{
             isMember(req,res, async () =>{
@@ -118,6 +147,7 @@ async function getCalendarEvents(calendar, calendarId, start, end) {
             orderBy: 'startTime',
         }, (err, result) => {
             const r  = result.data.items.map((event) => ({
+                id:event.id,
                 summary:event.summary,
                 startDate: event.start.dateTime || event.start.date,
                 endDate: event.end.dateTime || event.end.date
