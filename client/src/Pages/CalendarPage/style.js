@@ -6,7 +6,6 @@ import {Trash2} from 'react-feather';
 
 export const OuterContainer = styled.div`
   display:flex;
-  flex-direction: row;
   justify-content:flex-start;
   align-items: start;
   border-top: solid 0.5px;
@@ -14,11 +13,11 @@ export const OuterContainer = styled.div`
 `;
 
 export const LeftContainer = styled.div`
-  padding: 0 10px 0 20px;
+  padding: 0 10px 0 10px;
   display:flex;
   flex-direction: column;
   justify-content:center;
-  width:17%;
+  width:100%;
 `;
 
 
@@ -44,17 +43,17 @@ export const Member = styled.div`
 `;
 
 export const List = styled(ListGroup)`
-  width: 100%;
+  width: 90%;
+  margin: 0 0 40px 0;
 `;
 
 export const Item = styled(ListGroupItem)`
-  padding: 10px 20px 10px 40px;
+  padding: 10px 20px 10px 20px;
   width:100%;
   text-overflow: ellipsis;
-  white-space: nowrap;
   overflow: hidden;
+  white-space: nowrap;
   text-align: left;
-  display: flex;
   align-items: center;
   justify-content: space-between;
 `;
@@ -151,7 +150,7 @@ export const OuterCalendarContainer = styled.div`
 `;
 
 export const RightContainer = styled.div`
-  width:84%;
+  width:100%;
   display: flex;
   justify-content:center;
   background-color:#EFF0F5;
@@ -161,9 +160,12 @@ export const RightContainer = styled.div`
 
 export const Add = styled(Button)`
   margin:0px 30px 0px 30px;
-  width:140px;
+  width:15%;
   height: 40px;
-  padding: 0 0 0 0;
+  display: flex;
+  flex-direction:row;
+  text-align:center;
+  justify-content:center;
 `;
 
 export const SmallCalendarContainer = styled.div`
@@ -181,4 +183,3 @@ export const Menu = styled(Trash2)`
     border-radius: 5px;
   }
 `;
-

@@ -10,7 +10,7 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import FullCalendar from '@fullcalendar/react';
 import InfiniteCalendar from 'react-infinite-calendar';
-import {Trash2} from 'react-feather';
+import {Trash2, Plus} from 'react-feather';
 import moment from 'moment';
 import {connect} from 'react-redux';
 import {setTimes, setDates, setTitle, resetEventModal, setID} from '../../redux/actions';
@@ -37,7 +37,6 @@ import randomColour from '../../Util/random-colour';
 
 
 /* Functions */
-
 class CalendarPage extends React.Component {
   constructor(props) {
     super(props);
@@ -54,12 +53,15 @@ class CalendarPage extends React.Component {
       userCalendars: [],
       activeCalendars: [],
       userId: '',
+      mobile: false,
     };
   }
 
   calendarComponentRef = React.createRef();
 
   componentDidMount() {
+    (window.innerWidth <800?this.setState({mobile: true}):this.setState({mobile: false}));
+    (window.innerWidth <800 && this.calendarComponentRef.current.getApi().changeView('timeGridDay'));
     const {groupid} = this.props.match.params;
     this.refreshData();
     fetch('/api/calendars/'+groupid).then( (res) => res.json().then( (json) => {
@@ -68,7 +70,12 @@ class CalendarPage extends React.Component {
     fetch('/api/user_details').then((res) => res.json().then((json) => {
       this.setState({userId: json.id});
     }));
+    window.addEventListener('resize', () => {
+      (window.innerWidth <800?this.setState({mobile: true}):this.setState({mobile: false}));
+      (window.innerWidth <800 && this.calendarComponentRef.current.getApi().changeView('timeGridDay'));
+    });
   }
+
   refereshEvents() {
     const {groupid} = this.props.match.params;
     const view = this.calendarComponentRef.current.getApi().view;
@@ -259,7 +266,7 @@ class CalendarPage extends React.Component {
     // const lastWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate() - 7);
 
     return (
-      <OuterContainer>
+      <OuterContainer className="flex-lg-row flex-column">
         <EventModal isOpen={this.state.eventModal} toggle={this.toggleEventModal} groupid={groupid}
           refresh={this.triggerUpdate}/>
         <MemberModal isOpen={this.state.memberModal} toggle={this.toggleMemberModal} groupid={groupid}
@@ -267,12 +274,12 @@ class CalendarPage extends React.Component {
         <EditModal isOpen={this.state.editModal} toggle={this.toggleEdit} groupid={groupid}
           refresh={this.triggerUpdate}/>
 
-        <LeftContainer>
+        <LeftContainer className="col-lg-2 col-12">
           <Row>
-            <Col className="d-flex justify-content-center align-items-start my-3">
+            <Col className="col-12 d-flex justify-content-center my-3">
               <Link to="/landing">
                 <Button color="primary" onClick={this.toggleLogin}>
-                  &lt; Back to Dashboard
+                  &lt; Dashboard
                 </Button>
               </Link>
             </Col>
@@ -293,12 +300,12 @@ class CalendarPage extends React.Component {
                 </List>
               </Group>
             </Col>
-            <Col className="col-12 mt-5 mb-1 d-flex flex-row justify-content-between align-items-center">
+            <Col className="col-12 mb-1 d-flex justify-content-between">
               <Subheader>Members</Subheader>
-              <Button color="primary" onClick={this.toggleMemberModal}>Add Members</Button>
+              <Button color="primary" onClick={this.toggleMemberModal}><Plus/></Button>
             </Col>
             <Col className="col-12">
-              <Member>
+              <Member className="mx-2">
                 <List>
                   {membersItems}
                 </List>
@@ -306,7 +313,8 @@ class CalendarPage extends React.Component {
             </Col>
           </Row>
         </LeftContainer>
-        <RightContainer>
+
+        <RightContainer className="col-lg-10 col-12">
           <OuterCalendarContainer>
             <Row>
               <Col className="col-12 d-flex space-between align-items-center">
@@ -314,18 +322,24 @@ class CalendarPage extends React.Component {
                   {this.state.title}
                 </Heading>
                 <Add color="primary" onClick={this.toggleEventModal}>
-                  + Add Event
+                  <Plus/>
+                  <span className="d-none d-xl-block">
+                    Add Event
+                  </span>
                 </Add>
               </Col>
               <Col className="col-12">
                 <CalendarContainer>
                   <FullCalendar
                     defaultView="timeGridWeek"
-                    header={{
+                    header={this.state.mobile?{
+                      left: 'prev,next, today',
+                      center: '',
+                      right: '',
+                    }:{
                       left: 'prev,next today',
                       center: 'title',
-                      right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek',
-                    }}
+                      right: 'dayGridMonth,timeGridWeek,timeGridDay'}}
                     plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
                     ref={this.calendarComponentRef}
                     weekends={this.state.calendarWeekends}
@@ -335,6 +349,7 @@ class CalendarPage extends React.Component {
                     select = {this.selectCallback}
                     datesRender = {this.triggerUpdate}
                     eventClick = {this.openEdit}
+
                   />
                 </CalendarContainer>
               </Col>
