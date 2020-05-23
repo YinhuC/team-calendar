@@ -168,22 +168,6 @@ class LandingPage extends React.Component {
       );
     });
 
-    const notifications = [];
-    const items = [
-      'Proident id occaecat incididunt in ullamco duis consectetur excepteur aliquip.',
-      'Proident ipsum exercitation commodo ea id occaecat quis sit Lorem est sit ea.',
-      'Sint id sit amet et id ut excepteur ex nisi et non anim.',
-      'In ea ipsum amet aliquip deserunt cillum nostrud adipisicing et ipsum commodo est ullamco.',
-    ];
-
-    items.forEach((item, index) => {
-      notifications.push(
-          <Notification key={index} color='primary'>
-            {item}
-          </Notification>,
-      );
-    });
-
     return (
       <OuterContainer>
 
@@ -244,14 +228,6 @@ class LandingPage extends React.Component {
             <Col>
               <Heading>
                 Dashboard
-                <Button color="primary" outline onClick={this.toggleNotifications}>
-                  Notifications <Badge color="secondary">4</Badge>
-                </Button>
-                <Collapse isOpen={this.state.notificationsOpen}>
-                  <Notifications>
-                    {notifications}
-                  </Notifications>
-                </Collapse>
               </Heading>
             </Col>
           </Row>
