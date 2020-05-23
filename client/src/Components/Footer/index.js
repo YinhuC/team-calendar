@@ -4,38 +4,25 @@ import React from 'react';
 /* Components */
 import {Logo, FooterContainer} from './style';
 import {Container, Row, Col} from 'reactstrap';
-import wolf from '../wolf_light.svg';
+import wolf from '../white_text.png';
 
 /* Functions */
 
 function Footer() {
   return (
     <FooterContainer>
-      <Container className="mb-5">
+      <Container>
         <Row>
-          <Col>
+          <Col className="col-12 col-md-6 d-flex justify-content-center">
             <Logo src={wolf} alt="Logo" />
-            <p>White Wolf</p>
           </Col>
-          <Col>
-            <h3>Useful Links</h3>
-            <ul>
-              <li>Item</li>
-              <li>Item</li>
-              <li>Item</li>
-            </ul>
-          </Col>
-          <Col>
-            <h3>Useful Links</h3>
-            <ul>
-              <li>Item</li>
-              <li>Item</li>
-              <li>Item</li>
-            </ul>
+          <Col className="col-12 col-md-6 pl-5 d-flex justify-content-center align-items-center">
+            <h3>This web application was designed for a group project in Semester One 2020 at
+            the University of Auckland.</h3>
           </Col>
         </Row>
       </Container>
-      <hr />
+      <hr style={{backgroundColor: 'white'}}/>
       <Container>
         <Row>
           <Col className="mb-3">

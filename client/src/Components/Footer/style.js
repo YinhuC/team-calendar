@@ -3,7 +3,6 @@ import styled from 'styled-components';
 export const FooterContainer = styled.div`
   color:white;
   background-color: #007bff;
-  padding: 70px 0 0 0;
 `;
 
 export const Center = styled.div`
@@ -12,6 +11,6 @@ export const Center = styled.div`
 `;
 
 export const Logo = styled.img`
-  height: 50px;
-  width: 50px;
+  height: 250px;
+  width: 250px;
 `;
