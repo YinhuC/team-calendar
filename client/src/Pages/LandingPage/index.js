@@ -1,13 +1,13 @@
 /* Third Party */
 import React from 'react';
 import {
-  Row, Col, Badge, Button, CardBody, Collapse,
+  Row, Col, Badge, Button, CardBody, Collapse, Spinner, Modal,
   ModalHeader, ModalBody, ModalFooter, FormGroup, Label, Input,
 } from 'reactstrap';
 
 /* Components */
 import {
-  DashbaordItem, OuterContainer, InnerContainer, Heading,
+  DashbaordItem, OuterContainer, InnerContainer, Heading, LoadingModal,
   CardImage, ImageContainer, Text, Title, Links, Notifications, Notification,
   ModalStyled,
 } from './style';
@@ -29,6 +29,9 @@ class LandingPage extends React.Component {
       description: '',
       name: '',
       groups: [],
+      deleteModal: false,
+      groupid: '',
+      loadingModal: false,
     };
   }
 
@@ -41,6 +44,7 @@ class LandingPage extends React.Component {
   }
 
   createGroup = () => {
+    this.toggleLoad();
     fetch('/api/groups', {
       method: 'POST',
       headers: {
@@ -62,6 +66,9 @@ class LandingPage extends React.Component {
   }
 
   fetchGroup = () => {
+    this.setState({
+      loadingModal: true,
+    });
     fetch('/api/groups').then((res, err) => {
       if (err) {
         console.log(err);
@@ -71,11 +78,27 @@ class LandingPage extends React.Component {
         }));
       }
     });
+    this.setState({
+      loadingModal: false,
+    });
   }
 
-  deleteGroup = (groupid) => {
-    console.log(groupid);
-    fetch('/api/groups/'+groupid, {
+  toggleDelete = (id) => {
+    this.setState({
+      deleteModal: !this.state.deleteModal,
+      groupid: id,
+    });
+  }
+
+  toggleLoad = () => {
+    this.setState({
+      loadingModal: !this.state.loadingModal,
+    });
+  }
+
+  deleteGroup = () => {
+    console.log(this.state.groupid);
+    fetch('/api/groups/'+this.state.groupid, {
       method: 'DELETE',
       headers: {
         'Content-type': 'application/json',
@@ -86,6 +109,7 @@ class LandingPage extends React.Component {
       }
       this.fetchGroup();
     });
+    this.toggleDelete('');
   }
 
   changeInput = (event) => {
@@ -94,7 +118,7 @@ class LandingPage extends React.Component {
     });
   }
 
-  toggleModal = () =>{
+  toggleCreate = () =>{
     this.setState({
       isModalOpen: !this.state.isModalOpen,
       description: '',
@@ -130,8 +154,8 @@ class LandingPage extends React.Component {
                     <Button onClick={(event) => {
                       event.preventDefault();
                       event.stopPropagation();
-                      this.deleteGroup(group._id);
-                    }} color="danger">
+                      this.toggleDelete(group._id);
+                    }} color="clear">
                       <Trash2/>
                     </Button>
                   </Title>
@@ -163,8 +187,8 @@ class LandingPage extends React.Component {
     return (
       <OuterContainer>
 
-        <ModalStyled size="lg" isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
-          <ModalHeader toggle={this.toggleModal}>Create New Group</ModalHeader>
+        <ModalStyled size="lg" isOpen={this.state.isModalOpen} toggle={this.toggleCreate}>
+          <ModalHeader toggle={this.toggleCreate}>Create New Group</ModalHeader>
           <ModalBody>
             <Row>
               <Col className="col-12">
@@ -195,9 +219,26 @@ class LandingPage extends React.Component {
 
           <ModalFooter>
             <Button color="primary" onClick={this.createGroup}>Add</Button>
-            <Button color="secondary" onClick={this.toggleModal}>Cancel</Button>
+            <Button color="secondary" onClick={this.toggleCreate}>Cancel</Button>
           </ModalFooter>
         </ModalStyled>
+
+        <Modal isOpen={this.state.deleteModal} toggle={this.toggleDelete} >
+          <ModalHeader toggle={this.toggleDelete}>Delete Group</ModalHeader>
+          <ModalBody>
+            Are you sure you want to remove test? You&apos;ll no longer have access to this calendar and its events.
+            Other people with access to the calendar can continue to use it
+          </ModalBody>
+          <ModalFooter>
+            <Button color="danger" onClick={this.deleteGroup}>Delete Group</Button>
+            <Button color="secondary" onClick={this.toggleDelete}>Cancel</Button>
+          </ModalFooter>
+        </Modal>
+
+        <LoadingModal isOpen={this.state.loadingModal} toggle={this.toggleLoad} >
+          <Spinner color="primary" style={{height: '250px', width: '250px'}}/>
+        </LoadingModal>
+
         <InnerContainer>
           <Row>
             <Col>
@@ -218,7 +259,7 @@ class LandingPage extends React.Component {
             {calendars}
             <Col className="col-4">
               <DashbaordItem>
-                <Button color="primary" outline onClick={this.toggleModal} style={{flex: 1, borderRadius: 10}}>
+                <Button color="primary" outline onClick={this.toggleCreate} style={{flex: 1, borderRadius: 10}}>
                   Create Group
                 </Button>
               </DashbaordItem>
