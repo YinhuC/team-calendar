@@ -13,7 +13,7 @@ import InfiniteCalendar from 'react-infinite-calendar';
 import {Trash2} from 'react-feather';
 import moment from 'moment';
 import {connect} from 'react-redux';
-import {setTimes, setDates, resetEventModal} from '../../redux/actions';
+import {setTimes, setDates, setTitle, resetEventModal} from '../../redux/actions';
 
 
 // must manually import the stylesheets for each plugin
@@ -31,6 +31,7 @@ import {OuterContainer, LeftContainer, Heading,
   SmallCalendarContainer, Menu,
 } from './style';
 import EventModal from './EventModal';
+import EditModal from './EditModal';
 import MemberModal from './MemberModal';
 import randomColour from '../../Util/random-colour';
 
@@ -46,6 +47,7 @@ class CalendarPage extends React.Component {
       calendarEvents: [],
       eventModal: false,
       memberModal: false,
+      editModal: false,
       title: '',
       members: [],
       userCalendars: [],
@@ -82,6 +84,7 @@ class CalendarPage extends React.Component {
             title: event.summary,
             start: event.startDate,
             end: event.endDate,
+            editable: item.googleId === groupid,
             backgroundColor: userColour.fill,
             borderColor: userColour.fill,
             textColor: userColour.text,
@@ -182,6 +185,30 @@ class CalendarPage extends React.Component {
     });
   }
 
+  toggleEdit = () => {
+    this.setState({
+      editModal: !this.state.editModal,
+    });
+  }
+
+  openEdit = (data) => {
+    if (!data.event.durationEditable) {
+      return;
+    }
+    this.props.setDates(
+        moment(data.event.start).format('YYYY-MM-DD'),
+        moment(data.event.end).format('YYYY-MM-DD'),
+    );
+    this.props.setTimes(
+        moment(data.event.start).format('HH:mm'),
+        moment(data.event.end).format('HH:mm'),
+    );
+    this.props.setTitle(
+        data.event.title,
+    );
+    this.toggleEdit();
+  }
+
   render() {
     const {groupid} = this.props.match.params;
     const calendarsItems = [];
@@ -227,6 +254,7 @@ class CalendarPage extends React.Component {
         <EventModal isOpen={this.state.eventModal} toggle={this.toggleEventModal} groupid={groupid}
           refresh={this.triggerUpdate}/>
         <MemberModal isOpen={this.state.memberModal} toggle={this.toggleMemberModal} groupid={groupid}/>
+        <EditModal isOpen={this.state.editModal} toggle={this.toggleEdit} groupid={groupid}/>
 
         <LeftContainer>
           <Row>
@@ -295,6 +323,7 @@ class CalendarPage extends React.Component {
                     selectMirror= {true}
                     select = {this.selectCallback}
                     datesRender = {this.triggerUpdate}
+                    eventClick = {this.openEdit}
                   />
                 </CalendarContainer>
               </Col>
@@ -314,9 +343,10 @@ CalendarPage.propTypes = {
   }),
   setTimes: PropTypes.func,
   setDates: PropTypes.func,
+  setTitle: PropTypes.func,
   resetEventModal: PropTypes.func,
 };
 const mapDispatchToProps = {
-  setTimes, setDates, resetEventModal,
+  setTimes, setDates, resetEventModal, setTitle,
 };
 export default connect(null, mapDispatchToProps)(CalendarPage);
