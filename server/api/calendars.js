@@ -42,6 +42,14 @@ export default router => {
                         events: events,
                     })
                 }));
+                const user = await User.findOne({'googleId': group.members[0]});
+                const calendar = google.calendar({version: 'v3', auth:oAuth2Client});
+                oAuth2Client.setCredentials(user.token);
+                const events = await getCalendarEvents(calendar, group.groupCalendar, start, end);
+                resultsArray.push({
+                    googleId: group.id,
+                    events: events,
+                })
                 res.json({result:resultsArray});
             });
         });
