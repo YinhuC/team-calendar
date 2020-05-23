@@ -3,7 +3,6 @@ import React from 'react';
 
 /* Components */
 import {
-  Header,
   Text,
   SubText,
   FeatureIcon,
@@ -11,9 +10,9 @@ import {
   FeatureContainer,
 } from './style';
 import {Row, Col, Container} from 'reactstrap';
-import Calendar from './Icons/calendar.svg';
-import Fast from './Icons/fast.svg';
-import Report from './Icons/report.svg';
+import Calendar from './Icons/calendar.png';
+import Simple from './Icons/simple.png';
+import Google from './Icons/google.svg';
 
 /* Functions */
 
@@ -21,39 +20,31 @@ function FeatureSection() {
   return (
     <Feature>
       <Container>
-        <Row>
-          <Col>
-            <Header>Special Features</Header>
-          </Col>
-        </Row>
-        <Row>
-          <Col>
+        <Row className="d-flex justify-content-center">
+          <Col className="col-lg-3 col-12">
             <FeatureContainer>
               <FeatureIcon src={Calendar} />
-              <Text>Calendar</Text>
+              <Text>Complete</Text>
               <SubText>
-                Every single event of every single group member in one place to
-                find the available times
+                See all of your group members&apos; schedules in one place
               </SubText>
             </FeatureContainer>
           </Col>
-          <Col>
+          <Col className="col-lg-3 col-12">
             <FeatureContainer>
-              <FeatureIcon src={Fast} />
-              <Text>Fast</Text>
+              <FeatureIcon src={Simple} />
+              <Text>Simple</Text>
               <SubText>
-                With a single click, find every single avaiable spot and time
-                that you can meet up with your group members
+              Organise a meeting that works for everyone in one click
               </SubText>
             </FeatureContainer>
           </Col>
-          <Col>
+          <Col className="col-lg-3 col-12">
             <FeatureContainer>
-              <FeatureIcon src={Report} />
-              <Text>Analytics</Text>
+              <FeatureIcon src={Google} />
+              <Text>Integrated</Text>
               <SubText>
-                Analytics provide a easy way to see the progress that your group
-                has made and all vital information
+                All your group events are synced to your Google Account
               </SubText>
             </FeatureContainer>
           </Col>
