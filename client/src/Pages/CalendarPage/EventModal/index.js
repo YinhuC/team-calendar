@@ -7,6 +7,7 @@ import {ModalStyled} from './style';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {setTimes, setDates} from '../../../redux/actions';
+import moment from 'moment';
 
 
 class EventModal extends React.Component {
@@ -22,6 +23,37 @@ class EventModal extends React.Component {
       [event.target.name]: event.target.value,
     });
   }
+
+  createEvent = () => {
+    const event = {
+      summary: this.state.event,
+      start: {
+        dateTime: moment(`${this.props.startDate}-${this.props.startTime}`, 'YYYY-MM-DD-HH:mm').toISOString(),
+      },
+      end: {
+        dateTime: moment(`${this.props.endDate}-${this.props.endTime}`, 'YYYY-MM-DD-HH:mm').toISOString(),
+      },
+    };
+    fetch(`/api/calendars/${this.props.groupid}/events`, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({event: event}),
+    }).then((res, err) => {
+      if (err) {
+        console.log(err);
+      }
+      this.props.refresh();
+    });
+    this.closeModal();
+  }
+
+  closeModal = () =>{
+    this.props.toggle();
+    this.setState({
+      event: '',
+    });
+  }
+
   render() {
     return (
       <ModalStyled size="lg" isOpen={this.props.isOpen} toggle={this.props.toggle}>
@@ -84,7 +116,7 @@ class EventModal extends React.Component {
         </ModalBody>
 
         <ModalFooter>
-          <Button color="primary" onClick={this.props.toggle}>Add</Button>
+          <Button color="primary" onClick={this.createEvent}>Add</Button>
           <Button color="secondary" onClick={this.props.toggle}>Cancel</Button>
         </ModalFooter>
       </ModalStyled>);
@@ -92,7 +124,9 @@ class EventModal extends React.Component {
 }
 EventModal.propTypes = {
   toggle: PropTypes.func,
+  refresh: PropTypes.func,
   isOpen: PropTypes.bool,
+  groupid: PropTypes.string,
   startDate: PropTypes.string,
   endDate: PropTypes.string,
   startTime: PropTypes.string,
