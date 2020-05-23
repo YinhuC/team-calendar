@@ -13,19 +13,17 @@ import AuthenticationButton from '../../../Components/AuthenticationButton';
 function HeaderSection() {
   return (
     <>
-      <Wave/>
       <InnerContainer>
         <Container>
           <Row>
             <Col>
               <Header>
                 <HeaderText>
-              Find Availability Of Your Group In A Single Click
+                  The Calendar With Everyone, For Everyone
                 </HeaderText>
-                <SubText>
-              Officia culpa consectetur occaecat sunt ullamco eiusmod ipsum
-              nulla deserunt dolor cupidatat dolore. Excepteur deserunt fugiat
-              esse pariatur mollit aliquip.
+                <SubText className="d-none d-md-flex">
+                  Gain access to the schedule of your group and
+                  create events which are integrated with Google Calendars.
                 </SubText>
                 <AuthenticationButton theme='light' loginText="Sign Up & Start&nbsp;&nbsp;&gt;"/>
               </Header>
@@ -33,9 +31,11 @@ function HeaderSection() {
           </Row>
         </Container>
       </InnerContainer>
+      <Wave/>
+
       <Container>
         <Row>
-          <Col className="d-flex justify-content-center">
+          <Col className="d-flex justify-content-center ">
             <HeaderImage src={Calendar} />
           </Col>
         </Row>

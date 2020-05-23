@@ -3,7 +3,6 @@ import {ReactComponent as WaveFile} from '../wave_top.svg';
 
 export const Wave = styled(WaveFile)`
   position:absolute;
-  bottom: 50px;
 `;
 
 export const InnerContainer = styled.div`
@@ -18,20 +17,20 @@ export const Header = styled.div`
   align-items: center;
   text-align: center;
   padding: 10px;
-  margin: 140px 0 100px 0;
+  margin: 140px 0 50px 0;
 `;
 
 export const HeaderText = styled.div`
   font-size: 35px;
   font-weight: bold;
-  margin: 0 0 10px 0;
+  margin: 0 0 20px 0;
   width: 90%;
 `;
 
 export const SubText = styled.div`
   font-size: 20px;
   width: 65%;
-  margin: 0 0 20px;
+  margin: 0 0 20px 0;
 `;
 
 export const HeaderImage = styled.img`
