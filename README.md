@@ -1,5 +1,16 @@
-# Group-12-White-Wolf: Group Calendar
+# Group Calendar
 [![Build Status](https://travis-ci.com/BennyChun/Group-12-White-Wolf.svg?token=97wroqvKxQfyzgcd2pHd&branch=master)](https://travis-ci.com/BennyChun/Group-12-White-Wolf)
+
+A simple and efficient calendar app which makes group event scheduling a lot easier. 
+* create new groups and instantly add members using their email address
+* see all of your group members calendars in one place  
+* fully integrates with the Google calendars of all group members 
+* easily create, edit and delete group events on the fly
+
+**Authors**:   
+* Hideaki Murakami    
+* Yinhu Cui    
+* Soumith Chittajallu  
 
 ## Getting Started
 
@@ -35,3 +46,7 @@ Open another terminal, then:
 `cd client`  
 `npm start`  
 
+## Project Information 
+
+A link to the Project Wiki can be found [here](https://github.com/BennyChun/Group-12-White-Wolf/wiki)  
+Group meeting minutes can be found [here](https://github.com/BennyChun/Group-12-White-Wolf/wiki/Past-Meetings-List)  
