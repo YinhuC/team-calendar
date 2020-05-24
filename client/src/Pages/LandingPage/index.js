@@ -210,8 +210,9 @@ class LandingPage extends React.Component {
         <Modal isOpen={this.state.deleteModal} toggle={this.toggleDelete} >
           <ModalHeader toggle={this.toggleDelete}>Delete Group</ModalHeader>
           <ModalBody>
-            Are you sure you want to remove test? You&apos;ll no longer have access to this calendar and its events.
-            Other people with access to the calendar can continue to use it
+            <div>Are you sure you want to delete this group?</div>
+            <div>This action cannot be undone.</div>
+            <div>Your group members will lose access the group events.</div>
           </ModalBody>
           <ModalFooter>
             <Button color="danger" onClick={this.deleteGroup}>Delete Group</Button>
