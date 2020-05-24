@@ -111,7 +111,9 @@ class CalendarPage extends React.Component {
             borderColor: userColour.fill,
             textColor: userColour.text,
           });
+          return null;
         });
+        return null;
       });
       this.setState({calendarEvents: events});
     }));
@@ -254,6 +256,7 @@ class CalendarPage extends React.Component {
             {calendar.name}
           </Item>,
       );
+      return null;
     });
 
     const membersItems = [];

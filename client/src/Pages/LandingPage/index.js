@@ -140,7 +140,7 @@ class LandingPage extends React.Component {
     this.state.groups.forEach((group, index) => {
       const groupurl = '/calendar/'+group._id;
       calendars.push(
-          <Col className="col-12 col-xl-4 col-lg-6">
+          <Col key={group._id} className="col-12 col-xl-4 col-lg-6">
             <Links to={groupurl}>
               <DashboardItem>
                 <ImageContainer>

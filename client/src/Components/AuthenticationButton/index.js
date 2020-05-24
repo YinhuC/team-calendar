@@ -15,7 +15,7 @@ class AuthenticationButton extends React.Component {
   componentDidMount() {
     fetch('/api/user_details').then((response) => {
       response.json().then((user) => {
-        this.props.authenticate(user.id);
+        this.props.authenticate(user.id !== undefined);
       });
     });
   }
