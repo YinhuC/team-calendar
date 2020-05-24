@@ -15,13 +15,12 @@ class AuthenticationButton extends React.Component {
   componentDidMount() {
     fetch('/api/user_details').then((response) => {
       response.json().then((user) => {
-        this.props.authenticate(user.id);
+        this.props.authenticate(user.id !== undefined);
       });
     });
   }
 
   handleLogin = () => {
-    console.log('fetch');
     fetch('/api/login').then((response) => {
       response.text().then((url) => {
         window.location.assign(url);
@@ -30,7 +29,6 @@ class AuthenticationButton extends React.Component {
   }
 
   handleLogout = () => {
-    console.log('fetch');
     fetch('/api/logout');
     window.location.assign('/');
   }

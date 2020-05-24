@@ -23,7 +23,6 @@ class MemberModal extends React.Component {
 
   addMember = () => {
     const {groupid} = this.props;
-    console.log(groupid);
     fetch('/api/groups/'+groupid, {
       method: 'PUT',
       headers: {
