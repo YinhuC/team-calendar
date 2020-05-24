@@ -1,0 +1,694 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`testing the AuthButton Auth 1`] = `
+<button
+  aria-label={null}
+  className="btn btn-primary"
+  onClick={[Function]}
+  type="button"
+/>
+`;
+
+exports[`testing the AuthButton no Auth 1`] = `
+<button
+  aria-label={null}
+  className="btn btn-primary"
+  onClick={[Function]}
+  type="button"
+/>
+`;
+
+exports[`testing the CalendarPage 1`] = `
+<div
+  className="sc-AxgMl jLVCgA flex-lg-row flex-column"
+>
+  <div
+    className="sc-AxheI gocOSI col-lg-2 col-12"
+  >
+    <div
+      className="row"
+    >
+      <div
+        className="col-12 d-flex justify-content-center my-3 col"
+      >
+        <a
+          href="/landing"
+          onClick={[Function]}
+        >
+          <button
+            aria-label={null}
+            className="btn btn-primary"
+            onClick={[Function]}
+          >
+            &lt; Dashboard
+          </button>
+        </a>
+      </div>
+      <div
+        className="col-12 col"
+      >
+        <div
+          className="sc-fzplWN Aphti"
+        >
+          Calendars
+        </div>
+        <div
+          className="sc-AxmLO JCFsi"
+        >
+          <ul
+            className="sc-fzoLsD dfXHGQ list-group"
+          />
+        </div>
+      </div>
+      <div
+        className="col-12 mb-1 d-flex justify-content-between col"
+      >
+        <div
+          className="sc-fzplWN Aphti"
+        >
+          Members
+        </div>
+        <button
+          aria-label={null}
+          className="btn btn-primary"
+          onClick={[Function]}
+          type="button"
+        >
+          <svg
+            fill="none"
+            height={24}
+            stroke="currentColor"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            viewBox="0 0 24 24"
+            width={24}
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <line
+              x1="12"
+              x2="12"
+              y1="5"
+              y2="19"
+            />
+            <line
+              x1="5"
+              x2="19"
+              y1="12"
+              y2="12"
+            />
+          </svg>
+        </button>
+      </div>
+      <div
+        className="col-12 col"
+      >
+        <div
+          className="sc-fzozJi dsYdeD"
+        >
+          <ul
+            className="sc-fzoLsD dfXHGQ list-group"
+          >
+            <li
+              className="sc-fzpans itRoqh list-group-item"
+              style={
+                Object {
+                  "backgroundColor": "#091697",
+                  "color": "#FFFFFF",
+                }
+              }
+            >
+              
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="sc-fzokOt fECDVp col-lg-10 col-12"
+  >
+    <div
+      className="sc-fznZeY ZJQKm"
+    >
+      <div
+        className="row"
+      >
+        <div
+          className="col-12 d-flex space-between align-items-center col"
+        >
+          <div
+            className="sc-Axmtr gLsYaZ"
+          >
+            
+          </div>
+          <button
+            aria-label={null}
+            className="sc-fzqBZW latBVY btn btn-primary"
+            onClick={[Function]}
+            type="button"
+          >
+            <svg
+              fill="none"
+              height={24}
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              viewBox="0 0 24 24"
+              width={24}
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <line
+                x1="12"
+                x2="12"
+                y1="5"
+                y2="19"
+              />
+              <line
+                x1="5"
+                x2="19"
+                y1="12"
+                y2="12"
+              />
+            </svg>
+            <span
+              className="d-none d-xl-block"
+            >
+              Add Event
+            </span>
+          </button>
+        </div>
+        <div
+          className="col-12 col"
+        >
+          <div
+            className="sc-fznKkj kvOjUs"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`testing the DetailSection 1`] = `
+Array [
+  <div
+    className="sc-fzqPZZ kVVlLP"
+  >
+    <div
+      className="container"
+    >
+      <div
+        className="row"
+      >
+        <div
+          className="col-12 col-lg-6 mb-4 mt-xl-5 order-1 order-lg-2 col"
+        >
+          <img
+            className="sc-fzoYkl jCUWME"
+            src="create_group.gif"
+          />
+        </div>
+        <div
+          className="col-12 col-lg-6 mt-xl-5 order-2 order-lg-1 col"
+        >
+          <div
+            className="sc-fzoxKX iuQDVH"
+          >
+            Create Groups
+          </div>
+          <div
+            className="sc-fzoKki Imobz"
+          >
+            Sign in with your Google Account and create your group with a single click!
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>,
+  <div
+    className="sc-fzqBkg JWBHk"
+  >
+    <div
+      className="container"
+    >
+      <div
+        className="row"
+      >
+        <div
+          className="col-12 col-lg-6 order-2 col"
+        >
+          <div
+            className="sc-fzoxKX iuQDVH"
+          >
+            Add Members
+          </div>
+          <div
+            className="sc-fzoKki Imobz"
+          >
+            Type in your members Gmail Address and instanly add them to the group!
+          </div>
+        </div>
+        <div
+          className="col-12 col-lg-6 mb-4 col"
+        >
+          <img
+            className="sc-fzoYkl jCUWME"
+            src="add_member.gif"
+          />
+        </div>
+      </div>
+    </div>
+  </div>,
+  <div
+    className="sc-fzqPZZ kVVlLP"
+  >
+    <div
+      className="container"
+    >
+      <div
+        className="row"
+      >
+        <div
+          className="col-12 col-lg-6 mb-4 order-1 order-lg-2 col"
+        >
+          <img
+            className="sc-fzoYkl jCUWME"
+            src="select_calendar.gif"
+          />
+        </div>
+        <div
+          className="col-12 col-lg-6 mt-xl-5 order-2 order-lg-1 col"
+        >
+          <div
+            className="sc-fzoxKX iuQDVH"
+          >
+            Choose What To Share
+          </div>
+          <div
+            className="sc-fzoKki Imobz"
+          >
+            Select which if your Google Calendars you want to share with your group!
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>,
+  <div
+    className="sc-fzqBkg JWBHk"
+  >
+    <div
+      className="container"
+    >
+      <div
+        className="row"
+      >
+        <div
+          className="col-12 col-lg-6 mb-4 col"
+        >
+          <img
+            className="sc-fzoYkl jCUWME"
+            src="new_event.gif"
+          />
+        </div>
+        <div
+          className="col-12 col-lg-6 mt-xl-5 col"
+        >
+          <div
+            className="sc-fzoxKX iuQDVH"
+          >
+            Schedule Meetings
+          </div>
+          <div
+            className="sc-fzoKki Imobz"
+          >
+            Select on the calendar to invite everyone to your meeting!
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>,
+  <svg
+    className="sc-fzolEj fbHTzo"
+  >
+    wave_bottom.svg
+  </svg>,
+]
+`;
+
+exports[`testing the EditModalPage 1`] = `null`;
+
+exports[`testing the ErrorPage 1`] = `
+<div
+  className="sc-fznxsB hQUfhz"
+>
+   Error 404
+</div>
+`;
+
+exports[`testing the EventModalPage 1`] = `null`;
+
+exports[`testing the FeatureSection 1`] = `
+<div
+  className="sc-fzpkJw bAYsQo"
+>
+  <div
+    className="container"
+  >
+    <div
+      className="d-flex justify-content-center row"
+    >
+      <div
+        className="col-lg-3 col-12 col"
+      >
+        <div
+          className="sc-fzomME fWoUld"
+        >
+          <img
+            className="sc-fzoant iRMKOZ"
+            src="calendar.png"
+          />
+          <div
+            className="sc-fznzOf flBNCK"
+          >
+            Complete
+          </div>
+          <div
+            className="sc-fznMnq iLxXRK"
+          >
+            See all of your group members' schedules in one place
+          </div>
+        </div>
+      </div>
+      <div
+        className="col-lg-3 col-12 col"
+      >
+        <div
+          className="sc-fzomME fWoUld"
+        >
+          <img
+            className="sc-fzoant iRMKOZ"
+            src="simple.png"
+          />
+          <div
+            className="sc-fznzOf flBNCK"
+          >
+            Simple
+          </div>
+          <div
+            className="sc-fznMnq iLxXRK"
+          >
+            Organise a meeting that works for everyone in one click
+          </div>
+        </div>
+      </div>
+      <div
+        className="col-lg-3 col-12 col"
+      >
+        <div
+          className="sc-fzomME fWoUld"
+        >
+          <img
+            className="sc-fzoant iRMKOZ"
+            src="google.svg"
+          />
+          <div
+            className="sc-fznzOf flBNCK"
+          >
+            Integrated
+          </div>
+          <div
+            className="sc-fznMnq iLxXRK"
+          >
+            All your group events are synced to your Google Account
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`testing the Header auth 1`] = `
+<div
+  className="sc-AxjAm hpCAWI d-flex justify-content-around"
+  style={Object {}}
+>
+  <div
+    className="mr-5 row"
+  >
+    <div
+      className="align-middle col"
+    >
+      <img
+        alt="Logo"
+        className="sc-AxirZ igrhLV"
+        src="wolf_dark.svg"
+      />
+    </div>
+  </div>
+  <div
+    className="row"
+  >
+    <div
+      className="col"
+    />
+  </div>
+  <div
+    className="ml-5 row"
+  >
+    <div
+      className="align-middle col"
+    >
+      <button
+        aria-label={null}
+        className="btn btn-primary"
+        onClick={[Function]}
+        type="button"
+      >
+        Logout
+      </button>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`testing the Header no auth 1`] = `
+<div
+  className="sc-AxjAm hpCAWI d-flex justify-content-around"
+  style={
+    Object {
+      "backgroundColor": "#007bff",
+      "boxShadow": "none",
+      "position": "fixed",
+      "top": "0",
+    }
+  }
+>
+  <div
+    className="mr-5 row"
+  >
+    <div
+      className="align-middle col"
+    >
+      <img
+        alt="Logo"
+        className="sc-AxirZ igrhLV"
+        src="wolf_light.svg"
+      />
+    </div>
+  </div>
+  <div
+    className="row"
+  >
+    <div
+      className="col"
+    />
+  </div>
+  <div
+    className="ml-5 row"
+  >
+    <div
+      className="align-middle col"
+    >
+      <button
+        aria-label={null}
+        className="btn btn-light"
+        onClick={[Function]}
+        type="button"
+      >
+        Sign In
+      </button>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`testing the HeaderSection 1`] = `
+Array [
+  <div
+    className="sc-fzqMAW qWTko"
+  >
+    <div
+      className="container"
+    >
+      <div
+        className="row"
+      >
+        <div
+          className="col"
+        >
+          <div
+            className="sc-fzoydu xlRdo"
+          >
+            <div
+              className="sc-fzoJMP eKUMdk"
+            >
+              The Calendar With Everyone, For Everyone
+            </div>
+            <div
+              className="sc-fzoYHE hnStfN d-none d-md-flex"
+            >
+              Gain access to the schedule of your group and create events which are integrated with Google Calendars.
+            </div>
+            <button
+              aria-label={null}
+              className="btn btn-light"
+              onClick={[Function]}
+              type="button"
+            >
+              Sign Up & Start  &gt;
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>,
+  <svg
+    className="sc-fzqAbL exggMT"
+  >
+    wave_top.svg
+  </svg>,
+  <div
+    className="container"
+  >
+    <div
+      className="row"
+    >
+      <div
+        className="d-flex justify-content-center  col"
+      >
+        <img
+          className="sc-fzpkqZ cetbdm"
+          src="calendar.png"
+        />
+      </div>
+    </div>
+  </div>,
+]
+`;
+
+exports[`testing the LandingPage 1`] = `
+<div
+  className="sc-fznWqX fdDzKF"
+>
+  <div
+    className="sc-fzoiQi oHwyo"
+  >
+    <div
+      className="row"
+    >
+      <div
+        className="col"
+      >
+        <div
+          className="sc-fzqARJ fANjuf d-flex text-center text-lg-left"
+        >
+          Dashboard
+        </div>
+      </div>
+    </div>
+    <div
+      className="row"
+    >
+      <div
+        className="col-12 col-xl-4 col-lg-6 col"
+      >
+        <div
+          className="sc-fznJRM hxehQo card"
+        >
+          <button
+            aria-label={null}
+            className="btn btn-outline-primary"
+            onClick={[Function]}
+            style={
+              Object {
+                "borderRadius": 10,
+                "flex": 1,
+              }
+            }
+            type="button"
+          >
+            Create Group
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`testing the MemberModalPage 1`] = `null`;
+
+exports[`testing the footer 1`] = `
+<div
+  className="sc-AxiKw fRmbi"
+>
+  <div
+    className="container"
+  >
+    <div
+      className="row"
+    >
+      <div
+        className="col-12 col-md-6 d-flex justify-content-center col"
+      >
+        <img
+          alt="Logo"
+          className="sc-AxhUy cpmCoU"
+          src="white_text.png"
+        />
+      </div>
+      <div
+        className="col-12 col-md-6 pl-5 d-flex justify-content-center align-items-center col"
+      >
+        <h3>
+          This web application was designed for a group project in Semester One 2020 at the University of Auckland.
+        </h3>
+      </div>
+    </div>
+  </div>
+  <hr
+    style={
+      Object {
+        "backgroundColor": "white",
+      }
+    }
+  />
+  <div
+    className="container"
+  >
+    <div
+      className="row"
+    >
+      <div
+        className="mb-3 col"
+      >
+        © 2020 GroupCalendar. Developed by Team White Wolf
+      </div>
+    </div>
+  </div>
+</div>
+`;

@@ -4,4 +4,5 @@ node_js:
 before-install:
   - cd client
 script:
+  - npm run test
   - npm run lint
