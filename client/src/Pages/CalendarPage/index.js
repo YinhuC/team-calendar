@@ -97,7 +97,7 @@ class CalendarPage extends React.Component {
             title: event.summary,
             start: event.startDate,
             end: event.endDate,
-            editable: item.googleId === groupid,
+            isGroupEvent: item.googleId === groupid,
             backgroundColor: userColour.fill,
             borderColor: userColour.fill,
             textColor: userColour.text,
@@ -211,7 +211,7 @@ class CalendarPage extends React.Component {
 
   openEdit = (data) => {
     console.log(data.event);
-    if (!data.event.durationEditable) {
+    if (!data.event.extendedProps.isGroupEvent) {
       return;
     }
     this.props.setDates(
@@ -356,6 +356,7 @@ class CalendarPage extends React.Component {
                     datesRender = {this.triggerUpdate}
                     eventClick = {this.openEdit}
                     height={1000}
+                    eventDrop={this.openEdit}
                   />
                 </CalendarContainer>
               </Col>
