@@ -22,7 +22,9 @@ export const LeftContainer = styled.div`
 
 
 export const Heading = styled.div`
-  display:flex;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
   font-size: 35px;
   font-weight: 500;
   width:100%;
