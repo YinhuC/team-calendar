@@ -17,10 +17,10 @@ function DetailSection() {
       <HeaderTop>
         <Container>
           <Row>
-            <Col className="col-12 col-lg-6 mb-4 mt-xl-5 order-1 order-lg-2">
+            <Col className="col-12 col-lg-8 mb-4 mt-xl-5 order-1 order-lg-2">
               <HeaderImage src={CreateGroup} />
             </Col>
-            <Col className="col-12 col-lg-6 mt-xl-5 order-2 order-lg-1">
+            <Col className="col-12 col-lg-4 mt-xl-5 order-2 order-lg-1">
               <HeaderText>
               Create Groups
               </HeaderText>
@@ -36,7 +36,7 @@ function DetailSection() {
       <HeaderBottom>
         <Container>
           <Row>
-            <Col className="col-12 col-lg-6 order-2">
+            <Col className="col-12 col-lg-4 order-2">
               <HeaderText>
               Add Members
               </HeaderText>
@@ -45,7 +45,7 @@ function DetailSection() {
               to the group!
               </SubText>
             </Col>
-            <Col className="col-12 col-lg-6 mb-4">
+            <Col className="col-12 col-lg-8 mb-4">
               <HeaderImage src={AddMember} />
             </Col>
           </Row>
@@ -55,10 +55,10 @@ function DetailSection() {
       <HeaderTop>
         <Container>
           <Row>
-            <Col className="col-12 col-lg-6 mb-4 order-1 order-lg-2">
+            <Col className="col-12 col-lg-8 mb-4 order-1 order-lg-2">
               <HeaderImage src={SelectCalendar} />
             </Col>
-            <Col className="col-12 col-lg-6 mt-xl-5 order-2 order-lg-1">
+            <Col className="col-12 col-lg-4 mt-xl-5 order-2 order-lg-1">
               <HeaderText>
               Choose What To Share
               </HeaderText>
@@ -74,10 +74,10 @@ function DetailSection() {
       <HeaderBottom>
         <Container>
           <Row>
-            <Col className="col-12 col-lg-6 mb-4">
+            <Col className="col-12 col-lg-8 mb-4">
               <HeaderImage src={NewEvent} />
             </Col>
-            <Col className="col-12 col-lg-6 mt-xl-5">
+            <Col className="col-12 col-lg-4 mt-xl-5">
               <HeaderText>
               Schedule Meetings
               </HeaderText>

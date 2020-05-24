@@ -36,4 +36,6 @@ export const SubText = styled.div`
 
 export const HeaderImage = styled.img`
   width: 100%;
+  border-radius: 20px;
+  box-shadow: 1px 1px 8px black;
 `;
