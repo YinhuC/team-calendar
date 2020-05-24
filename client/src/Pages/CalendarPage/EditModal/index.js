@@ -67,8 +67,8 @@ class EditModal extends React.Component {
 
   render() {
     return (
-      <ModalStyled size="lg" isOpen={this.props.isOpen} toggle={this.props.toggle}>
-        <ModalHeader toggle={this.props.toggle} >
+      <ModalStyled size="lg" isOpen={this.props.isOpen} toggle={this.closeModal}>
+        <ModalHeader toggle={this.closeModal} >
           <span style={{display: 'flex', flexWrap: 'nowrap'}}>
             <span className="mr-1" >
             Edit Calendar Event
@@ -138,7 +138,7 @@ class EditModal extends React.Component {
 
         <ModalFooter>
           <Button color="primary" onClick={this.editEvent}>Save</Button>
-          <Button color="secondary" onClick={this.props.toggle}>Cancel</Button>
+          <Button color="secondary" onClick={this.closeModal}>Cancel</Button>
         </ModalFooter>
       </ModalStyled>);
   }
