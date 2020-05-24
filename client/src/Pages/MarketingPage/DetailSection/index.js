@@ -4,7 +4,10 @@ import React from 'react';
 /* Components */
 import {HeaderBottom, HeaderText, SubText, HeaderImage, Wave, HeaderTop} from './style';
 import {Row, Col, Container} from 'reactstrap';
-import Calendar from '../../Images/calendar.jpg';
+import CreateGroup from '../../Images/create_group.gif';
+import SelectCalendar from '../../Images/select_calendar.gif';
+import AddMember from '../../Images/add_member.gif';
+import NewEvent from '../../Images/new_event.gif';
 
 /* Functions */
 
@@ -15,7 +18,7 @@ function DetailSection() {
         <Container>
           <Row>
             <Col className="col-12 col-lg-6 mb-4 mt-xl-5 order-1 order-lg-2">
-              <HeaderImage src={Calendar} />
+              <HeaderImage src={CreateGroup} />
             </Col>
             <Col className="col-12 col-lg-6 mt-xl-5 order-2 order-lg-1">
               <HeaderText>
@@ -43,7 +46,7 @@ function DetailSection() {
               </SubText>
             </Col>
             <Col className="col-12 col-lg-6 mb-4">
-              <HeaderImage src={Calendar} />
+              <HeaderImage src={AddMember} />
             </Col>
           </Row>
         </Container>
@@ -53,7 +56,7 @@ function DetailSection() {
         <Container>
           <Row>
             <Col className="col-12 col-lg-6 mb-4 order-1 order-lg-2">
-              <HeaderImage src={Calendar} />
+              <HeaderImage src={SelectCalendar} />
             </Col>
             <Col className="col-12 col-lg-6 mt-xl-5 order-2 order-lg-1">
               <HeaderText>
@@ -72,7 +75,7 @@ function DetailSection() {
         <Container>
           <Row>
             <Col className="col-12 col-lg-6 mb-4">
-              <HeaderImage src={Calendar} />
+              <HeaderImage src={NewEvent} />
             </Col>
             <Col className="col-12 col-lg-6 mt-xl-5">
               <HeaderText>

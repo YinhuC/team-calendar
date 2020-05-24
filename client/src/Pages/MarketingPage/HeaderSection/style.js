@@ -35,6 +35,6 @@ export const SubText = styled.div`
 
 export const HeaderImage = styled.img`
   justify-content: center;
-  width: 80%;
+  width: 100%;
   margin: 0 0 80px 0;
 `;
