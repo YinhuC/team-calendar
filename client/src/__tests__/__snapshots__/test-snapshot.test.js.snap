@@ -1,0 +1,52 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`testing the footer 1`] = `
+<div
+  className="sc-AxjAm dwSClt"
+>
+  <div
+    className="container"
+  >
+    <div
+      className="row"
+    >
+      <div
+        className="col-12 col-md-6 d-flex justify-content-center col"
+      >
+        <img
+          alt="Logo"
+          className="sc-AxiKw foHQsp"
+          src="white_text.png"
+        />
+      </div>
+      <div
+        className="col-12 col-md-6 pl-5 d-flex justify-content-center align-items-center col"
+      >
+        <h3>
+          This web application was designed for a group project in Semester One 2020 at the University of Auckland.
+        </h3>
+      </div>
+    </div>
+  </div>
+  <hr
+    style={
+      Object {
+        "backgroundColor": "white",
+      }
+    }
+  />
+  <div
+    className="container"
+  >
+    <div
+      className="row"
+    >
+      <div
+        className="mb-3 col"
+      >
+        © 2020 GroupCalendar. Developed by Team White Wolf
+      </div>
+    </div>
+  </div>
+</div>
+`;
