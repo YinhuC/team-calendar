@@ -183,7 +183,7 @@ exports[`testing the CalendarPage 1`] = `
           className="col-12 col"
         >
           <div
-            className="sc-fznKkj kvOjUs"
+            className="sc-fznKkj jhGIKY"
           />
         </div>
       </div>
@@ -204,15 +204,15 @@ Array [
         className="row"
       >
         <div
-          className="col-12 col-lg-6 mb-4 mt-xl-5 order-1 order-lg-2 col"
+          className="col-12 col-lg-8 mb-4 mt-xl-5 order-1 order-lg-2 col"
         >
           <img
-            className="sc-fzoYkl jCUWME"
+            className="sc-fzoYkl dwIITi"
             src="create_group.gif"
           />
         </div>
         <div
-          className="col-12 col-lg-6 mt-xl-5 order-2 order-lg-1 col"
+          className="col-12 col-lg-4 mt-xl-5 order-2 order-lg-1 col"
         >
           <div
             className="sc-fzoxKX iuQDVH"
@@ -238,7 +238,7 @@ Array [
         className="row"
       >
         <div
-          className="col-12 col-lg-6 order-2 col"
+          className="col-12 col-lg-4 order-2 col"
         >
           <div
             className="sc-fzoxKX iuQDVH"
@@ -252,10 +252,10 @@ Array [
           </div>
         </div>
         <div
-          className="col-12 col-lg-6 mb-4 col"
+          className="col-12 col-lg-8 mb-4 col"
         >
           <img
-            className="sc-fzoYkl jCUWME"
+            className="sc-fzoYkl dwIITi"
             src="add_member.gif"
           />
         </div>
@@ -272,15 +272,15 @@ Array [
         className="row"
       >
         <div
-          className="col-12 col-lg-6 mb-4 order-1 order-lg-2 col"
+          className="col-12 col-lg-8 mb-4 order-1 order-lg-2 col"
         >
           <img
-            className="sc-fzoYkl jCUWME"
+            className="sc-fzoYkl dwIITi"
             src="select_calendar.gif"
           />
         </div>
         <div
-          className="col-12 col-lg-6 mt-xl-5 order-2 order-lg-1 col"
+          className="col-12 col-lg-4 mt-xl-5 order-2 order-lg-1 col"
         >
           <div
             className="sc-fzoxKX iuQDVH"
@@ -306,15 +306,15 @@ Array [
         className="row"
       >
         <div
-          className="col-12 col-lg-6 mb-4 col"
+          className="col-12 col-lg-8 mb-4 col"
         >
           <img
-            className="sc-fzoYkl jCUWME"
+            className="sc-fzoYkl dwIITi"
             src="new_event.gif"
           />
         </div>
         <div
-          className="col-12 col-lg-6 mt-xl-5 col"
+          className="col-12 col-lg-4 mt-xl-5 col"
         >
           <div
             className="sc-fzoxKX iuQDVH"

@@ -81,7 +81,7 @@ export const CalendarContainer = styled.div`
   align-items:center;
   padding: 40px 45px 40px 45px;
   .fc-today {
-    background: #FFF !important;
+    background: #F8F8F8 !important;
     border: none !important;
     border-top: 1px solid #ddd !important;
     font-weight: bold;
