@@ -1,6 +1,10 @@
 import seedrandom from 'seedrandom';
 
+const TESTING = process.env.JEST_WORKER_ID !== undefined;
 export default function(seed) {
+  if (TESTING) {
+    seed = 0;
+  }
   const randomNumber = seedrandom(seed);
   const red = Math.floor(randomNumber()*256);
   const blue = Math.floor(randomNumber()*256);

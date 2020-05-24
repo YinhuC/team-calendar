@@ -59,9 +59,11 @@ class CalendarPage extends React.Component {
   }
 
   calendarComponentRef = React.createRef();
-
+  TESTING = process.env.JEST_WORKER_ID !== undefined;
   componentDidMount() {
-    this.onWindowSizeChanged();
+    if (!this.TESTING) {
+      this.onWindowSizeChanged();
+    }
     const {groupid} = this.props.match.params;
     this.refreshData();
     fetch('/api/calendars/'+groupid).then( (res) => res.json().then( (json) => {
@@ -70,10 +72,14 @@ class CalendarPage extends React.Component {
     fetch('/api/user_details').then((res) => res.json().then((json) => {
       this.setState({userId: json.id});
     }));
-    window.addEventListener('resize', this.onWindowSizeChanged);
+    if (!this.TESTING) {
+      window.addEventListener('resize', this.onWindowSizeChanged);
+    }
   }
   componentWillUnmount() {
-    window.removeEventListener('resize', this.onWindowSizeChanged);
+    if (!this.TESTING) {
+      window.removeEventListener('resize', this.onWindowSizeChanged);
+    }
   }
 
   onWindowSizeChanged = () => {
@@ -83,6 +89,9 @@ class CalendarPage extends React.Component {
   }
 
   refereshEvents() {
+    if (this.TESTING) {
+      return;
+    }
     const {groupid} = this.props.match.params;
     const view = this.calendarComponentRef.current.getApi().view;
     const start = moment(view.activeStart).subtract(5, 'weeks').toISOString();
@@ -138,6 +147,9 @@ class CalendarPage extends React.Component {
   }
 
   toggleDate = (data) =>{
+    if (!this.TESTING) {
+      return;
+    }
     const calendar = this.calendarComponentRef.current.getApi();
     calendar.gotoDate( moment(data).format('YYYY-MM-DD') );
   }
@@ -289,7 +301,7 @@ class CalendarPage extends React.Component {
                 </Button>
               </Link>
             </Col>
-            {this.state.desktop||this.state.mobile?<Col>
+            {(this.state.desktop||this.state.mobile)&&!this.TESTING?<Col>
               <SmallCalendarContainer>
                 <InfiniteCalendar
                   width={280}
@@ -336,7 +348,7 @@ class CalendarPage extends React.Component {
               </Col>
               <Col className="col-12">
                 <CalendarContainer>
-                  <FullCalendar
+                  {!this.TESTING?<FullCalendar
                     defaultView="timeGridWeek"
                     header={this.state.mobile?{
                       left: 'prev,next, today',
@@ -357,7 +369,7 @@ class CalendarPage extends React.Component {
                     eventClick = {this.openEdit}
                     height={1000}
                     eventDrop={this.openEdit}
-                  />
+                  />:<></>}
                 </CalendarContainer>
               </Col>
             </Row>
