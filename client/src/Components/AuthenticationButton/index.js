@@ -21,7 +21,6 @@ class AuthenticationButton extends React.Component {
   }
 
   handleLogin = () => {
-    console.log('fetch');
     fetch('/api/login').then((response) => {
       response.text().then((url) => {
         window.location.assign(url);
@@ -30,7 +29,6 @@ class AuthenticationButton extends React.Component {
   }
 
   handleLogout = () => {
-    console.log('fetch');
     fetch('/api/logout');
     window.location.assign('/');
   }

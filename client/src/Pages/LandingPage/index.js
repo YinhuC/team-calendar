@@ -97,7 +97,6 @@ class LandingPage extends React.Component {
   }
 
   deleteGroup = () => {
-    console.log(this.state.groupid);
     fetch('/api/groups/'+this.state.groupid, {
       method: 'DELETE',
       headers: {
@@ -139,7 +138,6 @@ class LandingPage extends React.Component {
     const arrayImages = [image, image2, image3, image4, image5];
 
     this.state.groups.forEach((group, index) => {
-      console.log(group);
       const groupurl = '/calendar/'+group._id;
       calendars.push(
           <Col className="col-12 col-xl-4 col-lg-6">

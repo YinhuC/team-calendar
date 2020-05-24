@@ -208,8 +208,9 @@ class CalendarPage extends React.Component {
     fetch('/api/groups/'+groupid+'/members/'+userid, {
       method: 'DELETE',
     }).then((res, err) => {
-      console.log(err);
-      console.log(res);
+      if (err) {
+        console.log(err);
+      }
       this.refreshData();
       alert('Member removed successfully.');
     });
@@ -222,7 +223,6 @@ class CalendarPage extends React.Component {
   }
 
   openEdit = (data) => {
-    console.log(data.event);
     if (!data.event.extendedProps.isGroupEvent) {
       return;
     }
