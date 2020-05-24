@@ -4,7 +4,7 @@ import React from 'react';
 /* Components */
 import {Header, HeaderText, SubText, HeaderImage, Wave, InnerContainer} from './style';
 import {Row, Col, Container} from 'reactstrap';
-import Calendar from '../../Images/calendar.jpg';
+import Calendar from '../../Images/calendar.png';
 import AuthenticationButton from '../../../Components/AuthenticationButton';
 
 
