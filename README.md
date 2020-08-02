@@ -1,6 +1,10 @@
 # Group Calendar
 [![Build Status](https://travis-ci.com/BennyChun/Group-12-White-Wolf.svg?token=97wroqvKxQfyzgcd2pHd&branch=master)](https://travis-ci.com/BennyChun/Group-12-White-Wolf)
 
+
+https://white-wolf-team-calendar.herokuapp.com/
+
+
 A simple and efficient calendar app which makes group event scheduling a lot easier. 
 * create new groups and instantly add members using their email address
 * see all of your group members calendars in one place  
